@@ -1,0 +1,109 @@
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+#error-page {
+    position: relative;
+    height: 100vh;
+}
+
+#error-page .error-page {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.error-page {
+    max-width: 560px;
+    width: 100%;
+    padding-left: 160px;
+    line-height: 1.1;
+}
+
+.error-page .error-page-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: inline-block;
+    width: 140px;
+    height: 140px;
+
+    background-size: cover;
+}
+
+.error-page .error-page-bg.error-404 {
+    background-image: url('../images/sad-emoji.png');
+}
+
+.error-page .error-page-bg:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-transform: scale(2.4);
+    -ms-transform: scale(2.4);
+    transform: scale(2.4);
+    border-radius: 50%;
+    background-color: #f2f5f8;
+    z-index: -1;
+}
+
+.error-page h1 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 65px;
+    font-weight: 700;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    color: #26bdef;
+    text-transform: uppercase;
+}
+
+.error-page h2 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 21px;
+    font-weight: 400;
+    margin: 0;
+    text-transform: uppercase;
+    color: #26bdef;
+}
+
+.error-page p {
+    font-family: 'Nunito', sans-serif;
+    text-align: justify;
+    color: #999fa5;
+    font-weight: 400;
+}
+
+.error-page a {
+    font-family: 'Nunito', sans-serif;
+    display: inline-block;
+    font-weight: 700;
+    text-decoration: none;
+    color: #999fa5;
+}
+
+.error-page a:hover {
+    color: #26bdef;
+}
+
+@media only screen and (max-width: 767px) {
+    .error-page .error-page-bg {
+        width: 110px;
+        height: 110px;
+    }
+
+    .error-page {
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 110px;
+    }
+}
