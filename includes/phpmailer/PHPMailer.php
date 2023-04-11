@@ -3211,8 +3211,7 @@ class PHPMailer
         $encoding = self::ENCODING_BASE64,
         $type = '',
         $disposition = 'attachment'
-    )
-    {
+    ) {
         try {
             if (!static::fileIsAccessible($path)) {
                 throw new Exception($this->lang('file_access') . $path, self::STOP_CONTINUE);
@@ -3709,8 +3708,7 @@ class PHPMailer
         $encoding = self::ENCODING_BASE64,
         $type = '',
         $disposition = 'attachment'
-    )
-    {
+    ) {
         try {
             //If a MIME type is not specified, try to work it out from the file name
             if ('' === $type) {
@@ -3774,8 +3772,7 @@ class PHPMailer
         $encoding = self::ENCODING_BASE64,
         $type = '',
         $disposition = 'inline'
-    )
-    {
+    ) {
         try {
             if (!static::fileIsAccessible($path)) {
                 throw new Exception($this->lang('file_access') . $path, self::STOP_CONTINUE);
@@ -3845,8 +3842,7 @@ class PHPMailer
         $encoding = self::ENCODING_BASE64,
         $type = '',
         $disposition = 'inline'
-    )
-    {
+    ) {
         try {
             //If a MIME type is not specified, try to work it out from the name
             if ('' === $type && !empty($name)) {

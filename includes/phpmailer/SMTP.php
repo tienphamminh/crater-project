@@ -500,8 +500,7 @@ class SMTP
         $password,
         $authtype = null,
         $OAuth = null
-    )
-    {
+    ) {
         if (!$this->server_caps) {
             $this->setError('Authentication is not allowed before HELO/EHLO');
 
