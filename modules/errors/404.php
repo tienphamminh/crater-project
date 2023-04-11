@@ -1,10 +1,18 @@
+<?php
+
+if (!defined('_INCODE')) {
+    http_response_code(403);
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <!-- Meta tag -->
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
