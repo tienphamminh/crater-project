@@ -355,7 +355,7 @@ addLayout('breadcrumb', 'admin');
                                         <input type="checkbox" value="" name="todo1" id="todoCheck1">
                                         <label for="todoCheck1"></label>
                                     </div>
-                                    <!-- todo text -->
+                                    <!-- to-do text -->
                                     <span class="text">Design a nice theme</span>
                                     <!-- Emphasis label -->
                                     <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>

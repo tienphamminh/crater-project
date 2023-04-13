@@ -1,14 +1,28 @@
 <?php
 
+// Prevent direct access to file
 if (!defined('_INCODE')) {
     http_response_code(403);
     exit;
 }
 
-// Add Header
-?>
+if (isLoggedIn()) {
+    $loginToken = getSession('login_token');
+    $condition = "token=:token";
+    $dataCondition = ['token' => $loginToken];
+    delete('login_tokens', $condition, $dataCondition);
 
-    <h1>ADMIN: admin/?module=auth&action=logout</h1>
+    // Get Session Timeout message before remove all session variables
+    $msg = getFlashData('msg');
+    $msgType = getFlashData('msg_type');
 
-<?php
-// Add Footer
+    removeSession();
+
+    // Then re-set Session Timeout message
+    if (!empty($msg) && !empty($msgType)) {
+        setFlashData('msg', $msg);
+        setFlashData('msg_type', $msgType);
+    }
+}
+
+redirect('?module=auth&action=login');
