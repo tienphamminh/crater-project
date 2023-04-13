@@ -1,10 +1,21 @@
 <?php
 
+// Prevent direct access to file
 if (!defined('_INCODE')) {
     http_response_code(403);
     exit;
 }
 
+if (!isLoggedIn()) {
+    redirect('?module=auth&action=login');
+}
+
+// Automatic logout after 15 minutes of inactivity on the current device
+autoLogoutAfterInactive(900);
+
+// Save the last time the user accessed the admin page.
+$userId = getSession('id');
+saveLastActivity($userId);
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +30,7 @@ if (!defined('_INCODE')) {
     <title>AdminLTE 3 | Dashboard</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/img/admin-favicon.png"/>
+    <link rel="icon" type="image/png" href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/img/crater-favicon.png"/>
     <!-- Font Awesome -->
     <link rel="stylesheet"
           href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/plugins/fontawesome-free/css/all.min.css">

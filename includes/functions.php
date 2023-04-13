@@ -172,7 +172,7 @@ function isPhone($phone): bool
     return false;
 }
 
-#[NoReturn] function redirect($url = 'index.php'): void
+function redirect($url = 'index.php'): void
 {
     // Send a "Location:" header and a REDIRECT (302) status code back to the client
     header("Location: $url");
@@ -183,7 +183,7 @@ function isPhone($phone): bool
 function getMessage($msg, $context = 'primary'): ?string
 {
     if (!empty($msg)) {
-        return '<div class="alert alert-' . $context . '">' . $msg . '</div>';
+        return '<div class="alert alert-default-' . $context . '">' . $msg . '</div>';
     }
 
     return null;
@@ -214,7 +214,7 @@ function isLoggedIn(): bool
     if (getSession('login_token')) {
         $loginToken = getSession('login_token');
 
-        // Check if $_SESSION['login_token'] exists in table 'login_token'
+        // Check if $_SESSION['login_token'] exists in table 'login_tokens' (Log out of all devices)
         $sql = "SELECT user_id FROM login_tokens WHERE token=:token";
         $data = ['token' => $loginToken];
         $result = getFirstRow($sql, $data);
@@ -229,8 +229,23 @@ function isLoggedIn(): bool
     return false;
 }
 
-// Auto remove login_token after 15 minutes
-function autoRemoveLoginToken(): void
+// Auto logout after $duration seconds since 'last_activity' on current device
+function autoLogoutAfterInactive($duration): void
+{
+    $now = time();
+    $before = getSession('last_activity');
+    if (!empty($before)) {
+        if (($now - $before) >= $duration) {
+            setFlashData('msg', 'Your session has timed out. Please sign in again!');
+            setFlashData('msg_type', 'warning');
+            redirect('?module=auth&action=logout');
+        }
+    }
+    setSession('last_activity', $now);
+}
+
+// Auto remove 'login_token' after $duration seconds since 'last_activity' of user
+function autoRemoveLoginToken($duration): void
 {
     $sql = "SELECT * FROM users WHERE status=:status";
     $data = ['status' => 1];
@@ -241,21 +256,19 @@ function autoRemoveLoginToken(): void
             $now = date('Y-m-d H:i:s');
             $before = $user['last_activity'];
             $diff = strtotime($now) - strtotime($before);
-            $diff = floor($diff / 60);
-            $duration = 15;
 
             if ($diff >= $duration) {
                 // Delete login_token
                 $condition = "user_id=:user_id";
                 $dataCondition = ['user_id' => $user['id']];
-                delete('login_token', $condition, $dataCondition);
+                delete('login_tokens', $condition, $dataCondition);
             }
         }
     }
 }
 
-// Save last activity of user
-function saveActivity($userId): void
+// Save 'last_activity' of user
+function saveLastActivity($userId): void
 {
     $dataUpdate = ['last_activity' => date('Y-m-d H:i:s')];
     $condition = "id=:id";
