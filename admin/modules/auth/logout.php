@@ -25,4 +25,4 @@ if (isLoggedIn()) {
     }
 }
 
-redirect('?module=auth&action=login');
+redirect('admin/?module=auth&action=login');

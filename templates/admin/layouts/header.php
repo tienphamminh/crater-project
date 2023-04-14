@@ -7,7 +7,7 @@ if (!defined('_INCODE')) {
 }
 
 if (!isLoggedIn()) {
-    redirect('?module=auth&action=login');
+    redirect('admin/?module=auth&action=login');
 }
 
 // Automatic logout after 15 minutes of inactivity on the current device
@@ -74,6 +74,9 @@ saveLastActivity($userId);
             </li>
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="#" class="nav-link">Contact</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="?module=auth&action=logout" class="btn btn-outline-danger">Logout</a>
             </li>
         </ul>
 

@@ -9,7 +9,7 @@ if (!defined('_INCODE')) {
 autoRemoveLoginToken(1800);
 
 if (isLoggedIn()) {
-    redirect('?module=dashboard&action=list');
+    redirect('admin/');
 }
 
 ?>
@@ -51,5 +51,5 @@ if (isLoggedIn()) {
     </div>
     <!-- /.login-logo -->
 
-    <div class="card">
+    <div class="card" style="padding: 0.25em; border-radius: 0.25em;">
         <div class="card-body login-card-body">

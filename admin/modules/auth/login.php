@@ -49,21 +49,21 @@ if (isPost()) {
                     setSession('login_token', $loginToken);
                     setSession('id', $userId);
                     setSession('fullname', $fullname);
-                    redirect('?module=dashboard&action=list');
+                    redirect('admin/');
                 } else {
                     setFlashData('msg', 'Something went wrong, please try again.');
                     setFlashData('msg_type', 'danger');
-                    redirect('?module=auth&action=login');
+                    redirect('admin/?module=auth&action=login');
                 }
             }
         }
-        setFlashData('msg', 'Incorrect email address or password (or not active).');
+        setFlashData('msg', 'Incorrect email address or password (or not activated).');
     } else {
         setFlashData('msg', 'Please enter your email and password.');
     }
 
     setFlashData('msg_type', 'danger');
-    redirect('?module=auth&action=login');
+    redirect('admin/?module=auth&action=login');
 }
 
 $msg = getFlashData('msg');
@@ -83,6 +83,7 @@ $msgType = getFlashData('msg_type');
                 </div>
             </div>
         </div>
+
         <div class="input-group mb-3">
             <input type="password" name="password" class="form-control" placeholder="Password">
             <div class="input-group-append">
@@ -91,6 +92,7 @@ $msgType = getFlashData('msg_type');
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-12">
                 <button type="submit" class="btn btn-primary btn-block">Sign In</button>
