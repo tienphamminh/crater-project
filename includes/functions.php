@@ -36,7 +36,7 @@ function sendMail($to, $subject, $body): bool
         );
 
         //Recipients
-        $mail->setFrom('tienphamminh0312@gmail.com', 'User Management System');
+        $mail->setFrom('tienphamminh0312@gmail.com', 'Crater - Admin Page');
         $mail->addAddress($to);     //Add a recipient
 
         //Content
@@ -172,8 +172,9 @@ function isPhone($phone): bool
     return false;
 }
 
-function redirect($url = 'index.php'): void
+function redirect($path = 'index.php'): void
 {
+    $url = _WEB_HOST_ROOT . '/' . $path;
     // Send a "Location:" header and a REDIRECT (302) status code back to the client
     header("Location: $url");
     exit;
@@ -193,7 +194,7 @@ function getMessage($msg, $context = 'primary'): ?string
 function getFormError($fieldName, $errors): ?string
 {
     if (!empty($errors[$fieldName])) {
-        return '<span class="error">' . reset($errors[$fieldName]) . '</span>';
+        return '<small class="text-danger">' . reset($errors[$fieldName]) . '</small>';
     }
 
     return null;
@@ -238,7 +239,7 @@ function autoLogoutAfterInactive($duration): void
         if (($now - $before) >= $duration) {
             setFlashData('msg', 'Your session has timed out. Please sign in again!');
             setFlashData('msg_type', 'warning');
-            redirect('?module=auth&action=logout');
+            redirect('admin/?module=auth&action=logout');
         }
     }
     setSession('last_activity', $now);

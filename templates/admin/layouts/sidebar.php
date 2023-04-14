@@ -12,7 +12,7 @@ $fullname = getSession('fullname');
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="#" class="brand-link">
+        <a href="" class="brand-link">
             <img class="brand-image"
                  src="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/img/crater-icon.png" alt="crater-icon">
             <span class="brand-text font-weight-normal" style="color: #26bdef">Admin Page</span>
