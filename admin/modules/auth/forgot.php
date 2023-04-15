@@ -86,7 +86,7 @@ $msgType = getFlashData('msg_type');
 
     <p class="login-box-msg">You forgot your password? Here you can easily retrieve a new password.</p>
 
-    <?php echo getMessage($msg, $msgType); ?>
+<?php echo getMessage($msg, $msgType); ?>
 
     <form action="" method="post">
         <div class="input-group mb-3">
@@ -108,7 +108,7 @@ $msgType = getFlashData('msg_type');
 
     <hr>
     <p class="mt-3 mb-1">
-        <a href="?module=auth&action=login">Login</a>
+        <a href="<?php echo getAbsUrlAdmin('auth', 'login'); ?>">Login</a>
     </p>
 
 <?php

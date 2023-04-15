@@ -1,5 +1,6 @@
 <?php
 
+// Prevent direct access to file
 if (!defined('_INCODE')) {
     http_response_code(403);
     exit;
@@ -92,9 +93,18 @@ function getBody(): array
             foreach ($_GET as $key => $value) {
                 $key = strip_tags($key);
                 if (is_array($value)) {
-                    $bodyArr[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS, FILTER_REQUIRE_ARRAY);
+                    $bodyArr[$key] = filter_input(
+                        INPUT_GET,
+                        $key,
+                        FILTER_SANITIZE_SPECIAL_CHARS,
+                        FILTER_REQUIRE_ARRAY
+                    );
                 } else {
-                    $bodyArr[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+                    $bodyArr[$key] = filter_input(
+                        INPUT_GET,
+                        $key,
+                        FILTER_SANITIZE_SPECIAL_CHARS
+                    );
                 }
             }
         }
@@ -112,7 +122,11 @@ function getBody(): array
                         FILTER_REQUIRE_ARRAY
                     );
                 } else {
-                    $bodyArr[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+                    $bodyArr[$key] = filter_input(
+                        INPUT_POST,
+                        $key,
+                        FILTER_SANITIZE_SPECIAL_CHARS
+                    );
                 }
             }
         }
@@ -275,4 +289,57 @@ function saveLastActivity($userId): void
     $condition = "id=:id";
     $dataCondition = ['id' => $userId];
     update('users', $dataUpdate, $condition, $dataCondition);
+}
+
+// Get absolute URL for '<a href="">' (Admin Page)
+function getAbsUrlAdmin($module = '', $action = '', $params = []): string
+{
+    $url = _WEB_HOST_ROOT_ADMIN . '/';
+    if (!empty($module)) {
+        $url .= '?module=' . $module;
+    }
+
+    if (!empty($action)) {
+        $url .= '&action=' . $action;
+    }
+
+    if (!empty($params)) {
+        $queryString = http_build_query($params);
+        $url .= '&' . $queryString;
+    }
+
+    return $url;
+}
+
+// Check current module-action for adding '.active, .menu-open' class to current element in the 'sidebar-menu'
+function isActiveModule($module): bool
+{
+    if (
+        (!empty(getBody()['module']))
+        && (getBody()['module'] == $module)
+    ) {
+        return true;
+    }
+
+
+    return false;
+}
+
+function isActiveAction($module, $action = ''): bool
+{
+    if (isActiveModule($module)) {
+        if (!empty($action)) {
+            if (
+                (!empty(getBody()['action']))
+                && (getBody()['action'] == $action)
+            ) {
+                return true;
+            }
+        } elseif (empty(getBody()['action'])) {
+            // If param '$action' is empty then 'action' key in URL must be empty
+            return true;
+        }
+    }
+
+    return false;
 }

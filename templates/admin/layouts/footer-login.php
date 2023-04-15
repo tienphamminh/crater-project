@@ -7,12 +7,13 @@ if (!defined('_INCODE')) {
 }
 ?>
 
-        </div>
-        <!-- /.login-card-body -->
-    </div>
+</div>
+<!-- /.login-card-body -->
+</div>
 <!-- /.card -->
 </div>
 <!-- /.login-box -->
+
 
 <!-- jQuery -->
 <script src="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/plugins/jquery/jquery.min.js"></script>

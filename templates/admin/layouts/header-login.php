@@ -1,5 +1,6 @@
 <?php
 
+// Prevent direct access to file
 if (!defined('_INCODE')) {
     http_response_code(403);
     exit;
@@ -46,8 +47,8 @@ if (isLoggedIn()) {
 
 <div class="login-box">
 
-    <div class="login-logo" >
-        <img src="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/img/crater-logo.png" alt="logo" />
+    <div class="login-logo">
+        <img src="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/img/crater-logo.png" alt="logo"/>
     </div>
     <!-- /.login-logo -->
 
