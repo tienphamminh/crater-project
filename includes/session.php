@@ -1,5 +1,6 @@
 <?php
 
+// Prevent direct access to file
 if (!defined('_INCODE')) {
     http_response_code(403);
     exit;

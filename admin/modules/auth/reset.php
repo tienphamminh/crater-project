@@ -75,7 +75,7 @@ if (!empty(getBody()['token'])) {
                 setFlashData('msg_type', 'danger');
                 setFlashData('errors', $errors);
             }
-
+            
             redirect('admin/?module=auth&action=reset&token=' . $resetToken);
         }
 
@@ -126,7 +126,7 @@ if (!empty(getBody()['token'])) {
 
         <hr>
         <p class="mt-3 mb-1">
-            <a href="?module=auth&action=login">Login</a>
+            <a href="<?php echo getAbsUrlAdmin('auth', 'login'); ?>">Login</a>
         </p>
         <?php
     } else {

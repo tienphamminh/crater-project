@@ -72,7 +72,7 @@ $msgType = getFlashData('msg_type');
 
     <p class="login-box-msg">Sign in to start your session</p>
 
-    <?php echo getMessage($msg, $msgType); ?>
+<?php echo getMessage($msg, $msgType); ?>
 
     <form action="" method="post">
         <div class="input-group mb-3">
@@ -103,7 +103,7 @@ $msgType = getFlashData('msg_type');
 
     <hr>
     <p class="mb-1">
-        <a href="?module=auth&action=forgot">I forgot my password</a>
+        <a href="<?php echo getAbsUrlAdmin('auth', 'forgot'); ?>">I forgot my password</a>
     </p>
 
 <?php
