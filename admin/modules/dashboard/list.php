@@ -13,11 +13,16 @@ $dataHeader = [
 addLayout('header', 'admin', $dataHeader);
 addLayout('sidebar', 'admin', $dataHeader);
 addLayout('breadcrumb', 'admin', $dataHeader);
+
+$msg = getFlashData('msg');
+$msgType = getFlashData('msg_type');
 ?>
 
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+            <?php echo getMessage($msg, $msgType); ?>
+
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-lg-3 col-6">

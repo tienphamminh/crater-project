@@ -47,7 +47,7 @@ if (isPost()) {
                 if ($isDataInserted) {
                     saveLastActivity($userId);
                     setSession('login_token', $loginToken);
-                    setSession('id', $userId);
+                    setSession('user_id', $userId);
                     setSession('fullname', $fullname);
                     redirect('admin/');
                 } else {

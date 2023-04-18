@@ -12,6 +12,40 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+// Get current module
+function getCurrentModule(): ?string
+{
+    if (!empty($_GET['module'])) {
+        if (is_string($_GET['module'])) {
+            return trim($_GET['module']);
+        }
+    }
+
+    return null;
+}
+
+
+// Get current module
+function getCurrentAction(): ?string
+{
+    if (!empty($_GET['action'])) {
+        if (is_string($_GET['action'])) {
+            return trim($_GET['action']);
+        }
+    }
+
+    return null;
+}
+
+
+// Send a "Location:" header and a REDIRECT (302) status code back to the client
+function redirect($path = 'index.php'): void
+{
+    $url = _WEB_HOST_ROOT . '/' . $path;
+    header("Location: $url");
+    exit;
+}
+
 // Send mail using phpmailer
 function sendMail($to, $subject, $body): bool
 {
@@ -186,14 +220,6 @@ function isPhone($phone): bool
     return false;
 }
 
-function redirect($path = 'index.php'): void
-{
-    $url = _WEB_HOST_ROOT . '/' . $path;
-    // Send a "Location:" header and a REDIRECT (302) status code back to the client
-    header("Location: $url");
-    exit;
-}
-
 // Get contextual feedback messages (Ex: $context = 'success', 'danger', 'warning' )
 function getMessage($msg, $context = 'primary'): ?string
 {
@@ -311,35 +337,34 @@ function getAbsUrlAdmin($module = '', $action = '', $params = []): string
     return $url;
 }
 
-// Check current module-action for adding '.active, .menu-open' class to current element in the 'sidebar-menu'
+// Check current module for adding '.active', '.menu-open' class to current element in the 'sidebar-menu'
 function isActiveModule($module): bool
 {
-    if (
-        (!empty(getBody()['module']))
-        && (getBody()['module'] == $module)
-    ) {
+    $currentModule = getCurrentModule();
+    if ($currentModule == $module) {
         return true;
     }
-
 
     return false;
 }
 
-function isActiveAction($module, $action = ''): bool
+// Check current action for adding '.active', '.menu-open' class to current element in the 'sidebar-menu'
+function isActiveAction($module, $action): bool
 {
     if (isActiveModule($module)) {
-        if (!empty($action)) {
-            if (
-                (!empty(getBody()['action']))
-                && (getBody()['action'] == $action)
-            ) {
-                return true;
-            }
-        } elseif (empty(getBody()['action'])) {
-            // If param '$action' is empty then 'action' key in URL must be empty
+        $currentAction = getCurrentAction();
+        if ($currentAction == $action) {
             return true;
         }
     }
 
     return false;
+}
+
+// Get user details
+function getUserDetails($userId)
+{
+    $sql = "SELECT * FROM users WHERE id=:id";
+    $data = ['id' => $userId];
+    return getFirstRow($sql, $data);
 }
