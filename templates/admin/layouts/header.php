@@ -14,7 +14,7 @@ if (!isLoggedIn()) {
 autoLogoutAfterInactive(900);
 
 // Save the last time the user accessed the admin page.
-$userId = getSession('id');
+$userId = getSession('user_id');
 saveLastActivity($userId);
 ?>
 

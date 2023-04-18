@@ -116,29 +116,6 @@ function getFirstRow($sql, $data = [])
     return false;
 }
 
-
-function selectAllRows($tableName, $fieldStr = '*', $condition = '', $dataCondition = [])
-{
-    if (!empty($condition)) {
-        $sql = 'SELECT ' . $fieldStr . ' FROM ' . $tableName . '  WHERE ' . $condition;
-    } else {
-        $sql = 'SELECT ' . $fieldStr . ' FROM ' . $tableName;
-    }
-
-    return getAllRows($sql, $dataCondition);
-}
-
-function selectFirstRow($tableName, $fieldStr = '*', $condition = '', $dataCondition = [])
-{
-    if (!empty($condition)) {
-        $sql = 'SELECT ' . $fieldStr . ' FROM ' . $tableName . '  WHERE ' . $condition;
-    } else {
-        $sql = 'SELECT ' . $fieldStr . ' FROM ' . $tableName;
-    }
-
-    return getFirstRow($sql, $dataCondition);
-}
-
 // Returns the number of rows affected by the last SQL statement
 function getNumberOfRows($sql, $data = [])
 {

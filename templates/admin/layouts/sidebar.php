@@ -31,7 +31,7 @@ if (!defined('_INCODE')) {
                 <!-- Dashboard -->
                 <li class="nav-item ">
                     <a href="<?php echo getAbsUrlAdmin(); ?>"
-                       class="nav-link <?php echo (isActiveModule('dashboard') || empty(getBody()['module']))
+                       class="nav-link <?php echo (isActiveModule('dashboard') || isActiveModule(''))
                            ? 'active' : null; ?>">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
