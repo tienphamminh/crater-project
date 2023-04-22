@@ -7,7 +7,7 @@ if (!defined('_INCODE')) {
 }
 
 // Auto remove 'login_token' after 30 minutes since the last activity of user
-autoRemoveLoginToken(1800);
+autoRemoveLoginTokens(1800);
 
 if (isLoggedIn()) {
     redirect('admin/');
