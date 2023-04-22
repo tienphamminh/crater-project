@@ -100,19 +100,14 @@ if (empty($errors)) {
         <div class="container-fluid">
 
             <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">
-                        Account: <?php echo (!empty($userDetails['email'])) ? $userDetails['email'] : null; ?>
-                    </h3>
-                </div>
-                <!-- /.card-header -->
+
                 <!-- form start -->
                 <form action="" method="post">
                     <div class="card-body">
                         <?php echo getMessage($msg, $msgType); ?>
                         <div class="row">
 
-                            <div class="col-6">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="fullname">Fullname</label>
                                     <input type="text" name="fullname" class="form-control" id="fullname"
@@ -121,7 +116,7 @@ if (empty($errors)) {
                                 </div>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="phone">Phone Number</label>
                                     <input type="text" name="phone" class="form-control" id="phone"
@@ -130,7 +125,7 @@ if (empty($errors)) {
                                 </div>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="facebook">Facebook</label>
                                     <input type="text" name="contact_facebook" class="form-control" id="facebook"
@@ -139,7 +134,7 @@ if (empty($errors)) {
                                 </div>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="twitter">Twitter</label>
                                     <input type="text" name="contact_twitter" class="form-control" id="twitter"
@@ -148,7 +143,7 @@ if (empty($errors)) {
                                 </div>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="linkedin">LinkedIn</label>
                                     <input type="text" name="contact_linkedin" class="form-control" id="linkedin"
@@ -157,7 +152,7 @@ if (empty($errors)) {
                                 </div>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="pinterest">Pinterest</label>
                                     <input type="text" name="contact_pinterest" class="form-control" id="pinterest"
@@ -166,7 +161,7 @@ if (empty($errors)) {
                                 </div>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="introduction">Introduction</label>
                                     <textarea name="introduction" class="form-control"
@@ -183,7 +178,7 @@ if (empty($errors)) {
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary px-3">Update</button>
                     </div>
                 </form>
                 <!-- form end -->

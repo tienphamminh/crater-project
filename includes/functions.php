@@ -224,7 +224,10 @@ function isPhone($phone): bool
 function getMessage($msg, $context = 'primary'): ?string
 {
     if (!empty($msg)) {
-        return '<div class="alert alert-default-' . $context . '">' . $msg . '</div>';
+        return '<div class="alert alert-dismissible alert-default-' . $context . '">' .
+            '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+            . $msg
+            . '</div>';
     }
 
     return null;
@@ -285,8 +288,26 @@ function autoLogoutAfterInactive($duration): void
     setSession('last_activity', $now);
 }
 
+// Delete all 'login_token' of a user
+function removeLoginTokens($userId): void
+{
+    $condition = "user_id=:user_id";
+    $dataCondition = ['user_id' => $userId];
+    delete('login_tokens', $condition, $dataCondition);
+}
+
+
+// Save 'last_activity' of a user
+function saveLastActivity($userId): void
+{
+    $dataUpdate = ['last_activity' => date('Y-m-d H:i:s')];
+    $condition = "id=:id";
+    $dataCondition = ['id' => $userId];
+    update('users', $dataUpdate, $condition, $dataCondition);
+}
+
 // Auto remove 'login_token' after $duration seconds since 'last_activity' of user
-function autoRemoveLoginToken($duration): void
+function autoRemoveLoginTokens($duration): void
 {
     $sql = "SELECT * FROM users WHERE status=:status";
     $data = ['status' => 1];
@@ -299,22 +320,11 @@ function autoRemoveLoginToken($duration): void
             $diff = strtotime($now) - strtotime($before);
 
             if ($diff >= $duration) {
-                // Delete login_token
-                $condition = "user_id=:user_id";
-                $dataCondition = ['user_id' => $user['id']];
-                delete('login_tokens', $condition, $dataCondition);
+                // Delete all 'login_token' of a user
+                removeLoginTokens($user['id']);
             }
         }
     }
-}
-
-// Save 'last_activity' of user
-function saveLastActivity($userId): void
-{
-    $dataUpdate = ['last_activity' => date('Y-m-d H:i:s')];
-    $condition = "id=:id";
-    $dataCondition = ['id' => $userId];
-    update('users', $dataUpdate, $condition, $dataCondition);
 }
 
 // Get absolute URL for '<a href="">' (Admin Page)
@@ -362,9 +372,28 @@ function isActiveAction($module, $action): bool
 }
 
 // Get user details
-function getUserDetails($userId)
+function getUserDetails($userId, $fields = '*')
 {
-    $sql = "SELECT * FROM users WHERE id=:id";
+    $sql = "SELECT " . $fields . " FROM users WHERE id=:id";
     $data = ['id' => $userId];
+
     return getFirstRow($sql, $data);
+}
+
+// Log '$userId' out of all devices
+function logoutOfAllDevices($userId): void
+{
+    removeLoginTokens($userId);
+    // Get flash message before remove all session variables
+    $msg = getFlashData('msg');
+    $msgType = getFlashData('msg_type');
+    // Unset all session variables
+    removeSession();
+    // Then re-set flash message
+    if (!empty($msg) && !empty($msgType)) {
+        setFlashData('msg', $msg);
+        setFlashData('msg_type', $msgType);
+    }
+
+    redirect('admin/?module=auth&action=login');
 }
