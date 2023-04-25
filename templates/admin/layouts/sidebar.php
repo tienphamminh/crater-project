@@ -41,12 +41,85 @@ if (!defined('_INCODE')) {
                 </li>
                 <!-- /.dashboard -->
 
+                <!-- Groups -->
+                <li class="nav-item has-treeview <?php echo (isActiveModule('groups')) ? 'menu-open' : null; ?>">
+                    <!-- Parent-->
+                    <a href="#"
+                       class="nav-link <?php echo (isActiveModule('groups')) ? 'active' : null; ?>">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Groups
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <!-- Child-->
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('groups'); ?>"
+                               class="nav-link <?php echo (isActiveAction('groups', 'list')
+                                   || isActiveAction('groups', ''))
+                                   ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List of Groups</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('groups', 'edit'); ?>"
+                               class="nav-link <?php echo (isActiveAction('groups', 'edit')) ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Edit Group</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('groups', 'add'); ?>"
+                               class="nav-link <?php echo (isActiveAction('groups', 'add')) ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Add Group</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- /.groups -->
+
+                <!-- Users -->
+                <li class="nav-item has-treeview <?php echo (isActiveModule('users')) ? 'menu-open' : null; ?>">
+                    <!-- Parent-->
+                    <a href="#"
+                       class="nav-link <?php echo (isActiveModule('users')) ? 'active' : null; ?>">
+                        <i class="nav-icon fas fa-address-card"></i>
+                        <p>
+                            Users
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <!-- Child-->
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('users'); ?>"
+                               class="nav-link <?php echo (isActiveAction('users', 'list')
+                                   || isActiveAction('users', ''))
+                                   ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List of Users</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('users', 'edit'); ?>"
+                               class="nav-link <?php echo (isActiveAction('users', 'edit')) ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Edit User</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- /.users -->
+
                 <!-- Blogs -->
                 <li class="nav-item has-treeview <?php echo (isActiveModule('blogs')) ? 'menu-open' : null; ?>">
                     <!-- Parent-->
                     <a href="#"
                        class="nav-link <?php echo (isActiveModule('blogs')) ? 'active' : null; ?>">
-                        <i class="nav-icon fab fa-blogger"></i>
+                        <i class="nav-icon fas fa-blog"></i>
                         <p>
                             Blogs
                             <i class="fas fa-angle-left right"></i>
@@ -74,38 +147,6 @@ if (!defined('_INCODE')) {
                 </li>
                 <!-- /.blogs -->
 
-                <!-- Users -->
-                <li class="nav-item has-treeview <?php echo (isActiveModule('users')) ? 'menu-open' : null; ?>">
-                    <!-- Parent-->
-                    <a href="#"
-                       class="nav-link <?php echo (isActiveModule('users')) ? 'active' : null; ?>">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Users
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <!-- Child-->
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?php echo getAbsUrlAdmin('users'); ?>"
-                               class="nav-link <?php echo (isActiveAction('users', 'list')
-                                   || isActiveAction('users', ''))
-                                   ? 'active' : null; ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>List of Users</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?php echo getAbsUrlAdmin('users', 'edit'); ?>"
-                               class="nav-link <?php echo (isActiveAction('users', 'edit')) ? 'active' : null; ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Edit User</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- /.users -->
             </ul>
 
         </nav>
