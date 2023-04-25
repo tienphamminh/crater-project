@@ -15,7 +15,7 @@ addLayout('sidebar', 'admin', $dataHeader);
 addLayout('breadcrumb', 'admin', $dataHeader);
 
 // Search form handling
-$orderByClause = '';
+$orderByClause = "ORDER BY created_at DESC";
 $whereClause = '';
 $dataCondition = [];
 if (isGet()) {
@@ -23,7 +23,7 @@ if (isGet()) {
 
     if (!empty($body['order_by'])) {
         $field = $body['order_by'];
-        $orderByClause .= "ORDER BY $field";
+        $orderByClause = "ORDER BY $field";
 
         if (!empty($body['sort_order'])) {
             $sortOrder = $body['sort_order'];
@@ -43,7 +43,7 @@ if (isGet()) {
 
 // Pagination
 // Set the limit of number of records to be displayed per page
-$limit = 3;
+$limit = 8;
 
 // Determine the total number of pages available
 $sql = "SELECT id FROM `groups` $whereClause";
@@ -103,7 +103,14 @@ $msgType = getFlashData('msg_type');
                                     Group Name
                                 </option>
                                 <option value="created_at"
-                                    <?php echo (!empty($field) && $field == 'created_at') ? 'selected' : null; ?>>
+                                    <?php
+                                    if (empty($field)) {
+                                        echo 'selected';
+                                    } elseif ($field == 'created_at') {
+                                        echo 'selected';
+                                    }
+                                    ?>
+                                >
                                     Created At
                                 </option>
                                 <option value="updated_at"
@@ -122,7 +129,14 @@ $msgType = getFlashData('msg_type');
                                     ASC
                                 </option>
                                 <option value="DESC"
-                                    <?php echo (!empty($sortOrder) && $sortOrder == 'DESC') ? 'selected' : null; ?>>
+                                    <?php
+                                    if (empty($sortOrder)) {
+                                        echo 'selected';
+                                    } elseif ($sortOrder == 'DESC') {
+                                        echo 'selected';
+                                    }
+                                    ?>
+                                >
                                     DESC
                                 </option>
                             </select>
@@ -242,8 +256,14 @@ $msgType = getFlashData('msg_type');
                             ?>
                             <li class="page-item">
                                 <a class="page-link"
+                                   href="<?php echo getAbsUrlAdmin('groups') . '&page=1' . $queryString; ?>">
+                                    First
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link"
                                    href="<?php echo getAbsUrlAdmin('groups') . '&page=' . $prevPage . $queryString; ?>">
-                                    Previous
+                                    &laquo;
                                 </a>
                             </li>
                         <?php
@@ -289,7 +309,15 @@ $msgType = getFlashData('msg_type');
                             <li class="page-item">
                                 <a class="page-link"
                                    href="<?php echo getAbsUrlAdmin('groups') . '&page=' . $nextPage . $queryString; ?>">
-                                    Next
+                                    &raquo;
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="<?php echo getAbsUrlAdmin(
+                                           'groups'
+                                       ) . '&page=' . $totalPages . $queryString; ?>">
+                                    Last
                                 </a>
                             </li>
                         <?php

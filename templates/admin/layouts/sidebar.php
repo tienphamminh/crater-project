@@ -64,13 +64,6 @@ if (!defined('_INCODE')) {
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo getAbsUrlAdmin('groups', 'edit'); ?>"
-                               class="nav-link <?php echo (isActiveAction('groups', 'edit')) ? 'active' : null; ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Edit Group</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="<?php echo getAbsUrlAdmin('groups', 'add'); ?>"
                                class="nav-link <?php echo (isActiveAction('groups', 'add')) ? 'active' : null; ?>">
                                 <i class="far fa-circle nav-icon"></i>

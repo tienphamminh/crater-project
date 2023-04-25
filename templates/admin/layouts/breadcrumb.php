@@ -6,21 +6,15 @@ if (!defined('_INCODE')) {
     exit;
 }
 
-$currentModule = getCurrentModule();
-$currentAction = getCurrentAction();
-
 ?>
 
 <!-- Content Header (Page header) -->
-<div class="content-header">
+<div class="content-header mb-3">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0">
-                    <a class="text-bold"
-                       href="<?php echo getAbsUrlAdmin($currentModule, $currentAction); ?>">
-                        <?php echo (!empty($dataHeader['pageTitle'])) ? $dataHeader['pageTitle'] : 'Dashboard'; ?>
-                    </a>
+                    <?php echo (!empty($dataHeader['pageTitle'])) ? $dataHeader['pageTitle'] : 'Dashboard'; ?>
                 </h1>
             </div><!-- /.col -->
             <div class="col-sm-6">

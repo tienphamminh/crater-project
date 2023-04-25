@@ -18,19 +18,19 @@ if (isPost()) {
     $body = getBody();
     $errors = [];
 
-    // Full name: Required, >=5 characters
-    $groupName = trim($body['group_name']);
+    // Group name: Required, >=4 characters
+    $groupName = trim($body['name']);
     if (empty($groupName)) {
-        $errors['group_name']['required'] = 'Required field';
+        $errors['name']['required'] = 'Required field';
     } elseif (strlen($groupName) < 4) {
-        $errors['group_name']['min'] = 'Group name must be at least 4 characters';
+        $errors['name']['min'] = 'Group name must be at least 4 characters';
     }
 
 
     if (empty($errors)) {
         // Validation successful
 
-        // Insert into table 'user'
+        // Insert into table 'groups'
         $dataInsert = [
             'name' => $groupName,
             'created_at' => date('Y-m-d H:i:s')
@@ -78,10 +78,10 @@ $oldValues = getFlashData('old_values');
                                 <?php echo getMessage($msg, $msgType); ?>
                                 <div class="form-group">
                                     <label for="group-name">Group Name</label>
-                                    <input type="text" name="group_name" class="form-control"
+                                    <input type="text" name="name" class="form-control"
                                            id="group-name" placeholder="Group Name"
-                                           value="<?php echo getOldFormValue('group_name', $oldValues); ?>">
-                                    <?php echo getFormError('group_name', $errors); ?>
+                                           value="<?php echo getOldFormValue('name', $oldValues); ?>">
+                                    <?php echo getFormError('name', $errors); ?>
                                 </div>
                             </div>
                             <!-- /.card-body -->
