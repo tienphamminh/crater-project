@@ -397,3 +397,14 @@ function logoutOfAllDevices($userId): void
 
     redirect('admin/?module=auth&action=login');
 }
+
+// Get a date formatted according to the specified format and datetime string.
+function getFormattedDate($dateStr, $format = 'H:i:s d-m-Y')
+{
+    $dateObj = date_create($dateStr);
+    if (!empty($dateObj)) {
+        return date_format($dateObj, $format);
+    }
+
+    return false;
+}

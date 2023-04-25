@@ -180,14 +180,11 @@ if (empty($errors)) {
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary px-3">Update</button>
                     </div>
-                </form>
-                <!-- form end -->
-            </div>
-            <!-- /.card -->
+                </form> <!-- form end -->
+            </div> <!-- /.card -->
 
-        </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+        </div> <!-- /.container-fluid -->
+    </section> <!-- /.content -->
 
 <?php
 // Add Footer
