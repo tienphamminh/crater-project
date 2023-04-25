@@ -41,8 +41,8 @@ function getCurrentAction(): ?string
 // Send a "Location:" header and a REDIRECT (302) status code back to the client
 function redirect($path = 'index.php'): void
 {
-    $url = _WEB_HOST_ROOT . '/' . $path;
-    header("Location: $url");
+    $absUrl = _WEB_HOST_ROOT . '/' . $path;
+    header("Location: $absUrl");
     exit;
 }
 
@@ -244,10 +244,10 @@ function getFormError($fieldName, $errors): ?string
 }
 
 // Get old form value
-function getOldFormValue($fieldName, $oldDData)
+function getOldFormValue($fieldName, $oldData)
 {
-    if (!empty($oldDData[$fieldName])) {
-        return $oldDData[$fieldName];
+    if (!empty($oldData[$fieldName])) {
+        return $oldData[$fieldName];
     }
 
     return null;
