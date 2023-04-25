@@ -38,7 +38,7 @@ function insert($tableName, $dataInsert)
     $fieldStr = implode(', ', $keyArr);
     $valueStr = ':' . implode(', :', $keyArr);
 
-    $sql = 'INSERT INTO ' . $tableName . '(' . $fieldStr . ') VALUES(' . $valueStr . ')';
+    $sql = 'INSERT INTO `' . $tableName . '` (' . $fieldStr . ') VALUES(' . $valueStr . ')';
 
     return query($sql, $dataInsert);
 }
@@ -54,10 +54,10 @@ function update($tableName, $dataUpdate, $condition = '', $dataCondition = [])
     $updateStr = rtrim($updateStr, ', ');
 
     if (!empty($condition)) {
-        $sql = 'UPDATE ' . $tableName . ' SET ' . $updateStr . ' WHERE ' . $condition;
+        $sql = 'UPDATE `' . $tableName . '` SET ' . $updateStr . ' WHERE ' . $condition;
         $dataUpdate = array_merge($dataUpdate, $dataCondition);
     } else {
-        $sql = 'UPDATE ' . $tableName . ' SET ' . $updateStr;
+        $sql = 'UPDATE `' . $tableName . '` SET ' . $updateStr;
     }
 
     return query($sql, $dataUpdate);
@@ -66,9 +66,9 @@ function update($tableName, $dataUpdate, $condition = '', $dataCondition = [])
 function delete($tableName, $condition = '', $dataCondition = [])
 {
     if (!empty($condition)) {
-        $sql = 'DELETE FROM ' . $tableName . ' WHERE ' . $condition;
+        $sql = 'DELETE FROM `' . $tableName . '` WHERE ' . $condition;
     } else {
-        $sql = 'DELETE FROM ' . $tableName;
+        $sql = 'DELETE FROM `' . $tableName . '`';
     }
 
     return query($sql, $dataCondition);

@@ -75,13 +75,16 @@ if (!empty($_SERVER['QUERY_STRING'])) {
     $queryString = str_replace('&page=' . $currentPage, '', $queryString);
 }
 
+$msg = getFlashData('msg');
+$msgType = getFlashData('msg_type');
+
 ?>
 
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
             <p>
-                <a href="?module=groups&action=add" class="btn btn-success">
+                <a href="<?php echo getAbsUrlAdmin('groups', 'add'); ?>" class="btn btn-success px-3">
                     Add group <i class="fa fa-plus ml-1"></i>
                 </a>
             </p>
@@ -149,6 +152,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                    <?php echo getMessage($msg, $msgType); ?>
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
@@ -169,28 +173,40 @@ if (!empty($_SERVER['QUERY_STRING'])) {
 
                                 foreach ($groups as $group):
                                     $ordinalNumber++;
+                                    $groupId = $group['id'];
                                     ?>
                                     <tr>
                                         <td><?php echo $ordinalNumber . '.'; ?></td>
                                         <td><?php echo $group['name']; ?></td>
-                                        <td><?php echo getFormattedDate($group['created_at']); ?></td>
-                                        <td><?php echo getFormattedDate($group['updated_at']); ?></td>
                                         <td>
-                                            <a href="?module=groups&action=assign&id=<?php echo $group['id']; ?>"
+                                            <?php echo (!empty($group['created_at']))
+                                                ? getFormattedDate($group['created_at'])
+                                                : 'NULL'; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo (!empty($group['updated_at']))
+                                                ? getFormattedDate($group['updated_at'])
+                                                : 'NULL'; ?>
+                                        </td>
+                                        <td>
+                                            <a href="<?php
+                                            echo getAbsUrlAdmin('groups', 'assign') . '&id=' . $groupId; ?>"
                                                class="btn btn-info btn-sm">
                                                 <i class="fa fa-tags"></i>
                                                 Assign
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="?module=groups&action=edit&id=<?php echo $group['id']; ?>"
+                                            <a href="<?php
+                                            echo getAbsUrlAdmin('groups', 'edit') . '&id=' . $groupId; ?>"
                                                class="btn btn-warning btn-sm">
                                                 <i class="fa fa-edit"></i>
                                                 Edit
                                             </a>
                                         </td>
                                         <td>
-                                            <form action="?module=groups&action=delete" method="post">
+                                            <form action="<?php echo getAbsUrlAdmin('groups', 'delete'); ?>"
+                                                  method="post">
                                                 <input type="hidden" name="id" value="<?php echo $group['id']; ?>">
                                                 <button type="submit" class="btn btn-danger btn-sm"
                                                         onclick="return confirm('Are you sure?')">
@@ -226,7 +242,9 @@ if (!empty($_SERVER['QUERY_STRING'])) {
                             ?>
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="?module=groups&page=<?php echo $prevPage . $queryString; ?>">Previous</a>
+                                   href="<?php echo getAbsUrlAdmin('groups') . '&page=' . $prevPage . $queryString; ?>">
+                                    Previous
+                                </a>
                             </li>
                         <?php
                         endif;
@@ -255,7 +273,7 @@ if (!empty($_SERVER['QUERY_STRING'])) {
                             ?>
                             <li class="page-item <?php echo ($index == $currentPage) ? 'active' : null; ?>">
                                 <a class="page-link"
-                                   href="?module=groups&page=<?php echo $index . $queryString; ?>">
+                                   href="<?php echo getAbsUrlAdmin('groups') . '&page=' . $index . $queryString; ?>">
                                     <?php echo $index; ?>
                                 </a>
                             </li>
@@ -270,7 +288,9 @@ if (!empty($_SERVER['QUERY_STRING'])) {
                             ?>
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="?module=groups&page=<?php echo $nextPage . $queryString; ?>">Next</a>
+                                   href="<?php echo getAbsUrlAdmin('groups') . '&page=' . $nextPage . $queryString; ?>">
+                                    Next
+                                </a>
                             </li>
                         <?php
                         endif;
