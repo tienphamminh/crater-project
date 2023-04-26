@@ -83,17 +83,19 @@ $msgType = getFlashData('msg_type');
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+            <!-- add button -->
             <p>
                 <a href="<?php echo getAbsUrlAdmin('groups', 'add'); ?>" class="btn btn-success px-3">
-                    Add group <i class="fa fa-plus ml-1"></i>
+                    <i class="fa fa-plus mr-1"></i> Add group
                 </a>
-            </p>
+            </p> <!-- /add button -->
+
             <hr>
 
             <form action="" method="get">
                 <input type="hidden" name="module" value="groups">
                 <div class="row">
-
+                    <!-- order_by -->
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>Order By:</label>
@@ -119,7 +121,9 @@ $msgType = getFlashData('msg_type');
                                 </option>
                             </select>
                         </div>
-                    </div>
+                    </div> <!-- /order_by -->
+
+                    <!-- sort_order -->
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label>Sort Order:</label>
@@ -141,24 +145,31 @@ $msgType = getFlashData('msg_type');
                                 </option>
                             </select>
                         </div>
-                    </div>
+                    </div> <!-- /sort_order -->
+
+                    <!-- keyword and search button -->
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label>Keyword:</label>
-                            <div class="input-group">
-                                <input type="search" class="form-control" name="keyword"
-                                       placeholder="Search by group name ..."
-                                       value="<?php echo (!empty($keyword)) ? $keyword : null; ?>">
-                                <div class=" input-group-append">
-                                    <button type="submit" class="btn btn-primary px-4">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        <input type="search" class="form-control" name="keyword"
+                                               placeholder="Search by group name ..."
+                                               value="<?php echo (!empty($keyword)) ? $keyword : null; ?>">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <button type="submit" class="btn btn-primary btn-block">
                                         <i class="fa fa-search mr-1"></i> Search
                                     </button>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> <!-- /keyword and search button -->
 
                 </div>
+
             </form>
             <div class="card">
                 <div class="card-header">
@@ -187,7 +198,6 @@ $msgType = getFlashData('msg_type');
 
                                 foreach ($groups as $group):
                                     $ordinalNumber++;
-                                    $groupId = $group['id'];
                                     ?>
                                     <tr>
                                         <td><?php echo $ordinalNumber . '.'; ?></td>
@@ -204,7 +214,7 @@ $msgType = getFlashData('msg_type');
                                         </td>
                                         <td>
                                             <a href="<?php
-                                            echo getAbsUrlAdmin('groups', 'assign') . '&id=' . $groupId; ?>"
+                                            echo getAbsUrlAdmin('groups', 'assign') . '&id=' . $group['id']; ?>"
                                                class="btn btn-info btn-sm">
                                                 <i class="fa fa-tags"></i>
                                                 Assign
@@ -212,7 +222,7 @@ $msgType = getFlashData('msg_type');
                                         </td>
                                         <td>
                                             <a href="<?php
-                                            echo getAbsUrlAdmin('groups', 'edit') . '&id=' . $groupId; ?>"
+                                            echo getAbsUrlAdmin('groups', 'edit') . '&id=' . $group['id']; ?>"
                                                class="btn btn-warning btn-sm">
                                                 <i class="fa fa-edit"></i>
                                                 Edit
