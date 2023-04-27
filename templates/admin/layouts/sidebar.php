@@ -97,10 +97,10 @@ if (!defined('_INCODE')) {
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo getAbsUrlAdmin('users', 'edit'); ?>"
-                               class="nav-link <?php echo (isActiveAction('users', 'edit')) ? 'active' : null; ?>">
+                            <a href="<?php echo getAbsUrlAdmin('users', 'add'); ?>"
+                               class="nav-link <?php echo (isActiveAction('users', 'add')) ? 'active' : null; ?>">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Edit User</p>
+                                <p>Add User</p>
                             </a>
                         </li>
                     </ul>

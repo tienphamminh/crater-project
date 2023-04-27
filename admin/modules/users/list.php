@@ -94,7 +94,7 @@ if (!empty(getBody()['page'])) {
 $offset = ($currentPage - 1) * $limit;
 
 // Retrieve data
-$columnNames = "users.id, users.fullname, users.email, users.created_at, users.status, groups.name AS group_name";
+$columnNames = "users.id, users.fullname, users.email, users.phone, users.created_at, users.status, groups.name AS group_name";
 $sql = "SELECT $columnNames FROM users INNER JOIN `groups` ON users.group_id=`groups`.id";
 $sql .= " $whereClause $orderByClause LIMIT :limit OFFSET :offset";
 $users = getLimitRows($sql, $limit, $offset, $dataCondition);
@@ -262,6 +262,7 @@ $msgType = getFlashData('msg_type');
                                 <th style="width: 5%">#</th>
                                 <th>Fullname</th>
                                 <th>Email</th>
+                                <th>Phone Number</th>
                                 <th>Group</th>
                                 <th>Created At</th>
                                 <th style="width: 10%">Status</th>
@@ -281,6 +282,7 @@ $msgType = getFlashData('msg_type');
                                         <td><?php echo $ordinalNumber . '.'; ?></td>
                                         <td><?php echo $user['fullname']; ?></td>
                                         <td><?php echo $user['email']; ?></td>
+                                        <td><?php echo $user['phone']; ?></td>
                                         <td><?php echo $user['group_name']; ?></td>
                                         <td>
                                             <?php echo (!empty($user['created_at']))
@@ -321,7 +323,7 @@ $msgType = getFlashData('msg_type');
                             else:
                                 ?>
                                 <tr>
-                                    <td colspan="8">
+                                    <td colspan="9">
                                         <div class="alert alert-default-danger text-center">No data to display.</div>
                                     </td>
                                 </tr>
