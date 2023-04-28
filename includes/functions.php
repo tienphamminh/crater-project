@@ -264,10 +264,15 @@ function isLoggedIn(): bool
         $result = getFirstRow($sql, $data);
 
         if (!empty($result)) {
-            return true;
-        } else {
-            removeSession();
+            // Check if user's status is active
+            $sql = "SELECT status FROM users WHERE id=:id";
+            $data = ['id' => $result['user_id']];
+            $user = getFirstRow($sql, $data);
+            if ($user['status'] == 1) {
+                return true;
+            }
         }
+        removeSession();
     }
 
     return false;

@@ -73,7 +73,7 @@ if (isPost()) {
     if (empty($errors)) {
         // Validation successful
 
-        if (trim($body['status']) == 'active') {
+        if (trim($body['status']) == 1) {
             $status = 1;
         } else {
             $status = 0;
@@ -171,12 +171,11 @@ $oldValues = getFlashData('old_values');
                                         <div class="form-group">
                                             <label>Status:</label>
                                             <select name="status" class="form-control">
-                                                <option value="notactive">
+                                                <option value="0">
                                                     Not Active (Default)
                                                 </option>
-                                                <option
-                                                    value="active"
-                                                    <?php echo (getOldFormValue('status', $oldValues) == 'active')
+                                                <option value="1"
+                                                    <?php echo (getOldFormValue('status', $oldValues) == 1)
                                                         ? 'selected'
                                                         : null; ?>
                                                 >
