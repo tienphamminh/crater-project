@@ -23,28 +23,30 @@ if (isGet()) {
     $body = getBody();
 
     if (!empty($body['order_by'])) {
-        $field = $body['order_by'];
+        $field = trim($body['order_by']);
         $orderByClause = "ORDER BY users." . $field;
 
         if (!empty($body['sort_order'])) {
-            $sortOrder = $body['sort_order'];
+            $sortOrder = trim($body['sort_order']);
             $orderByClause .= " $sortOrder";
         }
     }
 
     if (!empty($body['status'])) {
-        $status = $body['status'];
-        if ($status == 'active') {
+        $status = trim($body['status']);
+        if ($status == 1) {
             $dbStatus = 1;
-        } else {
+        } elseif ($status == 2) {
             $dbStatus = 0;
         }
-        $whereClause .= "WHERE status=:status";
-        $dataCondition['status'] = $dbStatus;
+        if (isset($dbStatus)) {
+            $whereClause .= "WHERE status=:status";
+            $dataCondition['status'] = $dbStatus;
+        }
     }
 
     if (!empty($body['group_id'])) {
-        $groupId = $body['group_id'];
+        $groupId = trim($body['group_id']);
         if (str_contains($whereClause, 'WHERE')) {
             $operator = ' AND';
         } else {
@@ -56,7 +58,7 @@ if (isGet()) {
 
 
     if (!empty($body['keyword'])) {
-        $keyword = $body['keyword'];
+        $keyword = trim($body['keyword']);
         if (str_contains($whereClause, 'WHERE')) {
             $operator = ' AND';
         } else {
@@ -137,12 +139,12 @@ $msgType = getFlashData('msg_type');
                                         <option value="">
                                             Choose Status
                                         </option>
-                                        <option value="active"
-                                            <?php echo (!empty($status) && $status == 'active') ? 'selected' : null; ?>>
+                                        <option value="1"
+                                            <?php echo (!empty($status) && $status == 1) ? 'selected' : null; ?>>
                                             Active
                                         </option>
-                                        <option value="notactive"
-                                            <?php echo (!empty($status) && $status == 'notactive') ? 'selected' : null; ?>>
+                                        <option value="2"
+                                            <?php echo (!empty($status) && $status == 2) ? 'selected' : null; ?>>
                                             Not Active
                                         </option>
                                     </select>
