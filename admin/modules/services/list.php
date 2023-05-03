@@ -7,44 +7,63 @@ if (!defined('_INCODE')) {
 }
 
 // Add Header
-$dataHeader = ['pageTitle' => 'Groups'];
+$dataHeader = ['pageTitle' => 'Services'];
 addLayout('header', 'admin', $dataHeader);
 addLayout('sidebar', 'admin', $dataHeader);
 addLayout('breadcrumb', 'admin', $dataHeader);
 
 // Search form handling
-$orderClause = "ORDER BY created_at DESC";
+$orderClause = "ORDER BY services.created_at DESC";
 $whereClause = '';
 $dataCondition = [];
+
 if (isGet()) {
     $body = getBody();
 
     if (!empty($body['order_by'])) {
-        $field = $body['order_by'];
-        $orderClause = "ORDER BY $field";
+        $field = trim($body['order_by']);
+        $orderClause = "ORDER BY services." . $field;
 
         if (!empty($body['sort_order'])) {
-            $sortOrder = $body['sort_order'];
+            $sortOrder = trim($body['sort_order']);
             $orderClause .= " $sortOrder";
         }
     }
 
+    if (!empty($body['user_id'])) {
+        $userId = trim($body['user_id']);
+        if (str_contains($whereClause, 'WHERE')) {
+            $operator = ' AND';
+        } else {
+            $operator = 'WHERE';
+        }
+        $whereClause .= "$operator services.user_id=:user_id";
+        $dataCondition['user_id'] = $userId;
+    }
+
 
     if (!empty($body['keyword'])) {
-        $keyword = $body['keyword'];
-
-        $whereClause .= "WHERE name LIKE :pattern";
+        $keyword = trim($body['keyword']);
+        if (str_contains($whereClause, 'WHERE')) {
+            $operator = ' AND';
+        } else {
+            $operator = 'WHERE';
+        }
+        $whereClause .= "$operator services.name LIKE :pattern";
         $pattern = "%$keyword%";
         $dataCondition['pattern'] = $pattern;
     }
 }
 
+// Retrieve user data for  <select name="user_id">
+$users = getAllRows("SELECT id, fullname, email FROM users");
+
 // Pagination
 // Set the limit of number of records to be displayed per page
-$limit = 2;
+$limit = 3;
 
 // Determine the total number of pages available
-$sql = "SELECT id FROM `groups` $whereClause";
+$sql = "SELECT id FROM services $whereClause";
 $totalRows = getNumberOfRows($sql, $dataCondition);
 $totalPages = ceil($totalRows / $limit);
 
@@ -62,11 +81,12 @@ if (!empty(getBody()['page'])) {
 $offset = ($currentPage - 1) * $limit;
 
 // Retrieve data
-$sql = "SELECT * FROM `groups` $whereClause $orderClause LIMIT :limit OFFSET :offset";
-$groups = getLimitRows($sql, $limit, $offset, $dataCondition);
+$columnNames = "services.id, services.name, services.icon, services.created_at, users.fullname AS user_name";
+$sql = "SELECT $columnNames FROM services INNER JOIN users ON services.user_id=users.id";
+$sql .= " $whereClause $orderClause LIMIT :limit OFFSET :offset";
+$services = getLimitRows($sql, $limit, $offset, $dataCondition);
 
-
-$searchQueryString = getSearchQueryString('groups', 'list', $currentPage);
+$searchQueryString = getSearchQueryString('services', 'list', $currentPage);
 
 $msg = getFlashData('msg');
 $msgType = getFlashData('msg_type');
@@ -78,68 +98,97 @@ $msgType = getFlashData('msg_type');
         <div class="container-fluid">
             <!-- add button -->
             <p>
-                <a href="<?php echo getAbsUrlAdmin('groups', 'add'); ?>" class="btn btn-success px-3">
-                    <i class="fa fa-plus mr-1"></i> Add group
+                <a href="<?php echo getAbsUrlAdmin('services', 'add'); ?>" class="btn btn-success px-3">
+                    <i class="fa fa-plus mr-1"></i> Add service
                 </a>
             </p> <!-- /add button -->
 
             <hr>
 
             <form action="" method="get">
-                <input type="hidden" name="module" value="groups">
-                <div class="row">
-                    <!-- order_by -->
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <label>Order By:</label>
-                            <select name="order_by" class="form-control">
-                                <option value="name"
-                                    <?php echo (!empty($field) && $field == 'name') ? 'selected' : null; ?>>
-                                    Group Name
-                                </option>
-                                <option value="created_at"
-                                    <?php
-                                    if (empty($field)) {
-                                        echo 'selected';
-                                    } elseif ($field == 'created_at') {
-                                        echo 'selected';
-                                    }
-                                    ?>
-                                >
-                                    Created At
-                                </option>
-                                <option value="updated_at"
-                                    <?php echo (!empty($field) && $field == 'updated_at') ? 'selected' : null; ?>>
-                                    Updated At
-                                </option>
-                            </select>
-                        </div>
-                    </div> <!-- /order_by -->
+                <input type="hidden" name="module" value="services">
 
-                    <!-- sort_order -->
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <label>Sort Order:</label>
-                            <select name="sort_order" class="form-control">
-                                <option value="ASC"
-                                    <?php echo (!empty($sortOrder) && $sortOrder == 'ASC') ? 'selected' : null; ?>>
-                                    ASC
-                                </option>
-                                <option value="DESC"
-                                    <?php
-                                    if (empty($sortOrder)) {
-                                        echo 'selected';
-                                    } elseif ($sortOrder == 'DESC') {
-                                        echo 'selected';
-                                    }
-                                    ?>
-                                >
-                                    DESC
-                                </option>
-                            </select>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <!-- order_by -->
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label>Order By:</label>
+                                    <select name="order_by" class="form-control">
+                                        <option value="name"
+                                            <?php echo (!empty($field) && $field == 'name') ? 'selected' : null; ?>>
+                                            Service Name
+                                        </option>
+                                        <option value="created_at"
+                                            <?php
+                                            if (empty($field)) {
+                                                echo 'selected';
+                                            } elseif ($field == 'created_at') {
+                                                echo 'selected';
+                                            }
+                                            ?>
+                                        >
+                                            Created At
+                                        </option>
+                                    </select>
+                                </div>
+                            </div> <!-- /order_by -->
+
+                            <!-- sort_order -->
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label>Sort Order:</label>
+                                    <select name="sort_order" class="form-control">
+                                        <option value="ASC"
+                                            <?php echo (!empty($sortOrder) && $sortOrder == 'ASC') ? 'selected' : null; ?>>
+                                            ASC
+                                        </option>
+                                        <option value="DESC"
+                                            <?php
+                                            if (empty($sortOrder)) {
+                                                echo 'selected';
+                                            } elseif ($sortOrder == 'DESC') {
+                                                echo 'selected';
+                                            }
+                                            ?>
+                                        >
+                                            DESC
+                                        </option>
+                                    </select>
+                                </div>
+                            </div> <!-- /sort_order -->
+
+                            <!-- user_id -->
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label>Posted By:</label>
+                                    <select name="user_id" class="form-control">
+                                        <option value="">
+                                            Choose User
+                                        </option>
+                                        <?php
+                                        if (!empty($users)):
+                                            foreach ($users as $user):
+                                                ?>
+                                                <option value="<?php echo $user['id']; ?>"
+                                                    <?php echo (!empty($userId) && $userId == $user['id'])
+                                                        ? 'selected'
+                                                        : null; ?>
+                                                >
+                                                    <?php echo $user['fullname'] . ' - ' . $user['email']; ?>
+                                                </option>
+                                            <?php
+                                            endforeach;
+                                        endif;
+                                        ?>
+                                    </select>
+                                </div>
+                            </div> <!-- /user_id -->
                         </div>
-                    </div> <!-- /sort_order -->
-                </div> <!-- /.row -->
+                    </div>
+                </div>
+
 
                 <!-- keyword and search button -->
                 <div class="form-group">
@@ -148,7 +197,7 @@ $msgType = getFlashData('msg_type');
                         <div class="col-sm-10">
                             <div class="form-group">
                                 <input type="search" class="form-control" name="keyword"
-                                       placeholder="Search by group name ..."
+                                       placeholder="Search by service name ..."
                                        value="<?php echo (!empty($keyword)) ? $keyword : null; ?>">
                             </div>
                         </div>
@@ -158,7 +207,7 @@ $msgType = getFlashData('msg_type');
                             </button>
                         </div>
                     </div>
-                </div><!-- /keyword and search button -->
+                </div>
             </form>
 
             <div class="card">
@@ -173,50 +222,54 @@ $msgType = getFlashData('msg_type');
                             <thead>
                             <tr>
                                 <th style="width: 5%">#</th>
-                                <th style="width: 25%">Group Name</th>
+                                <th style="width: 5%">Icon</th>
+                                <th>Name</th>
+                                <th>Posted By</th>
                                 <th>Created At</th>
-                                <th>Updated At</th>
-                                <th style="width: 10%">Permission</th>
+                                <th style="width: 10%">View</th>
                                 <th style="width: 10%">Edit</th>
                                 <th style="width: 10%">Delete</th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php
-                            if (!empty($groups)):
+                            if (!empty($services)):
                                 $ordinalNumber = $offset;
 
-                                foreach ($groups as $group):
+                                foreach ($services as $service):
                                     $ordinalNumber++;
                                     ?>
                                     <tr>
                                         <td><?php echo $ordinalNumber . '.'; ?></td>
                                         <td>
-                                            <span id="name-delete-<?php echo $group['id']; ?>">
-                                                <?php echo $group['name']; ?>
+                                            <?php
+                                            $icon = $service['icon'];
+                                            echo (isFontIcon($icon))
+                                                ? $icon
+                                                : '<img src="' . $icon . '" width="50">'; ?>
+                                        </td>
+                                        <td>
+                                            <span id="name-delete-<?php echo $service['id']; ?>">
+                                                <?php echo $service['name']; ?>
                                             </span>
                                         </td>
+                                        <td><?php echo $service['user_name']; ?></td>
                                         <td>
-                                            <?php echo (!empty($group['created_at']))
-                                                ? getFormattedDate($group['created_at'])
+                                            <?php echo (!empty($service['created_at']))
+                                                ? getFormattedDate($service['created_at'])
                                                 : 'NULL'; ?>
                                         </td>
+
                                         <td>
-                                            <?php echo (!empty($group['updated_at']))
-                                                ? getFormattedDate($group['updated_at'])
-                                                : 'NULL'; ?>
-                                        </td>
-                                        <td>
-                                            <a href="<?php
-                                            echo getAbsUrlAdmin('groups', 'assign') . '&id=' . $group['id']; ?>"
+                                            <a href="#"
                                                class="btn btn-info btn-sm">
-                                                <i class="fa fa-tags"></i>
-                                                Assign
+                                                <i class="fa fa-eye"></i>
+                                                View
                                             </a>
                                         </td>
                                         <td>
                                             <a href="<?php
-                                            echo getAbsUrlAdmin('groups', 'edit') . '&id=' . $group['id']; ?>"
+                                            echo getAbsUrlAdmin('services', 'edit') . '&id=' . $service['id']; ?>"
                                                class="btn btn-warning btn-sm">
                                                 <i class="fa fa-edit"></i>
                                                 Edit
@@ -225,7 +278,7 @@ $msgType = getFlashData('msg_type');
                                         <td>
                                             <button type="submit" class="btn btn-danger btn-sm" id="cf-delete"
                                                     data-toggle="modal" data-target="#modal-delete"
-                                                    value="<?php echo $group['id']; ?>">
+                                                    value="<?php echo $service['id']; ?>">
                                                 <i class="fa fa-trash"></i> Delete
                                             </button>
                                         </td>
@@ -235,7 +288,7 @@ $msgType = getFlashData('msg_type');
                             else:
                                 ?>
                                 <tr>
-                                    <td colspan="7">
+                                    <td colspan="8">
                                         <div class="alert alert-default-danger text-center">No data to display.</div>
                                     </td>
                                 </tr>
@@ -257,14 +310,14 @@ $msgType = getFlashData('msg_type');
                             ?>
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<?php echo getAbsUrlAdmin('groups') . '&page=1' . $searchQueryString; ?>">
+                                   href="<?php echo getAbsUrlAdmin('services') . '&page=1' . $searchQueryString; ?>">
                                     First
                                 </a>
                             </li>
                             <li class="page-item">
                                 <a class="page-link"
                                    href="<?php echo getAbsUrlAdmin(
-                                           'groups'
+                                           'services'
                                        ) . '&page=' . $prevPage . $searchQueryString; ?>">
                                     &laquo;
                                 </a>
@@ -297,7 +350,7 @@ $msgType = getFlashData('msg_type');
                             <li class="page-item <?php echo ($index == $currentPage) ? 'active' : null; ?>">
                                 <a class="page-link"
                                    href="<?php echo getAbsUrlAdmin(
-                                           'groups'
+                                           'services'
                                        ) . '&page=' . $index . $searchQueryString; ?>">
                                     <?php echo $index; ?>
                                 </a>
@@ -314,7 +367,7 @@ $msgType = getFlashData('msg_type');
                             <li class="page-item">
                                 <a class="page-link"
                                    href="<?php echo getAbsUrlAdmin(
-                                           'groups'
+                                           'services'
                                        ) . '&page=' . $nextPage . $searchQueryString; ?>">
                                     &raquo;
                                 </a>
@@ -322,7 +375,7 @@ $msgType = getFlashData('msg_type');
                             <li class="page-item">
                                 <a class="page-link"
                                    href="<?php echo getAbsUrlAdmin(
-                                           'groups'
+                                           'services'
                                        ) . '&page=' . $totalPages . $searchQueryString; ?>">
                                     Last
                                 </a>

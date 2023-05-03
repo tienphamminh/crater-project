@@ -7,9 +7,7 @@ if (!defined('_INCODE')) {
 }
 
 // Add Header
-$dataHeader = [
-    'pageTitle' => 'Edit User'
-];
+$dataHeader = ['pageTitle' => 'Edit User'];
 addLayout('header', 'admin', $dataHeader);
 addLayout('sidebar', 'admin', $dataHeader);
 addLayout('breadcrumb', 'admin', $dataHeader);
@@ -261,6 +259,10 @@ if (empty($errors)) {
                         <a href="<?php echo getAbsUrlAdmin('users'); ?>"
                            class="btn btn-outline-secondary px-4 float-right">
                             Back
+                        </a>
+                        <a href="<?php echo getAbsUrlAdmin('users', 'edit') . '&id=' . $userId; ?>"
+                           class="btn btn-outline-success px-4 mr-2 float-right">
+                            Reset
                         </a>
                     </div>
                 </form> <!-- form end -->

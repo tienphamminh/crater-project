@@ -7,9 +7,7 @@ if (!defined('_INCODE')) {
 }
 
 // Add Header
-$dataHeader = [
-    'pageTitle' => 'Edit Profile'
-];
+$dataHeader = ['pageTitle' => 'Edit Profile'];
 addLayout('header', 'admin', $dataHeader);
 addLayout('sidebar', 'admin', $dataHeader);
 addLayout('breadcrumb', 'admin', $dataHeader);
@@ -178,7 +176,11 @@ if (empty($errors)) {
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary px-3">Update</button>
+                        <button type="submit" class="btn btn-primary px-3 clearfix">Update</button>
+                        <a href="<?php echo getAbsUrlAdmin('users', 'profile'); ?>"
+                           class="btn btn-outline-success px-4 mr-2 float-right">
+                            Reset
+                        </a>
                     </div>
                 </form> <!-- form end -->
             </div> <!-- /.card -->

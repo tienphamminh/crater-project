@@ -46,7 +46,7 @@ if (!defined('_INCODE')) {
                     <!-- Parent-->
                     <a href="#"
                        class="nav-link <?php echo (isActiveModule('groups')) ? 'active' : null; ?>">
-                        <i class="nav-icon fas fa-users"></i>
+                        <i class="nav-icon fas fa-tags"></i>
                         <p>
                             Groups
                             <i class="fas fa-angle-left right"></i>
@@ -79,7 +79,7 @@ if (!defined('_INCODE')) {
                     <!-- Parent-->
                     <a href="#"
                        class="nav-link <?php echo (isActiveModule('users')) ? 'active' : null; ?>">
-                        <i class="nav-icon fas fa-address-card"></i>
+                        <i class="nav-icon fas fa-user-friends"></i>
                         <p>
                             Users
                             <i class="fas fa-angle-left right"></i>
@@ -106,6 +106,39 @@ if (!defined('_INCODE')) {
                     </ul>
                 </li>
                 <!-- /.users -->
+
+                <!-- Services -->
+                <li class="nav-item has-treeview <?php echo (isActiveModule('services')) ? 'menu-open' : null; ?>">
+                    <!-- Parent-->
+                    <a href="#"
+                       class="nav-link <?php echo (isActiveModule('services')) ? 'active' : null; ?>">
+                        <i class="nav-icon fas fa-toolbox"></i>
+                        <p>
+                            Services
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <!-- Child-->
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('services'); ?>"
+                               class="nav-link <?php echo (isActiveAction('services', 'list')
+                                   || isActiveAction('services', ''))
+                                   ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List of Services</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('services', 'add'); ?>"
+                               class="nav-link <?php echo (isActiveAction('services', 'add')) ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Add Service</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- /.services -->
 
                 <!-- Blogs -->
                 <li class="nav-item has-treeview <?php echo (isActiveModule('blogs')) ? 'menu-open' : null; ?>">

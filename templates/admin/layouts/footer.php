@@ -65,5 +65,8 @@ if (!defined('_INCODE')) {
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/js/demo.js"></script>
 
+<!-- Custom -->
+<script src="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/js/custom.js"></script>
+
 </body>
 </html>
