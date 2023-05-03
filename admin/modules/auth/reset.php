@@ -6,9 +6,7 @@ if (!defined('_INCODE')) {
 }
 
 // Add Header
-$dataHeader = [
-    'pageTitle' => 'Recover Password'
-];
+$dataHeader = ['pageTitle' => 'Recover Password'];
 addLayout('header-login', 'admin', $dataHeader);
 
 if (!empty(getBody()['token'])) {
@@ -75,7 +73,7 @@ if (!empty(getBody()['token'])) {
                 setFlashData('msg_type', 'danger');
                 setFlashData('errors', $errors);
             }
-            
+
             redirect('admin/?module=auth&action=reset&token=' . $resetToken);
         }
 

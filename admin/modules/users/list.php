@@ -7,15 +7,13 @@ if (!defined('_INCODE')) {
 }
 
 // Add Header
-$dataHeader = [
-    'pageTitle' => 'Users'
-];
+$dataHeader = ['pageTitle' => 'Users'];
 addLayout('header', 'admin', $dataHeader);
 addLayout('sidebar', 'admin', $dataHeader);
 addLayout('breadcrumb', 'admin', $dataHeader);
 
 // Search form handling
-$orderByClause = "ORDER BY users.created_at DESC";
+$orderClause = "ORDER BY users.created_at DESC";
 $whereClause = '';
 $dataCondition = [];
 
@@ -24,11 +22,11 @@ if (isGet()) {
 
     if (!empty($body['order_by'])) {
         $field = trim($body['order_by']);
-        $orderByClause = "ORDER BY users." . $field;
+        $orderClause = "ORDER BY users." . $field;
 
         if (!empty($body['sort_order'])) {
             $sortOrder = trim($body['sort_order']);
-            $orderByClause .= " $sortOrder";
+            $orderClause .= " $sortOrder";
         }
     }
 
@@ -40,7 +38,7 @@ if (isGet()) {
             $dbStatus = 0;
         }
         if (isset($dbStatus)) {
-            $whereClause .= "WHERE status=:status";
+            $whereClause .= "WHERE users.status=:status";
             $dataCondition['status'] = $dbStatus;
         }
     }
@@ -52,7 +50,7 @@ if (isGet()) {
         } else {
             $operator = 'WHERE';
         }
-        $whereClause .= "$operator group_id=:group_id";
+        $whereClause .= "$operator users.group_id=:group_id";
         $dataCondition['group_id'] = $groupId;
     }
 
@@ -64,7 +62,7 @@ if (isGet()) {
         } else {
             $operator = 'WHERE';
         }
-        $whereClause .= "$operator fullname LIKE :pattern";
+        $whereClause .= "$operator users.fullname LIKE :pattern";
         $pattern = "%$keyword%";
         $dataCondition['pattern'] = $pattern;
     }
@@ -98,15 +96,10 @@ $offset = ($currentPage - 1) * $limit;
 // Retrieve data
 $columnNames = "users.id, users.fullname, users.email, users.phone, users.created_at, users.status, groups.name AS group_name";
 $sql = "SELECT $columnNames FROM users INNER JOIN `groups` ON users.group_id=`groups`.id";
-$sql .= " $whereClause $orderByClause LIMIT :limit OFFSET :offset";
+$sql .= " $whereClause $orderClause LIMIT :limit OFFSET :offset";
 $users = getLimitRows($sql, $limit, $offset, $dataCondition);
 
-if (!empty($_SERVER['QUERY_STRING'])) {
-    $queryString = $_SERVER['QUERY_STRING'];
-    $queryString = str_replace('module=users', '', $queryString);
-    $queryString = str_replace('&action=list', '', $queryString);
-    $queryString = str_replace('&page=' . $currentPage, '', $queryString);
-}
+$searchQueryString = getSearchQueryString('users', 'list', $currentPage);
 
 $msg = getFlashData('msg');
 $msgType = getFlashData('msg_type');
@@ -129,55 +122,8 @@ $msgType = getFlashData('msg_type');
                 <input type="hidden" name="module" value="users">
 
                 <div class="row">
-                    <div class="col-sm-10">
+                    <div class="col-sm-8">
                         <div class="row">
-                            <!-- status -->
-                            <div class="col-sm">
-                                <div class="form-group">
-                                    <label>Status:</label>
-                                    <select name="status" class="form-control">
-                                        <option value="">
-                                            Choose Status
-                                        </option>
-                                        <option value="1"
-                                            <?php echo (!empty($status) && $status == 1) ? 'selected' : null; ?>>
-                                            Active
-                                        </option>
-                                        <option value="2"
-                                            <?php echo (!empty($status) && $status == 2) ? 'selected' : null; ?>>
-                                            Not Active
-                                        </option>
-                                    </select>
-                                </div>
-                            </div> <!-- /status -->
-
-                            <!-- group_id -->
-                            <div class="col-sm">
-                                <div class="form-group">
-                                    <label>Group:</label>
-                                    <select name="group_id" class="form-control">
-                                        <option value="">
-                                            Choose Group
-                                        </option>
-                                        <?php
-                                        if (!empty($groups)):
-                                            foreach ($groups as $group):
-                                                ?>
-                                                <option value="<?php echo $group['id']; ?>"
-                                                    <?php echo (!empty($groupId) && $groupId == $group['id'])
-                                                        ? 'selected'
-                                                        : null; ?>
-                                                >
-                                                    <?php echo $group['name']; ?>
-                                                </option>
-                                            <?php
-                                            endforeach;
-                                        endif;
-                                        ?>
-                                    </select>
-                                </div>
-                            </div> <!-- /group_id -->
-
                             <!-- order_by -->
                             <div class="col-sm">
                                 <div class="form-group">
@@ -225,6 +171,53 @@ $msgType = getFlashData('msg_type');
                                     </select>
                                 </div>
                             </div> <!-- /sort_order -->
+
+                            <!-- status -->
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label>Status:</label>
+                                    <select name="status" class="form-control">
+                                        <option value="">
+                                            Choose Status
+                                        </option>
+                                        <option value="1"
+                                            <?php echo (!empty($status) && $status == 1) ? 'selected' : null; ?>>
+                                            Active
+                                        </option>
+                                        <option value="2"
+                                            <?php echo (!empty($status) && $status == 2) ? 'selected' : null; ?>>
+                                            Not Active
+                                        </option>
+                                    </select>
+                                </div>
+                            </div> <!-- /status -->
+
+                            <!-- group_id -->
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label>Group:</label>
+                                    <select name="group_id" class="form-control">
+                                        <option value="">
+                                            Choose Group
+                                        </option>
+                                        <?php
+                                        if (!empty($groups)):
+                                            foreach ($groups as $group):
+                                                ?>
+                                                <option value="<?php echo $group['id']; ?>"
+                                                    <?php echo (!empty($groupId) && $groupId == $group['id'])
+                                                        ? 'selected'
+                                                        : null; ?>
+                                                >
+                                                    <?php echo $group['name']; ?>
+                                                </option>
+                                            <?php
+                                            endforeach;
+                                        endif;
+                                        ?>
+                                    </select>
+                                </div>
+                            </div> <!-- /group_id -->
                         </div>
                     </div>
                 </div>
@@ -237,7 +230,7 @@ $msgType = getFlashData('msg_type');
                         <div class="col-sm-10">
                             <div class="form-group">
                                 <input type="search" class="form-control" name="keyword"
-                                       placeholder="Search by user name or email ..."
+                                       placeholder="Search by user name ..."
                                        value="<?php echo (!empty($keyword)) ? $keyword : null; ?>">
                             </div>
                         </div>
@@ -282,8 +275,16 @@ $msgType = getFlashData('msg_type');
                                     ?>
                                     <tr>
                                         <td><?php echo $ordinalNumber . '.'; ?></td>
-                                        <td><?php echo $user['fullname']; ?></td>
-                                        <td><?php echo $user['email']; ?></td>
+                                        <td>
+                                            <span id="name-delete-<?php echo $user['id']; ?>">
+                                                <?php echo $user['fullname']; ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span id="email-delete-<?php echo $user['id']; ?>">
+                                                <?php echo $user['email']; ?>
+                                            </span>
+                                        </td>
                                         <td><?php echo $user['phone']; ?></td>
                                         <td><?php echo $user['group_name']; ?></td>
                                         <td>
@@ -310,14 +311,11 @@ $msgType = getFlashData('msg_type');
                                             </a>
                                         </td>
                                         <td>
-                                            <form action="<?php echo getAbsUrlAdmin('users', 'delete'); ?>"
-                                                  method="post">
-                                                <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
-                                                <button type="submit" class="btn btn-danger btn-sm"
-                                                        onclick="return confirm('Are you sure?')">
-                                                    <i class="fa fa-trash"></i> Delete
-                                                </button>
-                                            </form>
+                                            <button type="submit" class="btn btn-danger btn-sm" id="cf-delete"
+                                                    data-toggle="modal" data-target="#modal-delete"
+                                                    value="<?php echo $user['id']; ?>">
+                                                <i class="fa fa-trash"></i> Delete
+                                            </button>
                                         </td>
                                     </tr>
                                 <?php
@@ -347,13 +345,15 @@ $msgType = getFlashData('msg_type');
                             ?>
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<?php echo getAbsUrlAdmin('users') . '&page=1' . $queryString; ?>">
+                                   href="<?php echo getAbsUrlAdmin('users') . '&page=1' . $searchQueryString; ?>">
                                     First
                                 </a>
                             </li>
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<?php echo getAbsUrlAdmin('users') . '&page=' . $prevPage . $queryString; ?>">
+                                   href="<?php echo getAbsUrlAdmin(
+                                           'users'
+                                       ) . '&page=' . $prevPage . $searchQueryString; ?>">
                                     &laquo;
                                 </a>
                             </li>
@@ -384,7 +384,9 @@ $msgType = getFlashData('msg_type');
                             ?>
                             <li class="page-item <?php echo ($index == $currentPage) ? 'active' : null; ?>">
                                 <a class="page-link"
-                                   href="<?php echo getAbsUrlAdmin('users') . '&page=' . $index . $queryString; ?>">
+                                   href="<?php echo getAbsUrlAdmin(
+                                           'users'
+                                       ) . '&page=' . $index . $searchQueryString; ?>">
                                     <?php echo $index; ?>
                                 </a>
                             </li>
@@ -399,7 +401,9 @@ $msgType = getFlashData('msg_type');
                             ?>
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<?php echo getAbsUrlAdmin('users') . '&page=' . $nextPage . $queryString; ?>">
+                                   href="<?php echo getAbsUrlAdmin(
+                                           'users'
+                                       ) . '&page=' . $nextPage . $searchQueryString; ?>">
                                     &raquo;
                                 </a>
                             </li>
@@ -407,7 +411,7 @@ $msgType = getFlashData('msg_type');
                                 <a class="page-link"
                                    href="<?php echo getAbsUrlAdmin(
                                            'users'
-                                       ) . '&page=' . $totalPages . $queryString; ?>">
+                                       ) . '&page=' . $totalPages . $searchQueryString; ?>">
                                     Last
                                 </a>
                             </li>
@@ -423,5 +427,7 @@ $msgType = getFlashData('msg_type');
     </section> <!-- /.content -->
 
 <?php
+// Add Delete Modal
+addLayout('modal', 'admin');
 // Add Footer
 addLayout('footer', 'admin');

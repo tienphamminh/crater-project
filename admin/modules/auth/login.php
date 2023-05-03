@@ -7,9 +7,7 @@ if (!defined('_INCODE')) {
 }
 
 // Add Header
-$dataHeader = [
-    'pageTitle' => 'Log in'
-];
+$dataHeader = ['pageTitle' => 'Log in'];
 addLayout('header-login', 'admin', $dataHeader);
 
 if (isPost()) {

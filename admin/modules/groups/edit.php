@@ -7,9 +7,7 @@ if (!defined('_INCODE')) {
 }
 
 // Add Header
-$dataHeader = [
-    'pageTitle' => 'Edit Group'
-];
+$dataHeader = ['pageTitle' => 'Edit Group'];
 addLayout('header', 'admin', $dataHeader);
 addLayout('sidebar', 'admin', $dataHeader);
 addLayout('breadcrumb', 'admin', $dataHeader);
@@ -95,6 +93,7 @@ if (empty($errors)) {
                         <!-- /.card-header -->
                         <!-- form start -->
                         <form action="" method="post">
+                            <input type="hidden" name="id" value="<?php echo $groupId; ?>">
                             <div class="card-body">
                                 <?php echo getMessage($msg, $msgType); ?>
                                 <div class="form-group">
@@ -104,7 +103,6 @@ if (empty($errors)) {
                                            value="<?php echo getOldFormValue('name', $formValues); ?>">
                                     <?php echo getFormError('name', $errors); ?>
                                 </div>
-                                <input type="hidden" name="id" value="<?php echo $groupId; ?>">
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
@@ -112,6 +110,10 @@ if (empty($errors)) {
                                 <a href="<?php echo getAbsUrlAdmin('groups'); ?>"
                                    class="btn btn-outline-secondary px-4 float-right">
                                     Back
+                                </a>
+                                <a href="<?php echo getAbsUrlAdmin('groups', 'edit') . '&id=' . $groupId; ?>"
+                                   class="btn btn-outline-success px-4 mr-2 float-right">
+                                    Reset
                                 </a>
                             </div>
                         </form>

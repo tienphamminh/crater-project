@@ -7,9 +7,7 @@ if (!defined('_INCODE')) {
 }
 
 // Add Header
-$dataHeader = [
-    'pageTitle' => 'Add Group'
-];
+$dataHeader = ['pageTitle' => 'Add Group'];
 addLayout('header', 'admin', $dataHeader);
 addLayout('sidebar', 'admin', $dataHeader);
 addLayout('breadcrumb', 'admin', $dataHeader);

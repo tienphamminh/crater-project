@@ -404,11 +404,35 @@ function logoutOfAllDevices($userId): void
 }
 
 // Get a date formatted according to the specified format and datetime string.
-function getFormattedDate($dateStr, $format = 'H:i:s d-m-Y')
+function getFormattedDate($dateStr, $format = 'H:i:s d-m-Y'): bool|string
 {
     $dateObj = date_create($dateStr);
     if (!empty($dateObj)) {
         return date_format($dateObj, $format);
+    }
+
+    return false;
+}
+
+
+// Get query string of search form
+function getSearchQueryString($module, $action, $currentPage): string|null
+{
+    if (!empty($_SERVER['QUERY_STRING'])) {
+        $queryString = $_SERVER['QUERY_STRING'];
+        $queryString = str_replace('module=' . $module, '', $queryString);
+        $queryString = str_replace('&action=' . $action, '', $queryString);
+        return str_replace('&page=' . $currentPage, '', $queryString);
+    }
+
+    return null;
+}
+
+// Check if $str is font-awesome icon tag
+function isFontIcon($str)
+{
+    if (str_contains($str, '<i class="fa')) {
+        return true;
     }
 
     return false;

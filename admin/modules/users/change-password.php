@@ -7,9 +7,7 @@ if (!defined('_INCODE')) {
 }
 
 // Add Header
-$dataHeader = [
-    'pageTitle' => 'Change Password'
-];
+$dataHeader = ['pageTitle' => 'Change Password'];
 addLayout('header', 'admin', $dataHeader);
 addLayout('sidebar', 'admin', $dataHeader);
 addLayout('breadcrumb', 'admin', $dataHeader);
