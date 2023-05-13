@@ -110,7 +110,7 @@ if (empty($errors)) {
                                     <label for="fullname">Fullname</label>
                                     <input type="text" name="fullname" class="form-control" id="fullname"
                                            value="<?php echo getOldFormValue('fullname', $formValues); ?>">
-                                    <?php echo getFormError('fullname', $errors); ?>
+                                    <?php echo getFormErrorMsg('fullname', $errors); ?>
                                 </div>
                             </div>
 
@@ -119,7 +119,7 @@ if (empty($errors)) {
                                     <label for="phone">Phone Number</label>
                                     <input type="text" name="phone" class="form-control" id="phone"
                                            value="<?php echo getOldFormValue('phone', $formValues); ?>">
-                                    <?php echo getFormError('phone', $errors); ?>
+                                    <?php echo getFormErrorMsg('phone', $errors); ?>
                                 </div>
                             </div>
 
@@ -128,7 +128,7 @@ if (empty($errors)) {
                                     <label for="facebook">Facebook</label>
                                     <input type="text" name="contact_facebook" class="form-control" id="facebook"
                                            value="<?php echo getOldFormValue('contact_facebook', $formValues); ?>">
-                                    <?php echo getFormError('contact_facebook', $errors); ?>
+                                    <?php echo getFormErrorMsg('contact_facebook', $errors); ?>
                                 </div>
                             </div>
 
@@ -137,7 +137,7 @@ if (empty($errors)) {
                                     <label for="twitter">Twitter</label>
                                     <input type="text" name="contact_twitter" class="form-control" id="twitter"
                                            value="<?php echo getOldFormValue('contact_twitter', $formValues); ?>">
-                                    <?php echo getFormError('contact_twitter', $errors); ?>
+                                    <?php echo getFormErrorMsg('contact_twitter', $errors); ?>
                                 </div>
                             </div>
 
@@ -146,7 +146,7 @@ if (empty($errors)) {
                                     <label for="linkedin">LinkedIn</label>
                                     <input type="text" name="contact_linkedin" class="form-control" id="linkedin"
                                            value="<?php echo getOldFormValue('contact_linkedin', $formValues); ?>">
-                                    <?php echo getFormError('contact_linkedin', $errors); ?>
+                                    <?php echo getFormErrorMsg('contact_linkedin', $errors); ?>
                                 </div>
                             </div>
 
@@ -155,7 +155,7 @@ if (empty($errors)) {
                                     <label for="pinterest">Pinterest</label>
                                     <input type="text" name="contact_pinterest" class="form-control" id="pinterest"
                                            value="<?php echo getOldFormValue('contact_pinterest', $formValues); ?>">
-                                    <?php echo getFormError('contact_pinterest', $errors); ?>
+                                    <?php echo getFormErrorMsg('contact_pinterest', $errors); ?>
                                 </div>
                             </div>
 
@@ -166,7 +166,7 @@ if (empty($errors)) {
                                               id="introduction"><?php
                                         echo getOldFormValue('introduction', $formValues);
                                         ?></textarea>
-                                    <?php echo getFormError('introduction', $errors); ?>
+                                    <?php echo getFormErrorMsg('introduction', $errors); ?>
                                 </div>
                             </div>
 

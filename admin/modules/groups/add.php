@@ -67,19 +67,19 @@ $oldValues = getFlashData('old_values');
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-6">
-                    <!-- general form elements -->
                     <div class="card card-primary">
-                        <!-- /.card-header -->
                         <!-- form start -->
                         <form action="" method="post">
                             <div class="card-body">
                                 <?php echo getMessage($msg, $msgType); ?>
                                 <div class="form-group">
                                     <label for="group-name">Group Name</label>
-                                    <input type="text" name="name" class="form-control"
-                                           id="group-name" placeholder="Group Name"
+                                    <input type="text" name="name"
+                                           class="form-control <?php echo isFormError('name', $errors)
+                                               ? 'is-invalid' : null; ?>"
+                                           id="group-name" placeholder="Group Name..."
                                            value="<?php echo getOldFormValue('name', $oldValues); ?>">
-                                    <?php echo getFormError('name', $errors); ?>
+                                    <?php echo getFormErrorMsg('name', $errors); ?>
                                 </div>
                             </div>
                             <!-- /.card-body -->

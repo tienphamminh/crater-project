@@ -66,7 +66,12 @@ if (!defined('_INCODE')) {
 <script src="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/js/demo.js"></script>
 
 <!-- Custom -->
-<script src="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/js/custom.js"></script>
+<script type="text/javascript">
+    let rootUrl = '<?php echo _WEB_HOST_ROOT; ?>';
+    let prefixUrl = '<?php echo getPrefixUrl(); ?>';
+</script>
+
+<script src="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/js/custom.js?ver=<?php echo rand(); ?>"></script>
 
 </body>
 </html>

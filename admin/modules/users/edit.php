@@ -159,7 +159,7 @@ if (empty($errors)) {
                                     <input type="text" name="fullname" class="form-control" id="fullname"
                                            placeholder="Fullname"
                                            value="<?php echo getOldFormValue('fullname', $formValues); ?>">
-                                    <?php echo getFormError('fullname', $errors); ?>
+                                    <?php echo getFormErrorMsg('fullname', $errors); ?>
                                 </div>
                             </div>
 
@@ -190,7 +190,7 @@ if (empty($errors)) {
                                                 endif;
                                                 ?>
                                             </select>
-                                            <?php echo getFormError('group_id', $errors); ?>
+                                            <?php echo getFormErrorMsg('group_id', $errors); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -223,7 +223,7 @@ if (empty($errors)) {
                                     <input type="text" name="phone" class="form-control" id="phone"
                                            placeholder="Phone Number"
                                            value="<?php echo getOldFormValue('phone', $formValues); ?>">
-                                    <?php echo getFormError('phone', $errors); ?>
+                                    <?php echo getFormErrorMsg('phone', $errors); ?>
                                 </div>
                             </div>
 
@@ -233,7 +233,7 @@ if (empty($errors)) {
                                     <input type="email" name="email" class="form-control" id="email"
                                            placeholder="Email Address"
                                            value="<?php echo getOldFormValue('email', $formValues); ?>">
-                                    <?php echo getFormError('email', $errors); ?>
+                                    <?php echo getFormErrorMsg('email', $errors); ?>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -241,7 +241,7 @@ if (empty($errors)) {
                                     <label for="password">Password</label>
                                     <input type="password" name="password" class="form-control" id="password"
                                            placeholder="Password (Leave blank if no change)...">
-                                    <?php echo getFormError('password', $errors); ?>
+                                    <?php echo getFormErrorMsg('password', $errors); ?>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -249,7 +249,7 @@ if (empty($errors)) {
                                     <label for="cf-password">Confirm Password</label>
                                     <input type="password" name="confirm_password" class="form-control" id="cf-password"
                                            placeholder="Confirm Password (Leave blank if no change)...">
-                                    <?php echo getFormError('confirm_password', $errors); ?>
+                                    <?php echo getFormErrorMsg('confirm_password', $errors); ?>
                                 </div>
                             </div>
                         </div> <!-- /.row -->

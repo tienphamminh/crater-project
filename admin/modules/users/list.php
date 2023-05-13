@@ -311,8 +311,7 @@ $msgType = getFlashData('msg_type');
                                             </a>
                                         </td>
                                         <td>
-                                            <button type="submit" class="btn btn-danger btn-sm" id="cf-delete"
-                                                    data-toggle="modal" data-target="#modal-delete"
+                                            <button type="button" class="btn btn-danger btn-sm cf-delete"
                                                     value="<?php echo $user['id']; ?>">
                                                 <i class="fa fa-trash"></i> Delete
                                             </button>
@@ -428,6 +427,6 @@ $msgType = getFlashData('msg_type');
 
 <?php
 // Add Delete Modal
-addLayout('modal', 'admin');
+addLayout('modal-delete', 'admin');
 // Add Footer
 addLayout('footer', 'admin');

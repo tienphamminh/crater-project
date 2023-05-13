@@ -101,7 +101,7 @@ if (empty($errors)) {
                                     <input type="text" name="name" class="form-control"
                                            id="group-name" placeholder="Group Name"
                                            value="<?php echo getOldFormValue('name', $formValues); ?>">
-                                    <?php echo getFormError('name', $errors); ?>
+                                    <?php echo getFormErrorMsg('name', $errors); ?>
                                 </div>
                             </div>
                             <!-- /.card-body -->

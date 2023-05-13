@@ -98,7 +98,7 @@ if (!empty(getBody()['token'])) {
                     </div>
                 </div>
                 <div class="input-group">
-                    <?php echo getFormError('new_password', $errors); ?>
+                    <?php echo getFormErrorMsg('new_password', $errors); ?>
                 </div>
             </div>
 
@@ -110,7 +110,7 @@ if (!empty(getBody()['token'])) {
                     </div>
                 </div>
                 <div class="input-group">
-                    <?php echo getFormError('confirm_password', $errors); ?>
+                    <?php echo getFormErrorMsg('confirm_password', $errors); ?>
                 </div>
             </div>
 
