@@ -131,9 +131,9 @@ $oldValues = getFlashData('old_values');
                                 <div class="form-group">
                                     <label for="fullname">Fullname</label>
                                     <input type="text" name="fullname" class="form-control" id="fullname"
-                                           placeholder="Fullname"
+                                           placeholder="Fullname..."
                                            value="<?php echo getOldFormValue('fullname', $oldValues); ?>">
-                                    <?php echo getFormError('fullname', $errors); ?>
+                                    <?php echo getFormErrorMsg('fullname', $errors); ?>
                                 </div>
                             </div>
 
@@ -164,7 +164,7 @@ $oldValues = getFlashData('old_values');
                                                 endif;
                                                 ?>
                                             </select>
-                                            <?php echo getFormError('group_id', $errors); ?>
+                                            <?php echo getFormErrorMsg('group_id', $errors); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -191,9 +191,9 @@ $oldValues = getFlashData('old_values');
                                 <div class="form-group">
                                     <label for="phone">Phone Number</label>
                                     <input type="text" name="phone" class="form-control" id="phone"
-                                           placeholder="Phone Number"
+                                           placeholder="Phone Number..."
                                            value="<?php echo getOldFormValue('phone', $oldValues); ?>">
-                                    <?php echo getFormError('phone', $errors); ?>
+                                    <?php echo getFormErrorMsg('phone', $errors); ?>
                                 </div>
                             </div>
 
@@ -201,25 +201,25 @@ $oldValues = getFlashData('old_values');
                                 <div class="form-group">
                                     <label for="email">Email Address</label>
                                     <input type="email" name="email" class="form-control" id="email"
-                                           placeholder="Email Address"
+                                           placeholder="Email Address..."
                                            value="<?php echo getOldFormValue('email', $oldValues); ?>">
-                                    <?php echo getFormError('email', $errors); ?>
+                                    <?php echo getFormErrorMsg('email', $errors); ?>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="password">Password</label>
                                     <input type="password" name="password" class="form-control" id="password"
-                                           placeholder="Password">
-                                    <?php echo getFormError('password', $errors); ?>
+                                           placeholder="Password...">
+                                    <?php echo getFormErrorMsg('password', $errors); ?>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="cf-password">Confirm Password</label>
                                     <input type="password" name="confirm_password" class="form-control" id="cf-password"
-                                           placeholder="Confirm Password">
-                                    <?php echo getFormError('confirm_password', $errors); ?>
+                                           placeholder="Confirm Password...">
+                                    <?php echo getFormErrorMsg('confirm_password', $errors); ?>
                                 </div>
                             </div>
                         </div> <!-- /.row -->

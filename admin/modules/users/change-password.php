@@ -116,21 +116,21 @@ $errors = getFlashData('errors');
                                     <input type="password" name="current_password" class="form-control"
                                            id="current-password"
                                            placeholder="Current Password">
-                                    <?php echo getFormError('current_password', $errors); ?>
+                                    <?php echo getFormErrorMsg('current_password', $errors); ?>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="new-password">New Password</label>
                                     <input type="password" name="new_password" class="form-control" id="new-password"
                                            placeholder="New Password">
-                                    <?php echo getFormError('new_password', $errors); ?>
+                                    <?php echo getFormErrorMsg('new_password', $errors); ?>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="cf-password">Confirm New Password</label>
                                     <input type="password" name="confirm_new_password" class="form-control"
                                            id="cf-password" placeholder="Confirm New Password">
-                                    <?php echo getFormError('confirm_new_password', $errors); ?>
+                                    <?php echo getFormErrorMsg('confirm_new_password', $errors); ?>
                                 </div>
 
                                 <div class="form-check">

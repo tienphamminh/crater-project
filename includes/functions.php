@@ -12,26 +12,29 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+// User-defined filter input function
+function filterInput($data): string
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    return htmlspecialchars($data);
+}
+
 // Get current module
 function getCurrentModule(): ?string
 {
     if (!empty($_GET['module'])) {
-        if (is_string($_GET['module'])) {
-            return trim($_GET['module']);
-        }
+        return filterInput($_GET['module']);
     }
 
     return null;
 }
 
-
 // Get current module
 function getCurrentAction(): ?string
 {
     if (!empty($_GET['action'])) {
-        if (is_string($_GET['action'])) {
-            return trim($_GET['action']);
-        }
+        return filterInput($_GET['action']);
     }
 
     return null;
@@ -220,6 +223,16 @@ function isPhone($phone): bool
     return false;
 }
 
+// Check if an input string is valid slug
+function isSlug($slug): bool
+{
+    if (preg_match('/^[a-z0-9]+(-[a-z0-9]+)*$/', $slug)) {
+        return true;
+    }
+
+    return false;
+}
+
 // Get contextual feedback messages (Ex: $context = 'success', 'danger', 'warning' )
 function getMessage($msg, $context = 'primary'): ?string
 {
@@ -233,10 +246,20 @@ function getMessage($msg, $context = 'primary'): ?string
     return null;
 }
 
-// Get form validation errors
-function getFormError($fieldName, $errors): ?string
+// Check if the input field has an error
+function isFormError($fieldName, $errors): bool
 {
     if (!empty($errors[$fieldName])) {
+        return true;
+    }
+
+    return false;
+}
+
+// Get form validation errors
+function getFormErrorMsg($fieldName, $errors): ?string
+{
+    if (isFormError($fieldName, $errors)) {
         return '<small class="text-danger">' . reset($errors[$fieldName]) . '</small>';
     }
 
