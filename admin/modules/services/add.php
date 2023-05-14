@@ -42,11 +42,10 @@ if (isPost()) {
         $errors['content']['required'] = 'Required field';
     }
 
-
     if (empty($errors)) {
         // Validation successful
 
-        // Insert into table 'groups'
+        // Insert into table 'services'
         $dataInsert = [
             'name' => $serviceName,
             'slug' => $serviceSlug,
@@ -118,12 +117,12 @@ $oldValues = getFlashData('old_values');
                             <div class="row">
                                 <div class="col-sm-10">
                                     <input type="text" name="icon" class="form-control ckfinder-render-img"
-                                           placeholder="Icon or Image..."
+                                           placeholder="Insert icon tag or choose image..."
                                            value="<?php echo getOldFormValue('icon', $oldValues); ?>">
                                 </div>
                                 <div class="col-sm-2">
                                     <button type="button" class="btn btn-success btn-block ckfinder-choose-img">
-                                        Choose Icon or Image
+                                        Choose Image
                                     </button>
                                 </div>
                             </div>
@@ -165,7 +164,7 @@ $oldValues = getFlashData('old_values');
     <!-- /.content -->
 
 <?php
-// Add Delete Modal
+// Add Image Modal
 addLayout('modal-image', 'admin');
 // Add Footer
 addLayout('footer', 'admin');

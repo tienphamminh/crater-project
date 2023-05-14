@@ -17,10 +17,14 @@ $(document).ready(function () {
 
     // Show Image modal
     $('.image-popup').click(function () {
-        $('.image-preview').attr('src', $(this).find('img').attr('src'));
-        $('#modal-image').modal('show');
+        let imgTag = $(this).find('img');
+        if (imgTag.length) {
+            $('.image-preview').attr('src', imgTag.attr('src'));
+            $('#modal-image').modal('show');
+        }
     });
 });
+//======================================================================================================================
 
 // Convert a string to a URL-friendly slug
 function toSlug(title) {
@@ -43,12 +47,24 @@ function toSlug(title) {
     return slug;
 }
 
-// Auto generate slug
 function updateRenderLink(url) {
     renderLink.querySelector("span a").innerHTML = url;
     renderLink.querySelector("span a").href = url;
 }
 
+function showIconOrImage(element, imageUrl) {
+    if (imageUrl.startsWith(rootUrl)) {
+        element.innerHTML = `<img src="${imageUrl}" width="200" class="img-thumbnail">`;
+    } else if (imageUrl.startsWith('<i class=')) {
+        element.innerHTML = `${imageUrl}`;
+        element.classList.add('display-4');
+    } else {
+        element.innerHTML = ``;
+    }
+}
+
+//======================================================================================================================
+// Auto generate slug based on title input field
 let renderLink = document.querySelector('.render-link');
 if (renderLink !== null) {
     renderLink.querySelector('span').innerHTML = `<a href="${rootUrl}" target="_blank">${rootUrl}</a>`;
@@ -87,11 +103,12 @@ if (sourceTitle !== null && renderSlug !== null) {
         updateRenderLink(url);
     });
 }
-
-if (renderSlug.value.trim() === '') {
+// Remove session storage when reload page
+window.addEventListener("beforeunload", function (e) {
     sessionStorage.removeItem('save_slug');
-}
+});
 
+//======================================================================================================================
 // Use CKEditor with class '.editor'
 let textAreaElements = document.querySelectorAll('.editor');
 if (textAreaElements !== null) {
@@ -101,7 +118,25 @@ if (textAreaElements !== null) {
     });
 }
 
+//======================================================================================================================
+// Display FontAwesome Icon or Image when insert icon tag or choose Image
+let ckfinderGroups = document.querySelectorAll('.ckfinder-group');
+if (ckfinderGroups !== null) {
+    ckfinderGroups.forEach(function (element) {
+        let renderImage = element.querySelector('.ckfinder-render-img');
+        let showImage = element.querySelector('.ckfinder-show-image');
+        let imageUrl = renderImage.value.trim();
+        showIconOrImage(showImage, imageUrl);
 
+        renderImage.addEventListener('change', (e) => {
+            let imageUrl = e.target.value.trim();
+            showIconOrImage(showImage, imageUrl);
+        });
+    });
+
+}
+
+//======================================================================================================================
 // Open CKFinder in a popup window when click the 'Choose Image' button
 let chooseImages = document.querySelectorAll('.ckfinder-choose-img');
 if (chooseImages !== null) {
@@ -136,5 +171,16 @@ if (chooseImages !== null) {
                 }
             });
         });
+    })
+}
+
+// Sizing FontAwesome Icon
+let customIcons = document.querySelectorAll('.icon-2x');
+if (customIcons !== null) {
+    customIcons.forEach(function (element) {
+        let iconElement = element.querySelector('i');
+        if (iconElement !== null) {
+            iconElement.classList.add('fa-2x');
+        }
     })
 }

@@ -452,7 +452,7 @@ function getSearchQueryString($module, $action, $currentPage): string|null
 }
 
 // Check if $str is font-awesome icon tag
-function isFontIcon($str)
+function isFontIcon($str): bool
 {
     if (str_contains($str, '<i class="fa')) {
         return true;

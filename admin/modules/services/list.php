@@ -241,9 +241,9 @@ $msgType = getFlashData('msg_type');
                                     ?>
                                     <tr>
                                         <td><?php echo $ordinalNumber . '.'; ?></td>
-                                        <td>
+                                        <td class="icon-2x">
                                             <?php
-                                            $icon = $service['icon'];
+                                            $icon = html_entity_decode($service['icon']);
                                             echo (isFontIcon($icon))
                                                 ? $icon
                                                 : '<img src="' . $icon . '" width="50">'; ?>
