@@ -10,8 +10,8 @@ if (!isLoggedIn()) {
     redirect('admin/?module=auth&action=login');
 }
 
-// Automatic logout after 15 minutes of inactivity on the current device
-autoLogoutAfterInactive(900);
+// Automatic logout after 50 minutes of inactivity on the current device
+autoLogoutAfterInactive(3000);
 
 // Save the last time the user accessed the admin page.
 $userId = getSession('user_id');

@@ -65,14 +65,18 @@ function showIconOrImage(element, imageUrl) {
 
 //======================================================================================================================
 // Auto generate slug based on title input field
-let renderLink = document.querySelector('.render-link');
-if (renderLink !== null) {
-    renderLink.querySelector('span').innerHTML = `<a href="${rootUrl}" target="_blank">${rootUrl}</a>`;
-}
-
-
 let sourceTitle = document.querySelector('.source-title');
 let renderSlug = document.querySelector('.render-slug');
+let renderLink = document.querySelector('.render-link');
+
+if (renderLink !== null) {
+    let slug = '';
+    if (renderSlug !== null) {
+        slug = '/' + renderSlug.value.trim();
+    }
+    let url = rootUrl + slug;
+    renderLink.querySelector('span').innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
+}
 
 if (sourceTitle !== null && renderSlug !== null) {
     sourceTitle.addEventListener('keyup', (e) => {
