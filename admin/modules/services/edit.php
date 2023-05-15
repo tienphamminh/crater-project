@@ -62,7 +62,7 @@ if (isPost()) {
     if (empty($errors)) {
         // Validation successful
 
-        // Update group in table 'services'
+        // Update service in table 'services'
         $dataUpdate = [
             'name' => $serviceName,
             'slug' => $serviceSlug,
