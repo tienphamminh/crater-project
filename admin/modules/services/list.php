@@ -60,7 +60,7 @@ $users = getAllRows("SELECT id, fullname, email FROM users");
 
 // Pagination
 // Set the limit of number of records to be displayed per page
-$limit = 3;
+$limit = 20;
 
 // Determine the total number of pages available
 $sql = "SELECT id FROM services $whereClause";
@@ -223,7 +223,7 @@ $msgType = getFlashData('msg_type');
                             <tr>
                                 <th style="width: 5%">#</th>
                                 <th style="width: 5%">Icon</th>
-                                <th>Name</th>
+                                <th>Service Name</th>
                                 <th>Posted By</th>
                                 <th>Created At</th>
                                 <th style="width: 10%">View</th>
@@ -249,9 +249,19 @@ $msgType = getFlashData('msg_type');
                                                 : '<img src="' . $icon . '" width="50">'; ?>
                                         </td>
                                         <td>
-                                            <span id="name-delete-<?php echo $service['id']; ?>">
-                                                <?php echo $service['name']; ?>
-                                            </span>
+                                            <div class="d-flex">
+                                                <div id="name-delete-<?php echo $service['id']; ?>">
+                                                    <?php echo $service['name']; ?>
+                                                </div>
+                                                <div class="ml-auto">
+                                                    <a href="<?php echo getAbsUrlAdmin('services', 'duplicate')
+                                                        . '&id=' . $service['id']; ?>"
+                                                       class="btn btn-info btn-sm"
+                                                       data-toggle="tooltip" title="Duplicate">
+                                                        <i class="fas fa-clone"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td><?php echo $service['user_name']; ?></td>
                                         <td>
@@ -259,7 +269,6 @@ $msgType = getFlashData('msg_type');
                                                 ? getFormattedDate($service['created_at'])
                                                 : 'NULL'; ?>
                                         </td>
-
                                         <td>
                                             <a href="#"
                                                class="btn btn-info btn-sm">
@@ -387,7 +396,6 @@ $msgType = getFlashData('msg_type');
             </div><!-- /.card -->
 
         </div><!-- /.container-fluid -->
-
     </section> <!-- /.content -->
 
 <?php
