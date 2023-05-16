@@ -1,5 +1,8 @@
 // JQuery
 $(document).ready(function () {
+    // Initialize tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+
     // Show Delete modal
     $('.cf-delete').click(function () {
         let id = $(this).val();
