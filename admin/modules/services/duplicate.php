@@ -17,7 +17,9 @@ if (!empty($body['id'])) {
         $duplicate = $serviceDetails['duplicate'];
         $duplicate++;
         $newServiceName = $serviceDetails['name'] . ' (' . $duplicate . ')';
+        $newServiceSlug = $serviceDetails['slug'] . '-' . $duplicate;
         $serviceDetails['name'] = $newServiceName;
+        $serviceDetails['slug'] = $newServiceSlug;
         $serviceDetails['created_at'] = date('Y-m-d H:i:s');
 
         unset($serviceDetails['id']);
@@ -34,7 +36,7 @@ if (!empty($body['id'])) {
             $dataUpdate = ['duplicate' => $duplicate];
             $condition = "id=:id";
             $dataCondition = ['id' => $serviceId];
-            $isDataUpdated = update('services', $dataUpdate, $condition, $dataCondition);
+            update('services', $dataUpdate, $condition, $dataCondition);
 
             redirect('admin/?module=services');
         }

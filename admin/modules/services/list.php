@@ -102,9 +102,8 @@ $msgType = getFlashData('msg_type');
                     <i class="fa fa-plus mr-1"></i> Add service
                 </a>
             </p> <!-- /add button -->
-
             <hr>
-
+            <!-- Search Form -->
             <form action="" method="get">
                 <input type="hidden" name="module" value="services">
 
@@ -189,7 +188,6 @@ $msgType = getFlashData('msg_type');
                     </div>
                 </div>
 
-
                 <!-- keyword and search button -->
                 <div class="form-group">
                     <label>Keyword:</label>
@@ -208,7 +206,7 @@ $msgType = getFlashData('msg_type');
                         </div>
                     </div>
                 </div>
-            </form>
+            </form> <!-- /Search Form -->
 
             <div class="card">
                 <div class="card-header">

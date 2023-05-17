@@ -14,7 +14,7 @@ if (isPost()) {
         $data = ['id' => $serviceId];
 
         if (getNumberOfRows($sql, $data) > 0) {
-            // Delete the group
+            // Delete the service
             $condition = "id=:id";
             $dataCondition = ['id' => $serviceId];
             $isServiceDeleted = delete('services', $condition, $dataCondition);

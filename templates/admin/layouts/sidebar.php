@@ -140,6 +140,39 @@ if (!defined('_INCODE')) {
                 </li>
                 <!-- /.services -->
 
+                <!-- Pages -->
+                <li class="nav-item has-treeview <?php echo (isActiveModule('pages')) ? 'menu-open' : null; ?>">
+                    <!-- Parent-->
+                    <a href="#"
+                       class="nav-link <?php echo (isActiveModule('pages')) ? 'active' : null; ?>">
+                        <i class="nav-icon fas fa-file-alt"></i>
+                        <p>
+                            Pages
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <!-- Child-->
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('pages'); ?>"
+                               class="nav-link <?php echo (isActiveAction('pages', 'list')
+                                   || isActiveAction('pages', ''))
+                                   ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List of Pages</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('pages', 'add'); ?>"
+                               class="nav-link <?php echo (isActiveAction('pages', 'add')) ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Add Pages</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- /.pages -->
+
                 <!-- Blogs -->
                 <li class="nav-item has-treeview <?php echo (isActiveModule('blogs')) ? 'menu-open' : null; ?>">
                     <!-- Parent-->
