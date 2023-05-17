@@ -11,9 +11,13 @@ if (!defined('_INCODE')) {
 function getPrefixUrl(): ?string
 {
     $currentModule = getCurrentModule();
-    if ($currentModule == 'services') {
-        return 'dich-vu';
+    $prefixUrls = [
+        'service' => 'dich-vu',
+        'pages' => 'thong-tin'
+    ];
+    if (!empty($prefixUrls[$currentModule])) {
+        return $prefixUrls[$currentModule];
     }
-    
+
     return null;
 }
