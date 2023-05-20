@@ -166,12 +166,55 @@ if (!defined('_INCODE')) {
                             <a href="<?php echo getAbsUrlAdmin('pages', 'add'); ?>"
                                class="nav-link <?php echo (isActiveAction('pages', 'add')) ? 'active' : null; ?>">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Add Pages</p>
+                                <p>Add Page</p>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <!-- /.pages -->
+
+                <!-- Portfolios -->
+                <li class="nav-item has-treeview <?php echo (isActiveModule('portfolios')
+                    || isActiveModule('portfolio_categories')) ? 'menu-open' : null; ?>">
+                    <!-- Parent-->
+                    <a href="#"
+                       class="nav-link <?php echo (isActiveModule('portfolios')
+                           || isActiveModule('portfolio_categories')) ? 'active' : null; ?>">
+                        <i class="nav-icon fas fa-tasks"></i>
+                        <p>
+                            Portfolios
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <!-- Child-->
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('portfolios'); ?>"
+                               class="nav-link <?php echo (isActiveAction('portfolios', 'list')
+                                   || isActiveAction('portfolios', ''))
+                                   ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List of Portfolios</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('portfolios', 'add'); ?>"
+                               class="nav-link <?php echo (isActiveAction('portfolios', 'add')) ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Add Portfolio</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('portfolio_categories'); ?>"
+                               class="nav-link <?php echo (isActiveModule('portfolio_categories'))
+                                   ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Portfolio Categories</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- /.portfolios -->
 
                 <!-- Blogs -->
                 <li class="nav-item has-treeview <?php echo (isActiveModule('blogs')) ? 'menu-open' : null; ?>">
