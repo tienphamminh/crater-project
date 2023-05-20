@@ -88,7 +88,7 @@ $msgType = getFlashData('msg_type');
                 <input type="hidden" name="module" value="groups">
                 <div class="row">
                     <!-- order_by -->
-                    <div class="col-sm-2">
+                    <div class="col-6 col-md-2">
                         <div class="form-group">
                             <label>Order By:</label>
                             <select name="order_by" class="form-control">
@@ -116,7 +116,7 @@ $msgType = getFlashData('msg_type');
                     </div> <!-- /order_by -->
 
                     <!-- sort_order -->
-                    <div class="col-sm-2">
+                    <div class="col-6 col-md-2">
                         <div class="form-group">
                             <label>Sort Order:</label>
                             <select name="sort_order" class="form-control">
@@ -144,16 +144,17 @@ $msgType = getFlashData('msg_type');
                 <div class="form-group">
                     <label>Keyword:</label>
                     <div class="row">
-                        <div class="col-sm-10">
+                        <div class="col-10">
                             <div class="form-group">
                                 <input type="search" class="form-control" name="keyword"
                                        placeholder="Search by group name ..."
                                        value="<?php echo (!empty($keyword)) ? $keyword : null; ?>">
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-2">
                             <button type="submit" class="btn btn-primary btn-block">
-                                <i class="fa fa-search mr-1"></i> Search
+                                <i class="fa fa-search"></i>
+                                <span class="d-none d-md-inline ml-1">Search</span>
                             </button>
                         </div>
                     </div>
@@ -210,7 +211,7 @@ $msgType = getFlashData('msg_type');
                                             echo getAbsUrlAdmin('groups', 'assign') . '&id=' . $group['id']; ?>"
                                                class="btn btn-info btn-sm">
                                                 <i class="fa fa-tags"></i>
-                                                Assign
+                                                <span class="d-none d-xl-inline">Assign</span>
                                             </a>
                                         </td>
                                         <td>
@@ -218,13 +219,14 @@ $msgType = getFlashData('msg_type');
                                             echo getAbsUrlAdmin('groups', 'edit') . '&id=' . $group['id']; ?>"
                                                class="btn btn-warning btn-sm">
                                                 <i class="fa fa-edit"></i>
-                                                Edit
+                                                <span class="d-none d-xl-inline">Edit</span>
                                             </a>
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-danger btn-sm cf-delete"
                                                     value="<?php echo $group['id']; ?>">
-                                                <i class="fa fa-trash"></i> Delete
+                                                <i class="fa fa-trash"></i>
+                                                <span class="d-none d-xl-inline">Delete</span>
                                             </button>
                                         </td>
                                     </tr>

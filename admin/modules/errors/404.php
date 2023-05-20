@@ -5,11 +5,11 @@ if (!defined('_INCODE')) {
     http_response_code(403);
     exit;
 }
-
+$dataHeader = ['pageTitle' => '404 Error Page'];
 // Add Header
-addLayout('header', 'admin');
-addLayout('sidebar', 'admin');
-addLayout('breadcrumb', 'admin');
+addLayout('header', 'admin', $dataHeader);
+addLayout('sidebar', 'admin', $dataHeader);
+addLayout('breadcrumb', 'admin', $dataHeader);
 ?>
 
     <!-- Main content -->

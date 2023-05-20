@@ -122,104 +122,101 @@ $msgType = getFlashData('msg_type');
                 <input type="hidden" name="module" value="users">
 
                 <div class="row">
-                    <div class="col-sm-8">
-                        <div class="row">
-                            <!-- order_by -->
-                            <div class="col-sm">
-                                <div class="form-group">
-                                    <label>Order By:</label>
-                                    <select name="order_by" class="form-control">
-                                        <option value="fullname"
-                                            <?php echo (!empty($field) && $field == 'fullname') ? 'selected' : null; ?>>
-                                            User Name
-                                        </option>
-                                        <option value="created_at"
-                                            <?php
-                                            if (empty($field)) {
-                                                echo 'selected';
-                                            } elseif ($field == 'created_at') {
-                                                echo 'selected';
-                                            }
-                                            ?>
-                                        >
-                                            Created At
-                                        </option>
-                                    </select>
-                                </div>
-                            </div> <!-- /order_by -->
-
-                            <!-- sort_order -->
-                            <div class="col-sm">
-                                <div class="form-group">
-                                    <label>Sort Order:</label>
-                                    <select name="sort_order" class="form-control">
-                                        <option value="ASC"
-                                            <?php echo (!empty($sortOrder) && $sortOrder == 'ASC') ? 'selected' : null; ?>>
-                                            ASC
-                                        </option>
-                                        <option value="DESC"
-                                            <?php
-                                            if (empty($sortOrder)) {
-                                                echo 'selected';
-                                            } elseif ($sortOrder == 'DESC') {
-                                                echo 'selected';
-                                            }
-                                            ?>
-                                        >
-                                            DESC
-                                        </option>
-                                    </select>
-                                </div>
-                            </div> <!-- /sort_order -->
-
-                            <!-- status -->
-                            <div class="col-sm">
-                                <div class="form-group">
-                                    <label>Status:</label>
-                                    <select name="status" class="form-control">
-                                        <option value="">
-                                            Choose Status
-                                        </option>
-                                        <option value="1"
-                                            <?php echo (!empty($status) && $status == 1) ? 'selected' : null; ?>>
-                                            Active
-                                        </option>
-                                        <option value="2"
-                                            <?php echo (!empty($status) && $status == 2) ? 'selected' : null; ?>>
-                                            Not Active
-                                        </option>
-                                    </select>
-                                </div>
-                            </div> <!-- /status -->
-
-                            <!-- group_id -->
-                            <div class="col-sm">
-                                <div class="form-group">
-                                    <label>Group:</label>
-                                    <select name="group_id" class="form-control">
-                                        <option value="">
-                                            Choose Group
-                                        </option>
-                                        <?php
-                                        if (!empty($groups)):
-                                            foreach ($groups as $group):
-                                                ?>
-                                                <option value="<?php echo $group['id']; ?>"
-                                                    <?php echo (!empty($groupId) && $groupId == $group['id'])
-                                                        ? 'selected'
-                                                        : null; ?>
-                                                >
-                                                    <?php echo $group['name']; ?>
-                                                </option>
-                                            <?php
-                                            endforeach;
-                                        endif;
-                                        ?>
-                                    </select>
-                                </div>
-                            </div> <!-- /group_id -->
+                    <!-- order_by -->
+                    <div class="col-6 col-md-2">
+                        <div class="form-group">
+                            <label>Order By:</label>
+                            <select name="order_by" class="form-control">
+                                <option value="fullname"
+                                    <?php echo (!empty($field) && $field == 'fullname') ? 'selected' : null; ?>>
+                                    User Name
+                                </option>
+                                <option value="created_at"
+                                    <?php
+                                    if (empty($field)) {
+                                        echo 'selected';
+                                    } elseif ($field == 'created_at') {
+                                        echo 'selected';
+                                    }
+                                    ?>
+                                >
+                                    Created At
+                                </option>
+                            </select>
                         </div>
-                    </div>
+                    </div> <!-- /order_by -->
+
+                    <!-- sort_order -->
+                    <div class="col-6 col-md-2">
+                        <div class="form-group">
+                            <label>Sort Order:</label>
+                            <select name="sort_order" class="form-control">
+                                <option value="ASC"
+                                    <?php echo (!empty($sortOrder) && $sortOrder == 'ASC') ? 'selected' : null; ?>>
+                                    ASC
+                                </option>
+                                <option value="DESC"
+                                    <?php
+                                    if (empty($sortOrder)) {
+                                        echo 'selected';
+                                    } elseif ($sortOrder == 'DESC') {
+                                        echo 'selected';
+                                    }
+                                    ?>
+                                >
+                                    DESC
+                                </option>
+                            </select>
+                        </div>
+                    </div> <!-- /sort_order -->
+
+                    <!-- status -->
+                    <div class="col-6 col-md-2">
+                        <div class="form-group">
+                            <label>Status:</label>
+                            <select name="status" class="form-control">
+                                <option value="">
+                                    Choose Status
+                                </option>
+                                <option value="1"
+                                    <?php echo (!empty($status) && $status == 1) ? 'selected' : null; ?>>
+                                    Active
+                                </option>
+                                <option value="2"
+                                    <?php echo (!empty($status) && $status == 2) ? 'selected' : null; ?>>
+                                    Not Active
+                                </option>
+                            </select>
+                        </div>
+                    </div> <!-- /status -->
+
+                    <!-- group_id -->
+                    <div class="col-6 col-md-2">
+                        <div class="form-group">
+                            <label>Group:</label>
+                            <select name="group_id" class="form-control">
+                                <option value="">
+                                    Choose Group
+                                </option>
+                                <?php
+                                if (!empty($groups)):
+                                    foreach ($groups as $group):
+                                        ?>
+                                        <option value="<?php echo $group['id']; ?>"
+                                            <?php echo (!empty($groupId) && $groupId == $group['id'])
+                                                ? 'selected'
+                                                : null; ?>
+                                        >
+                                            <?php echo $group['name']; ?>
+                                        </option>
+                                    <?php
+                                    endforeach;
+                                endif;
+                                ?>
+                            </select>
+                        </div>
+                    </div> <!-- /group_id -->
+
                 </div>
 
 
@@ -227,16 +224,17 @@ $msgType = getFlashData('msg_type');
                 <div class="form-group">
                     <label>Keyword:</label>
                     <div class="row">
-                        <div class="col-sm-10">
+                        <div class="col-10">
                             <div class="form-group">
                                 <input type="search" class="form-control" name="keyword"
                                        placeholder="Search by user name ..."
                                        value="<?php echo (!empty($keyword)) ? $keyword : null; ?>">
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-2">
                             <button type="submit" class="btn btn-primary btn-block">
-                                <i class="fa fa-search mr-1"></i> Search
+                                <i class="fa fa-search"></i>
+                                <span class="d-none d-md-inline ml-1">Search</span>
                             </button>
                         </div>
                     </div>
@@ -307,13 +305,14 @@ $msgType = getFlashData('msg_type');
                                             echo getAbsUrlAdmin('users', 'edit') . '&id=' . $user['id']; ?>"
                                                class="btn btn-warning btn-sm">
                                                 <i class="fa fa-edit"></i>
-                                                Edit
+                                                <span class="d-none d-xl-inline">Edit</span>
                                             </a>
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-danger btn-sm cf-delete"
                                                     value="<?php echo $user['id']; ?>">
-                                                <i class="fa fa-trash"></i> Delete
+                                                <i class="fa fa-trash"></i>
+                                                <span class="d-none d-xl-inline">Delete</span>
                                             </button>
                                         </td>
                                     </tr>
