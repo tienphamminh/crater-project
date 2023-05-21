@@ -156,8 +156,8 @@ $msgType = getFlashData('msg_type');
                         </div>
                     </div> <!-- /sort_order -->
 
-                    <!-- user_id -->
-                    <div class="col-6 col-md-2">
+                    <!-- posted by -->
+                    <div class="col-6 col-md-4">
                         <div class="form-group">
                             <label>Posted By:</label>
                             <select name="user_id" class="form-control">
@@ -181,7 +181,7 @@ $msgType = getFlashData('msg_type');
                                 ?>
                             </select>
                         </div>
-                    </div> <!-- /user_id -->
+                    </div> <!-- /posted by -->
                 </div>
 
                 <!-- keyword and search button -->

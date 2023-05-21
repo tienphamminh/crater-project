@@ -62,9 +62,10 @@ if (!empty(getBody()['page'])) {
 $offset = ($currentPage - 1) * $limit;
 
 // Retrieve data
-$sql = "SELECT * FROM `groups` $whereClause $orderClause LIMIT :limit OFFSET :offset";
+$sql = "SELECT `groups`.*, COUNT(users.id) AS users_count FROM `groups`";
+$sql .= " LEFT JOIN users ON `groups`.id=users.group_id";
+$sql .= " $whereClause GROUP BY `groups`.id $orderClause LIMIT :limit OFFSET :offset";
 $groups = getLimitRows($sql, $limit, $offset, $dataCondition);
-
 
 $searchQueryString = getSearchQueryString('groups', 'list', $currentPage);
 
@@ -192,9 +193,16 @@ $msgType = getFlashData('msg_type');
                                     <tr>
                                         <td><?php echo $ordinalNumber . '.'; ?></td>
                                         <td>
-                                            <span id="name-delete-<?php echo $group['id']; ?>">
-                                                <?php echo $group['name']; ?>
-                                            </span>
+                                            <div class="d-flex">
+                                                <div id="name-delete-<?php echo $group['id']; ?>">
+                                                    <?php echo $group['name']; ?>
+                                                </div>
+                                                <div class="ml-auto">
+                                                    <span class="badge bg-cyan">
+                                                        <?php echo $group['users_count']; ?>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td>
                                             <?php echo (!empty($group['created_at']))

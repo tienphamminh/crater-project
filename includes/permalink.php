@@ -12,7 +12,7 @@ function getPrefixUrl(): ?string
 {
     $currentModule = getCurrentModule();
     $prefixUrls = [
-        'service' => 'dich-vu',
+        'services' => 'dich-vu',
         'pages' => 'thong-tin'
     ];
     if (!empty($prefixUrls[$currentModule])) {

@@ -69,9 +69,10 @@ if (!empty(getBody()['page'])) {
 $offset = ($currentPage - 1) * $limit;
 
 // Retrieve data
-$sql = "SELECT * FROM portfolio_categories $whereClause $orderClause LIMIT :limit OFFSET :offset";
+$sql = "SELECT portfolio_categories.*, COUNT(portfolios.id) AS portfolios_count FROM portfolio_categories";
+$sql .= " LEFT JOIN portfolios ON portfolio_categories.id=portfolios.portfolio_category_id";
+$sql .= " $whereClause GROUP BY portfolio_categories.id $orderClause LIMIT :limit OFFSET :offset";
 $categories = getLimitRows($sql, $limit, $offset, $dataCondition);
-
 
 $searchQueryString = getSearchQueryString('portfolio_categories', 'list', $currentPage);
 
@@ -189,7 +190,7 @@ $msgType = getFlashData('msg_type');
                                     <tr>
                                         <th style="width: 5%">#</th>
                                         <th>Category Name</th>
-                                        <th style="width: 25%">Created At</th>
+                                        <th style="width: 30%">Created At</th>
                                         <th style="width: 10%">Edit</th>
                                         <th style="width: 10%">Delete</th>
                                     </tr>
@@ -205,9 +206,16 @@ $msgType = getFlashData('msg_type');
                                             <tr>
                                                 <td><?php echo $ordinalNumber . '.'; ?></td>
                                                 <td>
-                                                    <span id="name-delete-<?php echo $category['id']; ?>">
-                                                        <?php echo $category['name']; ?>
-                                                    </span>
+                                                    <div class="d-flex">
+                                                        <div id="name-delete-<?php echo $category['id']; ?>">
+                                                            <?php echo $category['name']; ?>
+                                                        </div>
+                                                        <div class="ml-auto">
+                                                            <span class="badge bg-cyan">
+                                                                <?php echo $category['portfolios_count']; ?>
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <?php echo (!empty($category['created_at']))
