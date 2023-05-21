@@ -75,9 +75,11 @@ let renderLink = document.querySelector('.render-link');
 if (renderLink !== null) {
     let slug = '';
     if (renderSlug !== null) {
-        slug = '/' + renderSlug.value.trim();
+        if (renderSlug.value.trim() !== '') {
+            slug = renderSlug.value.trim() + '.html';
+        }
     }
-    let url = rootUrl + slug;
+    let url = rootUrl + "/" + prefixUrl + '/' + slug;
     renderLink.querySelector('span').innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
 }
 
