@@ -100,7 +100,7 @@ $oldValues = getFlashData('old_values');
                         </div>
 
                         <div class="form-group">
-                            <p class="render-link"><b>Link:</b> <span></span></p>
+                            <p class="render-link"><b>Page URL: </b> <span></span></p>
                         </div>
 
                         <div class="form-group">

@@ -108,21 +108,22 @@ $oldValues = getFlashData('old_values');
                         </div>
 
                         <div class="form-group">
-                            <p class="render-link"><b>Link:</b> <span></span></p>
+                            <p class="render-link"><b>Service URL:</b> <span></span></p>
                         </div>
 
 
                         <div class="form-group ckfinder-group">
                             <label for="">Icon or Image</label>
                             <div class="row">
-                                <div class="col-sm-10">
+                                <div class="col-10">
                                     <input type="text" name="icon" class="form-control ckfinder-render-img"
                                            placeholder="Insert icon tag or choose image..."
                                            value="<?php echo getOldFormValue('icon', $oldValues); ?>">
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-2">
                                     <button type="button" class="btn btn-success btn-block ckfinder-choose-img">
-                                        Choose Image
+                                        <i class="fas fa-upload"></i>
+                                        <span class="d-none d-xl-inline ml-1">Choose Image</span>
                                     </button>
                                 </div>
                             </div>
@@ -138,7 +139,6 @@ $oldValues = getFlashData('old_values');
                             <textarea name="description" class="form-control"
                                       id="service-description" placeholder="Description..."
                             ><?php echo getOldFormValue('description', $oldValues); ?></textarea>
-                            <?php echo getFormErrorMsg('description', $errors); ?>
                         </div>
 
                         <div class="form-group">
