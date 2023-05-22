@@ -13,7 +13,8 @@ function getPrefixUrl(): ?string
     $currentModule = getCurrentModule();
     $prefixUrls = [
         'services' => 'dich-vu',
-        'pages' => 'thong-tin'
+        'pages' => 'thong-tin',
+        'portfolios' => 'du-an'
     ];
     if (!empty($prefixUrls[$currentModule])) {
         return $prefixUrls[$currentModule];

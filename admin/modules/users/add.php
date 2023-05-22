@@ -110,7 +110,7 @@ if (isPost()) {
 }
 
 // Retrieve group data for  <select name="group_id">
-$groups = getAllRows("SELECT id, name FROM `groups`");
+$groups = getAllRows("SELECT id, name FROM `groups` ORDER BY name");
 
 $msg = getFlashData('msg');
 $msgType = getFlashData('msg_type');
@@ -139,7 +139,7 @@ $oldValues = getFlashData('old_values');
 
                             <div class="col-sm-6">
                                 <div class="row">
-                                    <div class="col-sm-8">
+                                    <div class="col-6 col-sm-8">
                                         <div class="form-group">
                                             <label>Group:</label>
                                             <select name="group_id" class="form-control">
@@ -167,7 +167,7 @@ $oldValues = getFlashData('old_values');
                                             <?php echo getFormErrorMsg('group_id', $errors); ?>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-6 col-sm-4">
                                         <div class="form-group">
                                             <label>Status:</label>
                                             <select name="status" class="form-control">
