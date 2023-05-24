@@ -127,9 +127,8 @@ $oldValues = getFlashData('old_values');
                                     </button>
                                 </div>
                             </div>
-                            <div class="mt-2">
-                                <span class="ckfinder-show-image image-popup" style="cursor: pointer">
-                                </span>
+                            <!-- '.ckfinder-show-img' must be inside '.ckfinder-group' -->
+                            <div class="mt-2 ckfinder-show-img image-popup" style="width: 200px; cursor: pointer;">
                             </div>
                             <?php echo getFormErrorMsg('icon', $errors); ?>
                         </div>
