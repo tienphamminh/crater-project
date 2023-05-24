@@ -6,11 +6,11 @@ $(document).ready(function () {
     // Show Delete modal
     $('.cf-delete').click(function () {
         let id = $(this).val();
-        let name = $('#name-delete-' + id).text();
-        let email = $('#email-delete-' + id).text();
+        let name = $('#name-delete-' + id).text().trim();
+        let email = $('#email-delete-' + id).text().trim();
 
         $('#id-delete').val(id);
-        if (!email.trim()) {
+        if (!email) {
             $('#msg-delete').text(name);
         } else {
             $('#msg-delete').text(name + ' - ' + email);
@@ -57,7 +57,7 @@ function updateRenderLink(url) {
 
 function showIconOrImage(element, imageUrl) {
     if (imageUrl.startsWith(rootUrl)) {
-        element.innerHTML = `<img src="${imageUrl}" width="200" class="img-thumbnail">`;
+        element.innerHTML = `<img src="${imageUrl}" class="img-thumbnail img-fluid">`;
     } else if (imageUrl.startsWith('<i class=')) {
         element.innerHTML = `${imageUrl}`;
         element.classList.add('display-4');
@@ -113,7 +113,7 @@ if (sourceTitle !== null && renderSlug !== null) {
     });
 }
 // Remove session storage when reload page
-window.addEventListener("beforeunload", function (e) {
+window.addEventListener("beforeunload", () => {
     sessionStorage.removeItem('save_slug');
 });
 
@@ -131,65 +131,145 @@ if (textAreaElements !== null) {
 // Display FontAwesome Icon or Image when insert icon tag or choose Image
 let ckfinderGroups = document.querySelectorAll('.ckfinder-group');
 if (ckfinderGroups !== null) {
-    ckfinderGroups.forEach(function (element) {
+    ckfinderGroups.forEach((element) => {
         let renderImage = element.querySelector('.ckfinder-render-img');
-        let showImage = element.querySelector('.ckfinder-show-image');
-        let imageUrl = renderImage.value.trim();
-        showIconOrImage(showImage, imageUrl);
-
-        renderImage.addEventListener('change', (e) => {
-            let imageUrl = e.target.value.trim();
+        let showImage = element.querySelector('.ckfinder-show-img');
+        if (showImage !== null) {
+            let imageUrl = renderImage.value.trim();
             showIconOrImage(showImage, imageUrl);
-        });
-    });
 
+            renderImage.addEventListener('change', (e) => {
+                let imageUrl = e.target.value.trim();
+                showIconOrImage(showImage, imageUrl);
+            });
+        }
+    });
 }
 
 //======================================================================================================================
 // Open CKFinder in a popup window when click the 'Choose Image' button
+function openCKFinder(element) {
+    element.addEventListener('click', (e) => {
+        // Get the parent of this element that has the class name '.ckfinder-group'
+        let parent = e.currentTarget.parentElement;
+        while (parent) {
+            if (parent.classList.contains('ckfinder-group')) {
+                break;
+            }
+            parent = parent.parentElement;
+        }
+
+        CKFinder.popup({
+            chooseFiles: true,
+            width: 800,
+            height: 600,
+            onInit: function (finder) {
+                finder.on('files:choose', function (evt) {
+                    // Insert the uploaded image filename into the input field (.ckfinder-render-img)
+                    let imageUrl = evt.data.files.first().getUrl();
+                    imageUrl = rootUrl + imageUrl.replace(/\/crater-project/g, "");
+                    parent.querySelector('.ckfinder-render-img').value = imageUrl;
+                    let showImage = parent.querySelector('.ckfinder-show-img');
+                    if (showImage !== null) {
+                        showImage.innerHTML = `<img src="${imageUrl}" class="img-thumbnail img-fluid">`;
+                    }
+                });
+                finder.on('file:choose:resizedImage', function (evt) {
+                    let fileUrl = evt.data.resizedUrl;
+                    // Insert uploaded image filename into input field
+                });
+            }
+        });
+    });
+}
+
 let chooseImages = document.querySelectorAll('.ckfinder-choose-img');
 if (chooseImages !== null) {
-    chooseImages.forEach(function (element) {
-
-        element.addEventListener('click', function () {
-            // Get the parent of this element that has the class name '.ckfinder-group'
-            let parent = this.parentElement;
-            while (parent) {
-                if (parent.classList.contains('ckfinder-group')) {
-                    break;
-                }
-                parent = parent.parentElement;
-            }
-
-            CKFinder.popup({
-                chooseFiles: true,
-                width: 800,
-                height: 600,
-                onInit: function (finder) {
-                    finder.on('files:choose', function (evt) {
-                        // Insert the uploaded image filename into the input field (.ckfinder-render-img)
-                        let imageUrl = evt.data.files.first().getUrl();
-                        imageUrl = rootUrl + imageUrl.replace(/\/crater-project/g, "");
-                        parent.querySelector('.ckfinder-render-img').value = imageUrl;
-                        parent.querySelector('.ckfinder-show-image').innerHTML = `<img src="${imageUrl}" width="200" class="img-thumbnail">`;
-                    });
-                    finder.on('file:choose:resizedImage', function (evt) {
-                        let fileUrl = evt.data.resizedUrl;
-                        // Insert uploaded image filename into input field
-                    });
-                }
-            });
-        });
+    chooseImages.forEach((element) => {
+        openCKFinder(element);
     })
 }
 
+//======================================================================================================================
 // Sizing FontAwesome Icon
 let customIcons = document.querySelectorAll('.icon-2x');
 if (customIcons !== null) {
-    customIcons.forEach(function (element) {
+    customIcons.forEach((element) => {
         let iconElement = element.querySelector('i');
         if (iconElement !== null) {
             iconElement.classList.add('fa-2x');
         }
     })
+}
+
+//======================================================================================================================
+// Image gallery repeater
+let addImgItem = document.querySelector('.add-img-item');
+let imgGallery = document.querySelector('.img-gallery');
+let imgItemId = 0;
+
+if (addImgItem !== null && imgGallery !== null) {
+    addImgItem.addEventListener('click', (e) => {
+        let imgItemHtml = `<!-- Image item -->
+                            <div class="img-item ckfinder-group">
+                                <div class="row">
+                                    <div class="col-10 col-md-11">
+                                        <div class="input-group mb-3">
+                                            <input type="text" name="gallery[]" readonly
+                                                   class="form-control ckfinder-render-img img-item-popup"
+                                                   placeholder="Choose image..."
+                                                   style="cursor: pointer">
+                                            <div class="input-group-append">
+                                                <button type="button" id="choose-img-item-${imgItemId}"
+                                                        class="btn btn-success">
+                                                    <i class="fas fa-upload"></i>
+                                                    <span class="d-none d-xl-inline ml-1">Choose Image</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 col-md-1">
+                                        <div class="d-flex">
+                                            <div class="w-75 ml-auto">
+                                                <button type="button" id="remove-img-item-${imgItemId}"
+                                                        class="btn btn-danger btn-block" >
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- /.img-item -->`
+        imgGallery.insertAdjacentHTML("beforeend", imgItemHtml);
+
+        // Open CKFinder
+        let chooseImgItem = document.querySelector(`#choose-img-item-${imgItemId}`);
+        openCKFinder(chooseImgItem);
+
+        // Delete img-item
+        let removeImgItem = document.querySelector(`#remove-img-item-${imgItemId}`);
+        removeImgItem.addEventListener('click', (e) => {
+            if (confirm("Are you sure want to delete?")) {
+                let parent = e.currentTarget.parentElement;
+                while (parent) {
+                    if (parent.classList.contains('img-item')) {
+                        break;
+                    }
+                    parent = parent.parentElement;
+                }
+                parent.remove();
+            }
+        });
+
+        // Show Image modal
+        $('.img-item-popup').click(function () {
+            let imgUrl = $(this).val().trim();
+            if (imgUrl) {
+                $('.image-preview').attr('src', imgUrl);
+                $('#modal-image').modal('show');
+            }
+        });
+
+        imgItemId++;
+    });
 }

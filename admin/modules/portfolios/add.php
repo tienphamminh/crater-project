@@ -169,13 +169,13 @@ $oldValues = getFlashData('old_values');
                                     </button>
                                 </div>
                             </div>
-                            <div class="mt-2">
-                                <span class="ckfinder-show-image image-popup" style="cursor: pointer"></span>
+                            <!-- '.ckfinder-show-img' must be inside '.ckfinder-group' -->
+                            <div class="mt-2 ckfinder-show-img image-popup" style="width: 200px; cursor: pointer;">
                             </div>
                             <?php echo getFormErrorMsg('thumbnail', $errors); ?>
                         </div>
 
-                        <div class="form-group">
+                        <div class=" form-group">
                             <label for="portfolio-video">Video URL</label>
                             <input type="url" name="video" class="form-control"
                                    id="portfolio-video" placeholder="https://www.youtube.com/..."
@@ -195,6 +195,15 @@ $oldValues = getFlashData('old_values');
                             <textarea name="content" class="form-control editor"
                             ><?php echo getOldFormValue('content', $oldValues); ?></textarea>
                             <?php echo getFormErrorMsg('content', $errors); ?>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Gallery</label>
+                            <div class="img-gallery">
+
+                            </div> <!-- /.img-gallery -->
+
+                            <button type="button" class="btn btn-success add-img-item">Add Image</button>
                         </div>
 
                     </div> <!-- /.card-body -->
