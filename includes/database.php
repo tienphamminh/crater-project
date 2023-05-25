@@ -126,3 +126,9 @@ function getNumberOfRows($sql, $data = [])
 
     return false;
 }
+
+function getLastInsertedId()
+{
+    global $dbh;
+    return $dbh->lastInsertId();
+}

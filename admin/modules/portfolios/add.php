@@ -54,6 +54,16 @@ if (isPost()) {
         $errors['content']['required'] = 'Required field';
     }
 
+    // Gallery: Required if there is any image item
+    if (!empty($body['gallery'])) {
+        $imgItems = $body['gallery'];
+        foreach ($imgItems as $key => $imgItem) {
+            if (empty(trim($imgItem))) {
+                $errors['gallery']['required'][$key] = 'Required field';
+            }
+        }
+    }
+
     if (empty($errors)) {
         // Validation successful
 
@@ -72,6 +82,19 @@ if (isPost()) {
         $isDataInserted = insert('portfolios', $dataInsert);
 
         if ($isDataInserted) {
+            // Insert gallery into table 'portfolio_images'
+            $insertedId = getLastInsertedId();
+            if (!empty($imgItems)) {
+                foreach ($imgItems as $imgItem) {
+                    $imgData = [
+                        'portfolio_id' => $insertedId,
+                        'image' => trim($imgItem),
+                        'created_at' => date('Y-m-d H:i:s')
+                    ];
+                    insert('portfolio_images', $imgData);
+                }
+            }
+
             setFlashData('msg', 'Portfolio has been added successfully.');
             setFlashData('msg_type', 'success');
             redirect('admin/?module=portfolios');
@@ -197,14 +220,70 @@ $oldValues = getFlashData('old_values');
                             <?php echo getFormErrorMsg('content', $errors); ?>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group img-gallery-container">
                             <label for="">Gallery</label>
-                            <div class="img-gallery">
-
+                            <!-- Image gallery -->
+                            <div class="img-gallery" id="sortable">
+                                <?php
+                                if (!empty($errors['gallery'])) {
+                                    $galleryErrors = reset($errors['gallery']);
+                                }
+                                $oldImgItems = getOldFormValue('gallery', $oldValues);
+                                if (!empty($oldImgItems)):
+                                    foreach ($oldImgItems as $key => $oldImgItem):
+                                        ?>
+                                        <!-- Image item -->
+                                        <div class="img-item ckfinder-group">
+                                            <div class="row">
+                                                <div class="col-10 col-xl-11">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" name="gallery[]" readonly
+                                                               class="form-control ckfinder-render-img img-item-popup"
+                                                               placeholder="Choose image..." style="cursor: pointer"
+                                                               value="<?php echo (!empty($oldImgItem)) ? $oldImgItem : null; ?>">
+                                                        <!-- Browse Button -->
+                                                        <div class="input-group-append">
+                                                            <button type="button" class="btn btn-success"
+                                                                    id="choose-img-item-<?php echo $key; ?>">
+                                                                <i class="fas fa-upload"></i>
+                                                                <span class="d-none d-xl-inline ml-1">Choose Image</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2 col-xl-1">
+                                                    <div class="d-flex">
+                                                        <!-- Delete Button -->
+                                                        <div style="width: 65%">
+                                                            <button type="button" class="btn btn-danger btn-block"
+                                                                    id="remove-img-item-<?php echo $key; ?>">
+                                                                <i class="fas fa-times"></i>
+                                                            </button>
+                                                        </div>
+                                                        <!-- Drag Handle -->
+                                                        <div class="ml-auto d-flex align-items-center drag-handle"
+                                                             style="width: 20%; cursor: move;">
+                                                            <i class="fas fa-sort fa-lg text-secondary"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php if (!empty($galleryErrors[$key])): ?>
+                                                <div class="mt-n3 mb-2">
+                                                    <small class="text-danger"><?php echo $galleryErrors[$key]; ?></small>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div> <!-- /.img-item -->
+                                    <?php
+                                    endforeach;
+                                endif;
+                                ?>
                             </div> <!-- /.img-gallery -->
-
-                            <button type="button" class="btn btn-success add-img-item">Add Image</button>
-                        </div>
+                            <!-- Add Image Button -->
+                            <button type="button" class="btn btn-warning add-img-item">
+                                <i class="fas fa-plus mr-1"></i> Add Image
+                            </button>
+                        </div> <!-- /.form-group -->
 
                     </div> <!-- /.card-body -->
 
@@ -216,11 +295,10 @@ $oldValues = getFlashData('old_values');
                         </a>
                     </div>
                 </form>
-            </div>
-            <!-- /.card -->
-        </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+            </div> <!-- /.card -->
+
+        </div> <!-- /.container-fluid -->
+    </section> <!-- /.content -->
 
 <?php
 // Add Image Modal

@@ -1,5 +1,6 @@
 // JQuery
 $(document).ready(function () {
+
     // Initialize tooltips
     $('[data-toggle="tooltip"]').tooltip();
 
@@ -199,77 +200,118 @@ if (customIcons !== null) {
         if (iconElement !== null) {
             iconElement.classList.add('fa-2x');
         }
-    })
+    });
 }
 
 //======================================================================================================================
-// Image gallery repeater
+
+function deleteImgItem(removeBtnElement) {
+    removeBtnElement.addEventListener('click', (e) => {
+        if (confirm('Are you sure want to delete?')) {
+            let parent = e.currentTarget.parentElement;
+            while (parent) {
+                if (parent.classList.contains('img-item')) {
+                    break;
+                }
+                parent = parent.parentElement;
+            }
+            parent.remove();
+        }
+    });
+}
+
+function showImgItemModal() {
+    $('.img-item-popup').click(function () {
+        let imgUrl = $(this).val().trim();
+        if (imgUrl) {
+            $('.image-preview').attr('src', imgUrl);
+            $('#modal-image').modal('show');
+        }
+    });
+}
+
+// Image gallery repeater (drag and drop sortable list of img items)
 let addImgItem = document.querySelector('.add-img-item');
 let imgGallery = document.querySelector('.img-gallery');
-let imgItemId = 0;
 
 if (addImgItem !== null && imgGallery !== null) {
+    let imgItems = imgGallery.querySelectorAll('.img-item');
+    let imgItemId = 0;
+
+    if (imgItems !== null) {
+        imgItemId = imgItems.length;
+
+        imgItems.forEach((element, index) => {
+            // Open CKFinder
+            let chooseImgItem = element.querySelector(`#choose-img-item-${index}`)
+            openCKFinder(chooseImgItem);
+
+            // Delete img-item
+            let removeImgItem = element.querySelector(`#remove-img-item-${index}`);
+            deleteImgItem(removeImgItem);
+        });
+
+        // Show Image modal from input
+        showImgItemModal();
+    }
+
     addImgItem.addEventListener('click', (e) => {
         let imgItemHtml = `<!-- Image item -->
-                            <div class="img-item ckfinder-group">
-                                <div class="row">
-                                    <div class="col-10 col-md-11">
-                                        <div class="input-group mb-3">
-                                            <input type="text" name="gallery[]" readonly
-                                                   class="form-control ckfinder-render-img img-item-popup"
-                                                   placeholder="Choose image..."
-                                                   style="cursor: pointer">
-                                            <div class="input-group-append">
-                                                <button type="button" id="choose-img-item-${imgItemId}"
-                                                        class="btn btn-success">
-                                                    <i class="fas fa-upload"></i>
-                                                    <span class="d-none d-xl-inline ml-1">Choose Image</span>
-                                                </button>
+                                <div class="img-item ckfinder-group">
+                                    <div class="row">
+                                        <div class="col-10 col-xl-11">
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="gallery[]" readonly
+                                                       class="form-control ckfinder-render-img img-item-popup"
+                                                       placeholder="Choose image..."
+                                                       style="cursor: pointer">
+                                                <div class="input-group-append">
+                                                    <button type="button" id="choose-img-item-${imgItemId}"
+                                                            class="btn btn-success">
+                                                        <i class="fas fa-upload"></i>
+                                                        <span class="d-none d-xl-inline ml-1">Choose Image</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2 col-xl-1">
+                                            <div class="d-flex">
+                                                <div style="width: 65%">
+                                                    <button type="button" id="remove-img-item-${imgItemId}"
+                                                            class="btn btn-danger btn-block">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="ml-auto d-flex align-items-center drag-handle"
+                                                     style="width: 20%; cursor: move;">
+                                                    <i class="fas fa-sort fa-lg text-secondary"></i> 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-2 col-md-1">
-                                        <div class="d-flex">
-                                            <div class="w-75 ml-auto">
-                                                <button type="button" id="remove-img-item-${imgItemId}"
-                                                        class="btn btn-danger btn-block" >
-                                                    <i class="fas fa-times"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- /.img-item -->`
-        imgGallery.insertAdjacentHTML("beforeend", imgItemHtml);
+                                </div> <!-- /.img-item -->`;
+
+        imgGallery.insertAdjacentHTML('beforeend', imgItemHtml);
 
         // Open CKFinder
-        let chooseImgItem = document.querySelector(`#choose-img-item-${imgItemId}`);
+        let chooseImgItem = imgGallery.querySelector(`#choose-img-item-${imgItemId}`);
         openCKFinder(chooseImgItem);
 
         // Delete img-item
-        let removeImgItem = document.querySelector(`#remove-img-item-${imgItemId}`);
-        removeImgItem.addEventListener('click', (e) => {
-            if (confirm("Are you sure want to delete?")) {
-                let parent = e.currentTarget.parentElement;
-                while (parent) {
-                    if (parent.classList.contains('img-item')) {
-                        break;
-                    }
-                    parent = parent.parentElement;
-                }
-                parent.remove();
-            }
-        });
+        let removeImgItem = imgGallery.querySelector(`#remove-img-item-${imgItemId}`);
+        deleteImgItem(removeImgItem);
 
-        // Show Image modal
-        $('.img-item-popup').click(function () {
-            let imgUrl = $(this).val().trim();
-            if (imgUrl) {
-                $('.image-preview').attr('src', imgUrl);
-                $('#modal-image').modal('show');
-            }
-        });
+        // Show Image modal from input
+        showImgItemModal();
 
         imgItemId++;
+    });
+
+    // Sortable jQuery UI
+    $("#sortable").sortable({
+        opacity: 0.7,
+        revert: 200,
+        handle: ".drag-handle",
+        containment: ".img-gallery-container",
     });
 }
