@@ -5,6 +5,7 @@ if (!defined('_INCODE')) {
     http_response_code(403);
     exit;
 }
+
 $dataHeader = ['pageTitle' => '404 Error Page'];
 // Add Header
 addLayout('header', 'admin', $dataHeader);

@@ -14,6 +14,11 @@ if (isPost()) {
         $data = ['id' => $portfolioId];
 
         if (getNumberOfRows($sql, $data) > 0) {
+            // Delete gallery of portfolio (portfolio_images)
+            $condition = "portfolio_id=:portfolio_id";
+            $dataCondition = ['portfolio_id' => $portfolioId];
+            delete('portfolio_images', $condition, $dataCondition);
+            
             // Delete the portfolio
             $condition = "id=:id";
             $dataCondition = ['id' => $portfolioId];

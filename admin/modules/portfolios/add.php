@@ -83,11 +83,11 @@ if (isPost()) {
 
         if ($isDataInserted) {
             // Insert gallery into table 'portfolio_images'
-            $insertedId = getLastInsertedId();
+            $lastInsertedId = getLastInsertedId();
             if (!empty($imgItems)) {
                 foreach ($imgItems as $imgItem) {
                     $imgData = [
-                        'portfolio_id' => $insertedId,
+                        'portfolio_id' => $lastInsertedId,
                         'image' => trim($imgItem),
                         'created_at' => date('Y-m-d H:i:s')
                     ];

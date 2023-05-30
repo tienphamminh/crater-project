@@ -14,6 +14,11 @@ if (!empty($body['id'])) {
     $data = ['id' => $portfolioId];
     $portfolioDetails = getFirstRow($sql, $data);
     if (!empty($portfolioDetails)) {
+        // Retrieve portfolio images data
+        $sql = "SELECT * FROM portfolio_images WHERE portfolio_id=:portfolio_id";
+        $data = ['portfolio_id' => $portfolioId];
+        $gallery = getAllRows($sql, $data);
+
         $duplicate = $portfolioDetails['duplicate'];
         $duplicate++;
         $newPortfolioName = $portfolioDetails['name'] . ' (' . $duplicate . ')';
@@ -29,6 +34,19 @@ if (!empty($body['id'])) {
         $isDataInserted = insert('portfolios', $portfolioDetails);
 
         if ($isDataInserted) {
+            // Insert  copy of the gallery into table 'portfolio_images'
+            $lastInsertedId = getLastInsertedId();
+            if (!empty($gallery)) {
+                foreach ($gallery as $imgDetails) {
+                    $imgData = [
+                        'portfolio_id' => $lastInsertedId,
+                        'image' => $imgDetails['image'],
+                        'created_at' => date('Y-m-d H:i:s')
+                    ];
+                    insert('portfolio_images', $imgData);
+                }
+            }
+
             setFlashData('msg', 'Portfolio has been duplicated successfully.');
             setFlashData('msg_type', 'success');
 
