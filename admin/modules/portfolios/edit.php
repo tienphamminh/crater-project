@@ -19,7 +19,21 @@ if (!empty($body['id'])) {
     $sql = "SELECT * FROM portfolios WHERE id=:id";
     $data = ['id' => $portfolioId];
     $portfolioDetails = getFirstRow($sql, $data);
-    if (empty($portfolioDetails)) {
+    if (!empty($portfolioDetails)) {
+        // Retrieve portfolio images data
+        $sql = "SELECT * FROM portfolio_images WHERE portfolio_id=:portfolio_id";
+        $data = ['portfolio_id' => $portfolioId];
+        $gallery = getAllRows($sql, $data);
+
+        $imgItems = [];
+        $imgItemIDs = [];
+        if (!empty($gallery)) {
+            foreach ($gallery as $imgDetails) {
+                $imgItems[] = $imgDetails['image'];
+                $imgItemIDs[] = $imgDetails['id'];
+            }
+        }
+    } else {
         setFlashData('msg', 'Something went wrong, please try again.');
         setFlashData('msg_type', 'danger');
         redirect('admin/?module=portfolios');
@@ -71,8 +85,78 @@ if (isPost()) {
         $errors['content']['required'] = 'Required field';
     }
 
+    // Gallery: Required if there is any image item
+    $editedImgItems = [];
+    if (!empty($body['gallery'])) {
+        $editedImgItems = $body['gallery'];
+        foreach ($editedImgItems as $index => $imgItem) {
+            if (empty(trim($imgItem))) {
+                $errors['gallery']['required'][$index] = 'Required field';
+            }
+        }
+    }
+
     if (empty($errors)) {
         // Validation successful
+
+        // Update portfolio image in table 'portfolio_images'
+        if (count($editedImgItems) > count($imgItems)) {
+            // CASE 1: Add more and edit
+            if (!empty($imgItems)) {
+                foreach ($imgItems as $index => $imgItem) {
+                    $imgDataUpdate = [
+                        'image' => $editedImgItems[$index],
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ];
+                    $condition = "id=:id";
+                    $dataCondition = ['id' => $imgItemIDs[$index]];
+                    update('portfolio_images', $imgDataUpdate, $condition, $dataCondition);
+                }
+            } else {
+                $index = -1;
+            }
+
+            for ($k = $index + 1; $k < count($editedImgItems); $k++) {
+                $imgDataInsert = [
+                    'portfolio_id' => $portfolioId,
+                    'image' => $editedImgItems[$k],
+                    'created_at' => date('Y-m-d H:i:s')
+                ];
+                insert('portfolio_images', $imgDataInsert);
+            }
+        } elseif (count($editedImgItems) < count($imgItems)) {
+            // CASE 2: Delete and edit
+            if (!empty($editedImgItems)) {
+                foreach ($editedImgItems as $index => $imgItem) {
+                    $imgDataUpdate = [
+                        'image' => $imgItem,
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ];
+                    $condition = "id=:id";
+                    $dataCondition = ['id' => $imgItemIDs[$index]];
+                    update('portfolio_images', $imgDataUpdate, $condition, $dataCondition);
+                }
+            } else {
+                $index = -1;
+            }
+
+            for ($k = $index + 1; $k < count($imgItems); $k++) {
+                $condition = "id=:id";
+                $dataCondition = ['id' => $imgItemIDs[$k]];
+                delete('portfolio_images', $condition, $dataCondition);
+            }
+        } else {
+            // CASE 3: Just edit
+            foreach ($editedImgItems as $index => $imgItem) {
+                $imgDataUpdate = [
+                    'image' => $imgItem,
+                    'updated_at' => date('Y-m-d H:i:s')
+                ];
+                $condition = "id=:id";
+                $dataCondition = ['id' => $imgItemIDs[$index]];
+                update('portfolio_images', $imgDataUpdate, $condition, $dataCondition);
+            }
+        }
 
         // Update portfolio in table 'portfolios'
         $dataUpdate = [
@@ -115,6 +199,7 @@ $msgType = getFlashData('msg_type');
 $errors = getFlashData('errors');
 if (empty($errors)) {
     $formValues = $portfolioDetails;
+    $formValues['gallery'] = $imgItems;
 } else {
     $formValues = getFlashData('old_values');
 }
@@ -219,6 +304,71 @@ if (empty($errors)) {
                             <?php echo getFormErrorMsg('content', $errors); ?>
                         </div>
 
+                        <div class="form-group img-gallery-container">
+                            <label for="">Image Gallery</label>
+                            <!-- Image gallery -->
+                            <div class="img-gallery" id="sortable">
+                                <?php
+                                if (!empty($errors['gallery'])) {
+                                    $galleryErrors = reset($errors['gallery']);
+                                }
+                                $oldImgItems = getOldFormValue('gallery', $formValues);
+                                if (!empty($oldImgItems)):
+                                    foreach ($oldImgItems as $index => $oldImgItem):
+                                        ?>
+                                        <!-- Image item -->
+                                        <div class="img-item ckfinder-group">
+                                            <div class="row">
+                                                <div class="col-10 col-xl-11">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" name="gallery[]" readonly
+                                                               class="form-control ckfinder-render-img img-item-popup"
+                                                               placeholder="Choose image..." style="cursor: pointer"
+                                                               value="<?php echo (!empty($oldImgItem)) ? $oldImgItem : null; ?>">
+                                                        <!-- Browse Button -->
+                                                        <div class="input-group-append">
+                                                            <button type="button" class="btn btn-success"
+                                                                    id="choose-img-item-<?php echo $index; ?>">
+                                                                <i class="fas fa-upload"></i>
+                                                                <span class="d-none d-xl-inline ml-1">Choose Image</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2 col-xl-1">
+                                                    <div class="d-flex">
+                                                        <!-- Delete Button -->
+                                                        <div style="width: 65%">
+                                                            <button type="button" class="btn btn-danger btn-block"
+                                                                    id="remove-img-item-<?php echo $index; ?>">
+                                                                <i class="fas fa-times"></i>
+                                                            </button>
+                                                        </div>
+                                                        <!-- Drag Handle -->
+                                                        <div class="ml-auto d-flex align-items-center drag-handle"
+                                                             style="width: 20%; cursor: move;">
+                                                            <i class="fas fa-sort fa-lg text-secondary"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php if (!empty($galleryErrors[$index])): ?>
+                                                <div class="mt-n3 mb-2">
+                                                    <small class="text-danger"><?php echo $galleryErrors[$index]; ?></small>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div> <!-- /.img-item -->
+                                    <?php
+                                    endforeach;
+                                endif;
+                                ?>
+                            </div> <!-- /.img-gallery -->
+                            <!-- Add Image Button -->
+                            <button type="button" class="btn btn-warning add-img-item">
+                                <i class="fas fa-plus mr-1"></i> Add Image
+                            </button>
+                        </div> <!-- /.form-group -->
+
                     </div> <!-- /.card-body -->
 
                     <div class="card-footer clearfix">
@@ -233,11 +383,10 @@ if (empty($errors)) {
                         </a>
                     </div>
                 </form>
-            </div>
-            <!-- /.card -->
-        </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+            </div> <!-- /.card -->
+
+        </div> <!-- /.container-fluid -->
+    </section> <!-- /.content -->
 
 <?php
 // Add Image Modal

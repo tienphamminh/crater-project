@@ -57,9 +57,9 @@ if (isPost()) {
     // Gallery: Required if there is any image item
     if (!empty($body['gallery'])) {
         $imgItems = $body['gallery'];
-        foreach ($imgItems as $key => $imgItem) {
+        foreach ($imgItems as $index => $imgItem) {
             if (empty(trim($imgItem))) {
-                $errors['gallery']['required'][$key] = 'Required field';
+                $errors['gallery']['required'][$index] = 'Required field';
             }
         }
     }
@@ -221,7 +221,7 @@ $oldValues = getFlashData('old_values');
                         </div>
 
                         <div class="form-group img-gallery-container">
-                            <label for="">Gallery</label>
+                            <label for="">Image Gallery</label>
                             <!-- Image gallery -->
                             <div class="img-gallery" id="sortable">
                                 <?php
@@ -230,7 +230,7 @@ $oldValues = getFlashData('old_values');
                                 }
                                 $oldImgItems = getOldFormValue('gallery', $oldValues);
                                 if (!empty($oldImgItems)):
-                                    foreach ($oldImgItems as $key => $oldImgItem):
+                                    foreach ($oldImgItems as $index => $oldImgItem):
                                         ?>
                                         <!-- Image item -->
                                         <div class="img-item ckfinder-group">
@@ -244,7 +244,7 @@ $oldValues = getFlashData('old_values');
                                                         <!-- Browse Button -->
                                                         <div class="input-group-append">
                                                             <button type="button" class="btn btn-success"
-                                                                    id="choose-img-item-<?php echo $key; ?>">
+                                                                    id="choose-img-item-<?php echo $index; ?>">
                                                                 <i class="fas fa-upload"></i>
                                                                 <span class="d-none d-xl-inline ml-1">Choose Image</span>
                                                             </button>
@@ -256,7 +256,7 @@ $oldValues = getFlashData('old_values');
                                                         <!-- Delete Button -->
                                                         <div style="width: 65%">
                                                             <button type="button" class="btn btn-danger btn-block"
-                                                                    id="remove-img-item-<?php echo $key; ?>">
+                                                                    id="remove-img-item-<?php echo $index; ?>">
                                                                 <i class="fas fa-times"></i>
                                                             </button>
                                                         </div>
@@ -268,9 +268,9 @@ $oldValues = getFlashData('old_values');
                                                     </div>
                                                 </div>
                                             </div>
-                                            <?php if (!empty($galleryErrors[$key])): ?>
+                                            <?php if (!empty($galleryErrors[$index])): ?>
                                                 <div class="mt-n3 mb-2">
-                                                    <small class="text-danger"><?php echo $galleryErrors[$key]; ?></small>
+                                                    <small class="text-danger"><?php echo $galleryErrors[$index]; ?></small>
                                                 </div>
                                             <?php endif; ?>
                                         </div> <!-- /.img-item -->

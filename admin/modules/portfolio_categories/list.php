@@ -20,7 +20,7 @@ if (!empty($_GET['view'])) {
 }
 
 // Search form handling
-$orderClause = "ORDER BY created_at DESC";
+$orderClause = "ORDER BY portfolio_categories.created_at DESC";
 $whereClause = '';
 $dataCondition = [];
 if (isGet()) {
@@ -28,7 +28,7 @@ if (isGet()) {
 
     if (!empty($body['order_by'])) {
         $field = $body['order_by'];
-        $orderClause = "ORDER BY $field";
+        $orderClause = "ORDER BY portfolio_categories." . $field;
 
         if (!empty($body['sort_order'])) {
             $sortOrder = $body['sort_order'];
@@ -40,7 +40,7 @@ if (isGet()) {
     if (!empty($body['keyword'])) {
         $keyword = $body['keyword'];
 
-        $whereClause .= "WHERE name LIKE :pattern";
+        $whereClause .= "WHERE portfolio_categories.name LIKE :pattern";
         $pattern = "%$keyword%";
         $dataCondition['pattern'] = $pattern;
     }
