@@ -16,7 +16,7 @@ $currentModule = getCurrentModule();
                 <input type="hidden" name="id" id="id-delete">
 
                 <div class="modal-body">
-                    <p>Delete <?php echo rtrim($currentModule, 's'); ?>: <span id="msg-delete"></span></p>
+                    <p><span id="msg-delete"></span></p>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

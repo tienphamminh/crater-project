@@ -7,15 +7,11 @@ $(document).ready(function () {
     // Show Delete modal
     $('.cf-delete').click(function () {
         let id = $(this).val();
-        let name = $('#name-delete-' + id).text().trim();
-        let email = $('#email-delete-' + id).text().trim();
+        let msg = $(this).data('msg');
 
         $('#id-delete').val(id);
-        if (!email) {
-            $('#msg-delete').text(name);
-        } else {
-            $('#msg-delete').text(name + ' - ' + email);
-        }
+        $('#msg-delete').text(msg);
+
         $('#modal-delete').modal('show');
     });
 
@@ -73,14 +69,21 @@ let sourceTitle = document.querySelector('.source-title');
 let renderSlug = document.querySelector('.render-slug');
 let renderLink = document.querySelector('.render-link');
 
+let suffixUrl = '.html';
+if (renderSlug !== null) {
+    if (renderSlug.id === 'category-slug') {
+        suffixUrl = '';
+    }
+}
+
 if (renderLink !== null) {
     let slug = '';
     if (renderSlug !== null) {
         if (renderSlug.value.trim() !== '') {
-            slug = renderSlug.value.trim() + '.html';
+            slug = renderSlug.value.trim() + suffixUrl;
         }
     }
-    let url = rootUrl + "/" + prefixUrl + '/' + slug;
+    let url = rootUrl + '/' + prefixUrl + '/' + slug;
     renderLink.querySelector('span').innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
 }
 
@@ -98,7 +101,7 @@ if (sourceTitle !== null && renderSlug !== null) {
     sourceTitle.addEventListener('change', () => {
         sessionStorage.setItem('save_slug', '1');
 
-        let url = rootUrl + "/" + prefixUrl + "/" + renderSlug.value.trim() + ".html";
+        let url = rootUrl + '/' + prefixUrl + '/' + renderSlug.value.trim() + suffixUrl;
         updateRenderLink(url);
     });
 
@@ -109,12 +112,12 @@ if (sourceTitle !== null && renderSlug !== null) {
             let newSlug = toSlug(sourceTitle.value);
             e.target.value = newSlug;
         }
-        let url = rootUrl + "/" + prefixUrl + "/" + renderSlug.value.trim() + ".html";
+        let url = rootUrl + '/' + prefixUrl + '/' + renderSlug.value.trim() + suffixUrl;
         updateRenderLink(url);
     });
 }
 // Remove session storage when reload page
-window.addEventListener("beforeunload", () => {
+window.addEventListener('beforeunload', () => {
     sessionStorage.removeItem('save_slug');
 });
 

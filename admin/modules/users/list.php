@@ -273,16 +273,8 @@ $msgType = getFlashData('msg_type');
                                     ?>
                                     <tr>
                                         <td><?php echo $ordinalNumber . '.'; ?></td>
-                                        <td>
-                                            <span id="name-delete-<?php echo $user['id']; ?>">
-                                                <?php echo $user['fullname']; ?>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span id="email-delete-<?php echo $user['id']; ?>">
-                                                <?php echo $user['email']; ?>
-                                            </span>
-                                        </td>
+                                        <td><?php echo $user['fullname']; ?></td>
+                                        <td><?php echo $user['email']; ?></td>
                                         <td><?php echo $user['phone']; ?></td>
                                         <td><?php echo $user['group_name']; ?></td>
                                         <td>
@@ -309,8 +301,10 @@ $msgType = getFlashData('msg_type');
                                             </a>
                                         </td>
                                         <td>
+                                            <?php $msgDelete = 'Delete user: ' . $user['fullname'] . ' (' . $user['email'] . ')'; ?>
                                             <button type="button" class="btn btn-danger btn-sm cf-delete"
-                                                    value="<?php echo $user['id']; ?>">
+                                                    value="<?php echo $user['id']; ?>"
+                                                    data-msg="<?php echo $msgDelete; ?>">
                                                 <i class="fa fa-trash"></i>
                                                 <span class="d-none d-xl-inline">Delete</span>
                                             </button>

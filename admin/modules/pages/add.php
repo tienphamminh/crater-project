@@ -92,9 +92,9 @@ $oldValues = getFlashData('old_values');
                         </div>
 
                         <div class="form-group">
-                            <label for="page-slug">URL-friendly Slug</label>
+                            <label for="page-slug">Page Slug</label>
                             <input type="text" name="slug" class="form-control render-slug"
-                                   id="page-slug" placeholder="URL-friendly Slug..."
+                                   id="page-slug" placeholder="Page Slug..."
                                    value="<?php echo getOldFormValue('slug', $oldValues); ?>">
                             <?php echo getFormErrorMsg('slug', $errors); ?>
                         </div>
