@@ -245,7 +245,7 @@ $msgType = getFlashData('msg_type');
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                <div id="name-delete-<?php echo $service['id']; ?>">
+                                                <div>
                                                     <?php echo $service['name']; ?>
                                                 </div>
                                                 <div class="ml-auto d-none d-xl-block">
@@ -280,8 +280,10 @@ $msgType = getFlashData('msg_type');
                                             </a>
                                         </td>
                                         <td>
+                                            <?php $msgDelete = 'Delete service: ' . $service['name']; ?>
                                             <button type="button" class="btn btn-danger btn-sm cf-delete"
-                                                    value="<?php echo $service['id']; ?>">
+                                                    value="<?php echo $service['id']; ?>"
+                                                    data-msg="<?php echo $msgDelete; ?>">
                                                 <i class="fa fa-trash"></i>
                                                 <span class="d-none d-xl-inline">Delete</span>
                                             </button>

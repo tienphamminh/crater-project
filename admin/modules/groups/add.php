@@ -74,9 +74,7 @@ $oldValues = getFlashData('old_values');
                                 <?php echo getMessage($msg, $msgType); ?>
                                 <div class="form-group">
                                     <label for="group-name">Group Name</label>
-                                    <input type="text" name="name"
-                                           class="form-control <?php echo isFormError('name', $errors)
-                                               ? 'is-invalid' : null; ?>"
+                                    <input type="text" name="name" class="form-control"
                                            id="group-name" placeholder="Group Name..."
                                            value="<?php echo getOldFormValue('name', $oldValues); ?>">
                                     <?php echo getFormErrorMsg('name', $errors); ?>

@@ -223,9 +223,9 @@ if (empty($errors)) {
                         </div>
 
                         <div class="form-group">
-                            <label for="page-slug">URL-friendly Slug</label>
+                            <label for="portfolio-slug">Portfolio Slug</label>
                             <input type="text" name="slug" class="form-control render-slug"
-                                   id="page-slug" placeholder="URL-friendly Slug..."
+                                   id="portfolio-slug" placeholder="Portfolio Slug..."
                                    value="<?php echo getOldFormValue('slug', $formValues); ?>">
                             <?php echo getFormErrorMsg('slug', $errors); ?>
                         </div>

@@ -194,7 +194,7 @@ $msgType = getFlashData('msg_type');
                                         <td><?php echo $ordinalNumber . '.'; ?></td>
                                         <td>
                                             <div class="d-flex">
-                                                <div id="name-delete-<?php echo $group['id']; ?>">
+                                                <div>
                                                     <?php echo $group['name']; ?>
                                                 </div>
                                                 <div class="ml-auto">
@@ -231,8 +231,10 @@ $msgType = getFlashData('msg_type');
                                             </a>
                                         </td>
                                         <td>
+                                            <?php $msgDelete = 'Delete user group: ' . $group['name']; ?>
                                             <button type="button" class="btn btn-danger btn-sm cf-delete"
-                                                    value="<?php echo $group['id']; ?>">
+                                                    value="<?php echo $group['id']; ?>"
+                                                    data-msg="<?php echo $msgDelete; ?>">
                                                 <i class="fa fa-trash"></i>
                                                 <span class="d-none d-xl-inline">Delete</span>
                                             </button>

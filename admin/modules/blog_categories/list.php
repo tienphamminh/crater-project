@@ -8,7 +8,7 @@ if (!defined('_INCODE')) {
 
 // Add Header
 $dataHeader = [
-    'pageTitle' => 'Portfolio Categories'
+    'pageTitle' => 'Blog Categories'
 ];
 addLayout('header', 'admin', $dataHeader);
 addLayout('sidebar', 'admin', $dataHeader);
@@ -20,7 +20,7 @@ if (!empty($_GET['view'])) {
 }
 
 // Search form handling
-$orderClause = "ORDER BY portfolio_categories.created_at DESC";
+$orderClause = "ORDER BY blog_categories.created_at DESC";
 $whereClause = '';
 $dataCondition = [];
 if (isGet()) {
@@ -28,7 +28,7 @@ if (isGet()) {
 
     if (!empty($body['order_by'])) {
         $field = $body['order_by'];
-        $orderClause = "ORDER BY portfolio_categories." . $field;
+        $orderClause = "ORDER BY blog_categories." . $field;
 
         if (!empty($body['sort_order'])) {
             $sortOrder = $body['sort_order'];
@@ -40,7 +40,7 @@ if (isGet()) {
     if (!empty($body['keyword'])) {
         $keyword = $body['keyword'];
 
-        $whereClause .= "WHERE portfolio_categories.name LIKE :pattern";
+        $whereClause .= "WHERE blog_categories.name LIKE :pattern";
         $pattern = "%$keyword%";
         $dataCondition['pattern'] = $pattern;
     }
@@ -51,7 +51,7 @@ if (isGet()) {
 $limit = 5;
 
 // Determine the total number of pages available
-$sql = "SELECT id FROM portfolio_categories $whereClause";
+$sql = "SELECT id FROM blog_categories $whereClause";
 $totalRows = getNumberOfRows($sql, $dataCondition);
 $totalPages = ceil($totalRows / $limit);
 
@@ -69,12 +69,12 @@ if (!empty(getBody()['page'])) {
 $offset = ($currentPage - 1) * $limit;
 
 // Retrieve data
-$sql = "SELECT portfolio_categories.*, COUNT(portfolios.id) AS portfolios_count FROM portfolio_categories";
-$sql .= " LEFT JOIN portfolios ON portfolio_categories.id=portfolios.portfolio_category_id";
-$sql .= " $whereClause GROUP BY portfolio_categories.id $orderClause LIMIT :limit OFFSET :offset";
+$sql = "SELECT blog_categories.*, COUNT(blogs.id) AS blogs_count FROM blog_categories";
+$sql .= " LEFT JOIN blogs ON blog_categories.id=blogs.blog_category_id";
+$sql .= " $whereClause GROUP BY blog_categories.id $orderClause LIMIT :limit OFFSET :offset";
 $categories = getLimitRows($sql, $limit, $offset, $dataCondition);
 
-$searchQueryString = getSearchQueryString('portfolio_categories', 'list', $currentPage);
+$searchQueryString = getSearchQueryString('blog_categories', 'list', $currentPage);
 
 $msg = getFlashData('msg');
 $msgType = getFlashData('msg_type');
@@ -103,7 +103,7 @@ $msgType = getFlashData('msg_type');
                     <div class="card" style="min-height: 235px">
                         <form action="" method="get">
                             <div class="card-body">
-                                <input type="hidden" name="module" value="portfolio_categories">
+                                <input type="hidden" name="module" value="blog_categories">
                                 <div class="row">
                                     <!-- order_by -->
                                     <div class="col-6 col-lg-3">
@@ -190,7 +190,8 @@ $msgType = getFlashData('msg_type');
                                     <tr>
                                         <th style="width: 5%">#</th>
                                         <th>Category Name</th>
-                                        <th style="width: 30%">Created At</th>
+                                        <th style="width: 25%">Created At</th>
+                                        <th style="width: 10%">View</th>
                                         <th style="width: 10%">Edit</th>
                                         <th style="width: 10%">Delete</th>
                                     </tr>
@@ -212,7 +213,7 @@ $msgType = getFlashData('msg_type');
                                                         </div>
                                                         <div class="ml-auto">
                                                             <span class="badge bg-cyan">
-                                                                <?php echo $category['portfolios_count']; ?>
+                                                                <?php echo $category['blogs_count']; ?>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -223,9 +224,15 @@ $msgType = getFlashData('msg_type');
                                                         : 'NULL'; ?>
                                                 </td>
                                                 <td>
+                                                    <a href="#"
+                                                       class="btn btn-info btn-sm">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </td>
+                                                <td>
                                                     <a href="<?php
                                                     echo getAbsUrlAdmin(
-                                                        'portfolio_categories',
+                                                        'blog_categories',
                                                         '',
                                                         ['view' => 'edit', 'id' => $category['id']]
                                                     ); ?>"
@@ -234,7 +241,7 @@ $msgType = getFlashData('msg_type');
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <?php $msgDelete = 'Delete portfolio category: ' . $category['name']; ?>
+                                                    <?php $msgDelete = 'Delete blog category: ' . $category['name']; ?>
                                                     <button type="button" class="btn btn-danger btn-sm cf-delete"
                                                             value="<?php echo $category['id']; ?>"
                                                             data-msg="<?php echo $msgDelete; ?>">
@@ -247,7 +254,7 @@ $msgType = getFlashData('msg_type');
                                     else:
                                         ?>
                                         <tr>
-                                            <td colspan="5">
+                                            <td colspan="6">
                                                 <div class="alert alert-default-danger text-center">
                                                     No data to display.
                                                 </div>
@@ -271,14 +278,14 @@ $msgType = getFlashData('msg_type');
                                     ?>
                                     <li class="page-item">
                                         <a class="page-link"
-                                           href="<?php echo getAbsUrlAdmin('portfolio_categories')
+                                           href="<?php echo getAbsUrlAdmin('blog_categories')
                                                . '&page=1' . $searchQueryString; ?>">
                                             First
                                         </a>
                                     </li>
                                     <li class="page-item">
                                         <a class="page-link"
-                                           href="<?php echo getAbsUrlAdmin('portfolio_categories')
+                                           href="<?php echo getAbsUrlAdmin('blog_categories')
                                                . '&page=' . $prevPage . $searchQueryString; ?>">
                                             &laquo;
                                         </a>
@@ -310,7 +317,7 @@ $msgType = getFlashData('msg_type');
                                     ?>
                                     <li class="page-item <?php echo ($index == $currentPage) ? 'active' : null; ?>">
                                         <a class="page-link"
-                                           href="<?php echo getAbsUrlAdmin('portfolio_categories')
+                                           href="<?php echo getAbsUrlAdmin('blog_categories')
                                                . '&page=' . $index . $searchQueryString; ?>">
                                             <?php echo $index; ?>
                                         </a>
@@ -326,14 +333,14 @@ $msgType = getFlashData('msg_type');
                                     ?>
                                     <li class="page-item">
                                         <a class="page-link"
-                                           href="<?php echo getAbsUrlAdmin('portfolio_categories')
+                                           href="<?php echo getAbsUrlAdmin('blog_categories')
                                                . '&page=' . $nextPage . $searchQueryString; ?>">
                                             &raquo;
                                         </a>
                                     </li>
                                     <li class="page-item">
                                         <a class="page-link"
-                                           href="<?php echo getAbsUrlAdmin('portfolio_categories')
+                                           href="<?php echo getAbsUrlAdmin('blog_categories')
                                                . '&page=' . $totalPages . $searchQueryString; ?>">
                                             Last
                                         </a>

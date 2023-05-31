@@ -217,10 +217,12 @@ if (!defined('_INCODE')) {
                 <!-- /.portfolios -->
 
                 <!-- Blogs -->
-                <li class="nav-item has-treeview <?php echo (isActiveModule('blogs')) ? 'menu-open' : null; ?>">
+                <li class="nav-item has-treeview <?php echo (isActiveModule('blogs')
+                    || isActiveModule('blog_categories')) ? 'menu-open' : null; ?>">
                     <!-- Parent-->
                     <a href="#"
-                       class="nav-link <?php echo (isActiveModule('blogs')) ? 'active' : null; ?>">
+                       class="nav-link <?php echo (isActiveModule('blogs')
+                           || isActiveModule('blog_categories')) ? 'active' : null; ?>">
                         <i class="nav-icon fas fa-blog"></i>
                         <p>
                             Blogs
@@ -239,10 +241,18 @@ if (!defined('_INCODE')) {
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo getAbsUrlAdmin('blogs', 'edit'); ?>"
-                               class="nav-link <?php echo (isActiveAction('blogs', 'edit')) ? 'active' : null; ?>">
+                            <a href="<?php echo getAbsUrlAdmin('blogs', 'add'); ?>"
+                               class="nav-link <?php echo (isActiveAction('blogs', 'add')) ? 'active' : null; ?>">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Edit Blog</p>
+                                <p>Add Blog</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('blog_categories'); ?>"
+                               class="nav-link <?php echo (isActiveModule('blog_categories'))
+                                   ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Blog Categories</p>
                             </a>
                         </li>
                     </ul>
