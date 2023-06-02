@@ -15,7 +15,8 @@ function getPrefixUrl(): ?string
         'services' => 'dich-vu',
         'pages' => 'thong-tin',
         'portfolios' => 'du-an',
-        'blog_categories' => 'danh-muc-blog',
+        'blog_categories' => 'danh-muc-bai-viet',
+        'blogs' => 'bai-viet',
     ];
     if (!empty($prefixUrls[$currentModule])) {
         return $prefixUrls[$currentModule];
