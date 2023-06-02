@@ -10,7 +10,7 @@ $body = getBody();
 
 if (!empty($body['id'])) {
     $pageId = $body['id'];
-    $sql = "SELECT * FROM `pages` WHERE id=:id";
+    $sql = "SELECT * FROM pages WHERE id=:id";
     $data = ['id' => $pageId];
     $pageDetails = getFirstRow($sql, $data);
     if (!empty($pageDetails)) {

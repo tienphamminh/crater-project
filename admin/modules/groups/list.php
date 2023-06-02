@@ -194,10 +194,10 @@ $msgType = getFlashData('msg_type');
                                         <td><?php echo $ordinalNumber . '.'; ?></td>
                                         <td>
                                             <div class="d-flex">
-                                                <div>
+                                                <div class="mr-auto">
                                                     <?php echo $group['name']; ?>
                                                 </div>
-                                                <div class="ml-auto">
+                                                <div class="ml-3">
                                                     <span class="badge bg-cyan">
                                                         <?php echo $group['users_count']; ?>
                                                     </span>

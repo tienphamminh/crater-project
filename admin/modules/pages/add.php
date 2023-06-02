@@ -119,11 +119,10 @@ $oldValues = getFlashData('old_values');
                         </a>
                     </div>
                 </form>
-            </div>
-            <!-- /.card -->
-        </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+            </div> <!-- /.card -->
+
+        </div> <!-- /.container-fluid -->
+    </section> <!-- /.content -->
 
 <?php
 // Add Footer

@@ -69,7 +69,7 @@ if (isGet()) {
 }
 
 // Retrieve group data for  <select name="group_id">
-$groups = getAllRows("SELECT id, name FROM `groups`");
+$groups = getAllRows("SELECT id, name FROM `groups` ORDER BY name");
 
 // Pagination
 // Set the limit of number of records to be displayed per page
@@ -176,7 +176,7 @@ $msgType = getFlashData('msg_type');
                             <label>Status:</label>
                             <select name="status" class="form-control">
                                 <option value="">
-                                    Choose Status
+                                    All Status
                                 </option>
                                 <option value="1"
                                     <?php echo (!empty($status) && $status == 1) ? 'selected' : null; ?>>
@@ -196,7 +196,7 @@ $msgType = getFlashData('msg_type');
                             <label>Group:</label>
                             <select name="group_id" class="form-control">
                                 <option value="">
-                                    Choose Group
+                                    All Groups
                                 </option>
                                 <?php
                                 if (!empty($groups)):

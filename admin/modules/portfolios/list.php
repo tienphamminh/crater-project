@@ -67,9 +67,9 @@ if (isGet()) {
 }
 
 // Retrieve category data for <select name="category_id">
-$categories = getAllRows("SELECT id, name FROM portfolio_categories");
+$categories = getAllRows("SELECT id, name FROM portfolio_categories ORDER BY name");
 // Retrieve user data for <select name="user_id">
-$users = getAllRows("SELECT id, fullname, email FROM users");
+$users = getAllRows("SELECT id, fullname, email FROM users ORDER BY fullname");
 
 // Pagination
 // Set the limit of number of records to be displayed per page
@@ -178,7 +178,7 @@ $msgType = getFlashData('msg_type');
                             <label>Category:</label>
                             <select name="category_id" class="form-control">
                                 <option value="">
-                                    Choose Category
+                                    All Categories
                                 </option>
                                 <?php
                                 if (!empty($categories)):
@@ -205,7 +205,7 @@ $msgType = getFlashData('msg_type');
                             <label>Posted By:</label>
                             <select name="user_id" class="form-control">
                                 <option value="">
-                                    Choose User
+                                    All Users
                                 </option>
                                 <?php
                                 if (!empty($users)):
@@ -282,13 +282,13 @@ $msgType = getFlashData('msg_type');
                                         <td><?php echo $ordinalNumber . '.'; ?></td>
                                         <td>
                                             <div class="d-flex">
-                                                <div>
+                                                <div class="mr-auto">
                                                     <?php echo $portfolio['name']; ?>
                                                 </div>
-                                                <div class="ml-auto d-none d-xl-block">
+                                                <div class="ml-3 d-none d-xl-block">
                                                     <a href="<?php echo getAbsUrlAdmin('portfolios', 'duplicate')
                                                         . '&id=' . $portfolio['id']; ?>"
-                                                       class="btn btn-info btn-sm"
+                                                       class="btn btn-secondary btn-sm"
                                                        data-toggle="tooltip" title="Duplicate">
                                                         <i class="fas fa-clone"></i>
                                                     </a>

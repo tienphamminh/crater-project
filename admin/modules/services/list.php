@@ -56,7 +56,7 @@ if (isGet()) {
 }
 
 // Retrieve user data for  <select name="user_id">
-$users = getAllRows("SELECT id, fullname, email FROM users");
+$users = getAllRows("SELECT id, fullname, email FROM users ORDER BY fullname");
 
 // Pagination
 // Set the limit of number of records to be displayed per page
@@ -162,7 +162,7 @@ $msgType = getFlashData('msg_type');
                             <label>Posted By:</label>
                             <select name="user_id" class="form-control">
                                 <option value="">
-                                    Choose User
+                                    All Users
                                 </option>
                                 <?php
                                 if (!empty($users)):
@@ -221,7 +221,6 @@ $msgType = getFlashData('msg_type');
                                 <th>Service Name</th>
                                 <th>Posted By</th>
                                 <th>Created At</th>
-                                <th style="width: 10%">View</th>
                                 <th style="width: 10%">Edit</th>
                                 <th style="width: 10%">Delete</th>
                             </tr>
@@ -245,13 +244,20 @@ $msgType = getFlashData('msg_type');
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                <div>
+                                                <div class="mr-auto">
                                                     <?php echo $service['name']; ?>
                                                 </div>
-                                                <div class="ml-auto d-none d-xl-block">
+                                                <div class="ml-3">
+                                                    <a href="#"
+                                                       class="btn btn-info btn-sm"
+                                                       data-toggle="tooltip" title="View">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="ml-2 d-none d-xl-block">
                                                     <a href="<?php echo getAbsUrlAdmin('services', 'duplicate')
                                                         . '&id=' . $service['id']; ?>"
-                                                       class="btn btn-info btn-sm"
+                                                       class="btn btn-secondary btn-sm"
                                                        data-toggle="tooltip" title="Duplicate">
                                                         <i class="fas fa-clone"></i>
                                                     </a>
@@ -263,13 +269,6 @@ $msgType = getFlashData('msg_type');
                                             <?php echo (!empty($service['created_at']))
                                                 ? getFormattedDate($service['created_at'])
                                                 : 'NULL'; ?>
-                                        </td>
-                                        <td>
-                                            <a href="#"
-                                               class="btn btn-info btn-sm">
-                                                <i class="fa fa-eye"></i>
-                                                <span class="d-none d-xl-inline">View</span>
-                                            </a>
                                         </td>
                                         <td>
                                             <a href="<?php
@@ -294,7 +293,7 @@ $msgType = getFlashData('msg_type');
                             else:
                                 ?>
                                 <tr>
-                                    <td colspan="8">
+                                    <td colspan="7">
                                         <div class="alert alert-default-danger text-center">No data to display.</div>
                                     </td>
                                 </tr>
