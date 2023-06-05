@@ -19,10 +19,7 @@ if (!defined('_INCODE')) {
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/img/crater-favicon.png"/>
 
-    <title>404 Not Found</title>
-
-    <!-- Google font -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+    <title>Error</title>
 
     <!-- Custom stylesheet -->
     <link type="text/css" rel="stylesheet" href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/css/style-error.css"/>
@@ -30,17 +27,15 @@ if (!defined('_INCODE')) {
 
 <body>
 
-<div id="error-page">
-    <div class="error-page">
-        <div class="error-page-bg sad-emoji"></div>
-        <h1>404</h1>
-        <h2>Oops! Page Not Found</h2>
-        <p>
-            Sorry, but the page you are looking for does not exist, has been removed, had its name changed, or is
-            temporarily unavailable.
-        </p>
-        <a href="<?php echo getAbsUrlAdmin(); ?>">Back to Dashboard</a>
-    </div>
+<div class="error-content">
+    <label>Error</label>
+    <ul>
+        <?php if (!empty($debugError)): ?>
+            <li><b>Message:</b> <?php echo $debugError['error_message']; ?></li>
+            <li><b>File:</b> <?php echo $debugError['error_file']; ?></li>
+            <li><b>Line:</b> <?php echo $debugError['error_line']; ?></li>
+        <?php endif; ?>
+    </ul>
 </div>
 
 </body>

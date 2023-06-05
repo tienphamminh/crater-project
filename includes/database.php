@@ -10,23 +10,17 @@ if (!defined('_INCODE')) {
 function query($sql, $data = [], $getStatement = false)
 {
     global $dbh;
+    
+    $sth = $dbh->prepare($sql); // $sth: statement handle
 
-    try {
-        $sth = $dbh->prepare($sql); // $sth: statement handle
+    if (empty($data)) {
+        $isSuccess = $sth->execute();
+    } else {
+        $isSuccess = $sth->execute($data);
+    }
 
-        if (empty($data)) {
-            $isSuccess = $sth->execute();
-        } else {
-            $isSuccess = $sth->execute($data);
-        }
-
-        if ($isSuccess && $getStatement) {
-            return $sth;
-        }
-    } catch (PDOException $e) {
-        echo $e->getMessage() . '<br>';
-        echo 'File: ' . $e->getFile() . ' - Line: ' . $e->getLine();
-        exit;
+    if ($isSuccess && $getStatement) {
+        return $sth;
     }
 
     return $isSuccess;

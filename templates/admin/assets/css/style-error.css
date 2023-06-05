@@ -40,8 +40,8 @@ body {
     background-size: cover;
 }
 
-.error-page .error-page-bg.error-404 {
-    background-image: url('../images/sad-emoji.png');
+.error-page .error-page-bg.sad-emoji {
+    background-image: url('../img/sad-emoji.png');
 }
 
 .error-page .error-page-bg:before {
@@ -106,4 +106,40 @@ body {
         padding-right: 15px;
         padding-top: 110px;
     }
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.error-content {
+    background: ghostwhite;
+    font-family: monospace;
+    text-align: center;
+    padding: 20px;
+    width: 900px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.error-content label {
+    color: red;
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.error-content ul {
+    padding-top: 20px;
+}
+
+.error-content ul li {
+    background: FloralWhite;
+    border: 2px solid ghostwhite;
+    padding: 20px;
+    text-align: left;
 }
