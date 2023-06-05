@@ -13,8 +13,33 @@ require_once '../includes/functions.php';
 require_once '../includes/connect.php';
 require_once '../includes/database.php';
 require_once '../includes/session.php';
+require_once '../includes/exception.php';
 require_once '../includes/permalink.php';
 
+ini_set('display_errors', 0);
+error_reporting(0);
+
+// Register function: 'callbackErrorHandler' as a default error handler
+set_error_handler('callbackErrorHandler');
+// Register function: 'callbackExceptionHandler' as a default exception handler (Global exception handler)
+set_exception_handler('callbackExceptionHandler');
+
+if (_DEBUG) {
+    // Debug On
+    $debugError = getFlashData('debug_error');
+    if (!empty($debugError)) {
+        require_once 'modules/errors/debug.php';
+        exit;
+    }
+} else {
+    // Debug Off
+    $serverError = getFlashData('server_error');
+    if (!empty($serverError)) {
+        http_response_code(500);
+        require_once 'modules/errors/500.php';
+        exit;
+    }
+}
 
 $module = getCurrentModule();
 if (empty($module)) {

@@ -23,15 +23,14 @@ if (!defined('_INCODE')) {
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
 
     <!-- Custom stylesheet -->
-    <link type="text/css" rel="stylesheet"
-          href="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/css/error-style.css"/>
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/css/style-error.css"/>
 </head>
 
 <body>
 
 <div id="error-page">
     <div class="error-page">
-        <div class="error-page-bg error-404"></div>
+        <div class="error-page-bg sad-emoji"></div>
         <h1>404</h1>
         <h2>Oops! Page Not Found</h2>
         <p>

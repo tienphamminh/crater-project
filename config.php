@@ -5,6 +5,9 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 // Prevent direct access to files from URL
 const _INCODE = true;
 
+// Debug Mode
+const _DEBUG = true;
+
 // Default module, default action
 const _DEFAULT_MODULE = 'home';
 const _DEFAULT_ACTION = 'list';

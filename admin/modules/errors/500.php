@@ -19,7 +19,7 @@ if (!defined('_INCODE')) {
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/img/crater-favicon.png"/>
 
-    <title>404 Not Found</title>
+    <title>500 Internal Server Error</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
@@ -33,11 +33,11 @@ if (!defined('_INCODE')) {
 <div id="error-page">
     <div class="error-page">
         <div class="error-page-bg sad-emoji"></div>
-        <h1>404</h1>
-        <h2>Oops! Page Not Found</h2>
+        <h1>500</h1>
+        <h2>Oops! Something went wrong</h2>
         <p>
-            Sorry, but the page you are looking for does not exist, has been removed, had its name changed, or is
-            temporarily unavailable.
+            Sorry, something went wrong on our end.
+            We are currently trying to fix the problem.
         </p>
         <a href="<?php echo getAbsUrlAdmin(); ?>">Back to Dashboard</a>
     </div>
