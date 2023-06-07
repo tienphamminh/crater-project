@@ -34,7 +34,7 @@ class FileProfilerStorage implements ProfilerStorageInterface
      */
     public function __construct(string $dsn)
     {
-        if (!str_starts_with($dsn, 'file:')) {
+        if (0 !== strpos($dsn, 'file:')) {
             throw new \RuntimeException(sprintf('Please check your configuration. You are trying to use FileStorage with an invalid dsn "%s". The expected format is "file:/path/to/the/storage/folder".', $dsn));
         }
         $this->folder = substr($dsn, 5);
@@ -56,15 +56,15 @@ class FileProfilerStorage implements ProfilerStorageInterface
         }
 
         $file = fopen($file, 'r');
-        fseek($file, 0, \SEEK_END);
+        fseek($file, 0, SEEK_END);
 
         $result = [];
         while (\count($result) < $limit && $line = $this->readLineFromFile($file)) {
             $values = str_getcsv($line);
-            [$csvToken, $csvIp, $csvMethod, $csvUrl, $csvTime, $csvParent, $csvStatusCode] = $values;
+            list($csvToken, $csvIp, $csvMethod, $csvUrl, $csvTime, $csvParent, $csvStatusCode) = $values;
             $csvTime = (int) $csvTime;
 
-            if ($ip && !str_contains($csvIp, $ip) || $url && !str_contains($csvUrl, $url) || $method && !str_contains($csvMethod, $method) || $statusCode && !str_contains($csvStatusCode, $statusCode)) {
+            if ($ip && false === strpos($csvIp, $ip) || $url && false === strpos($csvUrl, $url) || $method && false === strpos($csvMethod, $method) || $statusCode && false === strpos($csvStatusCode, $statusCode)) {
                 continue;
             }
 
@@ -200,7 +200,7 @@ class FileProfilerStorage implements ProfilerStorageInterface
     /**
      * Gets filename to store data, associated to the token.
      *
-     * @return string
+     * @return string The profile filename
      */
     protected function getFilename(string $token)
     {
@@ -214,7 +214,7 @@ class FileProfilerStorage implements ProfilerStorageInterface
     /**
      * Gets the index filename.
      *
-     * @return string
+     * @return string The index filename
      */
     protected function getIndexFilename()
     {
@@ -228,7 +228,7 @@ class FileProfilerStorage implements ProfilerStorageInterface
      *
      * @param resource $file The file resource, with the pointer placed at the end of the line to read
      *
-     * @return mixed
+     * @return mixed A string representing the line or null if beginning of file is reached
      */
     protected function readLineFromFile($file)
     {
@@ -258,7 +258,7 @@ class FileProfilerStorage implements ProfilerStorageInterface
 
             $position += $upTo;
             $line = substr($buffer, $upTo + 1).$line;
-            fseek($file, max(0, $position), \SEEK_SET);
+            fseek($file, max(0, $position), SEEK_SET);
 
             if ('' !== $line) {
                 break;

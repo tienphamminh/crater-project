@@ -76,7 +76,7 @@ class QuickUpload extends FileUpload
 </script>
             <?php
 
-            $event->setResponse(new Response(ob_get_clean()));
+            $event->setResponse(Response::create(ob_get_clean()));
         }
     }
 }

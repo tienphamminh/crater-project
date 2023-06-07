@@ -75,14 +75,11 @@ class ConfigurationProvider extends AbstractConfigurationProvider
      */
     public static function defaultProvider(array $config = [])
     {
-        $configProviders = [self::env()];
-        if (
-            !isset($config['use_aws_shared_config_files'])
-            || $config['use_aws_shared_config_files'] != false
-        ) {
-            $configProviders[] = self::ini();
-        }
-        $configProviders[] = self::fallback();
+        $configProviders = [
+            self::env(),
+            self::ini(),
+            self::fallback()
+        ];
 
         $memo = self::memoize(
             call_user_func_array('self::chain', $configProviders)
@@ -111,7 +108,7 @@ class ConfigurationProvider extends AbstractConfigurationProvider
                 ? getenv(self::ENV_MAX_ATTEMPTS)
                 : self::DEFAULT_MAX_ATTEMPTS;
             if (!empty($mode)) {
-                return Promise\Create::promiseFor(
+                return Promise\promise_for(
                     new Configuration($mode, $maxAttempts)
                 );
             }
@@ -129,7 +126,7 @@ class ConfigurationProvider extends AbstractConfigurationProvider
     public static function fallback()
     {
         return function () {
-            return Promise\Create::promiseFor(
+            return Promise\promise_for(
                 new Configuration(self::DEFAULT_MODE, self::DEFAULT_MAX_ATTEMPTS)
             );
         };
@@ -174,7 +171,7 @@ class ConfigurationProvider extends AbstractConfigurationProvider
                 ? $data[$profile][self::INI_MAX_ATTEMPTS]
                 : self::DEFAULT_MAX_ATTEMPTS;
 
-            return Promise\Create::promiseFor(
+            return Promise\promise_for(
                 new Configuration(
                     $data[$profile][self::INI_MODE],
                     $maxAttempts

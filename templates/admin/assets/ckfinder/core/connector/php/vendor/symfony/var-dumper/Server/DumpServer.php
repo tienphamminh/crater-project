@@ -24,17 +24,13 @@ use Symfony\Component\VarDumper\Cloner\Stub;
  */
 class DumpServer
 {
-    private string $host;
-    private $logger;
-
-    /**
-     * @var resource|null
-     */
+    private $host;
     private $socket;
+    private $logger;
 
     public function __construct(string $host, LoggerInterface $logger = null)
     {
-        if (!str_contains($host, '://')) {
+        if (false === strpos($host, '://')) {
             $host = 'tcp://'.$host;
         }
 
@@ -45,7 +41,7 @@ class DumpServer
     public function start(): void
     {
         if (!$this->socket = stream_socket_server($this->host, $errno, $errstr)) {
-            throw new \RuntimeException(sprintf('Server start failed on "%s": ', $this->host).$errstr.' '.$errno);
+            throw new \RuntimeException(sprintf('Server start failed on "%s": '.$errstr.' '.$errno, $this->host));
         }
     }
 
@@ -56,10 +52,6 @@ class DumpServer
         }
 
         foreach ($this->getMessages() as $clientId => $message) {
-            if ($this->logger) {
-                $this->logger->info('Received a payload from client {clientId}', ['clientId' => $clientId]);
-            }
-
             $payload = @unserialize(base64_decode($message), ['allowed_classes' => [Data::class, Stub::class]]);
 
             // Impossible to decode the message, give up.
@@ -79,7 +71,7 @@ class DumpServer
                 continue;
             }
 
-            [$data, $context] = $payload;
+            list($data, $context) = $payload;
 
             $callback($data, $context, $clientId);
         }

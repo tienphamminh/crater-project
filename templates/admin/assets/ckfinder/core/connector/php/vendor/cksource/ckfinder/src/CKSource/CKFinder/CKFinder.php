@@ -4,7 +4,7 @@
  * CKFinder
  * ========
  * https://ckeditor.com/ckfinder/
- * Copyright (c) 2007-2021, CKSource - Frederico Knabben. All rights reserved.
+ * Copyright (c) 2007-2020, CKSource - Frederico Knabben. All rights reserved.
  *
  * The software, this file and its contents are subject to the CKFinder
  * License. Please read the license.txt file before using, installing, copying,
@@ -63,7 +63,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 class CKFinder extends Container implements HttpKernelInterface
 {
-    const VERSION = '3.5.3';
+    const VERSION = '3.5.1.1';
 
     const COMMANDS_NAMESPACE = 'CKSource\\CKFinder\\Command\\';
     const PLUGINS_NAMESPACE = 'CKSource\\CKFinder\\Plugin\\';
@@ -260,7 +260,7 @@ class CKFinder extends Container implements HttpKernelInterface
     public function handleOptionsRequest(RequestEvent $event)
     {
         if ($event->getRequest()->isMethod(Request::METHOD_OPTIONS)) {
-            $event->setResponse(new Response('', Response::HTTP_OK, $this->getExtraHeaders()));
+            $event->setResponse(Response::create('', Response::HTTP_OK, $this->getExtraHeaders()));
         }
     }
 
@@ -277,7 +277,7 @@ class CKFinder extends Container implements HttpKernelInterface
         $dispatcher->dispatch($event, $eventName);
 
         $controllerResult = $event->getControllerResult();
-        $event->setResponse(new JsonResponse($controllerResult));
+        $event->setResponse(JsonResponse::create($controllerResult));
     }
 
     /**
@@ -489,7 +489,7 @@ class CKFinder extends Container implements HttpKernelInterface
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function handle(Request $request, int $type = HttpKernelInterface::MAIN_REQUEST, bool $catch = true)
+    public function handle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true)
     {
         /** @var HttpKernel $kernel */
         $kernel = $this['kernel'];

@@ -4,7 +4,7 @@
  * CKFinder
  * ========
  * https://ckeditor.com/ckfinder/
- * Copyright (c) 2007-2021, CKSource - Frederico Knabben. All rights reserved.
+ * Copyright (c) 2007-2020, CKSource - Frederico Knabben. All rights reserved.
  *
  * The software, this file and its contents are subject to the CKFinder
  * License. Please read the license.txt file before using, installing, copying,
@@ -135,8 +135,8 @@ class Image
             $this->gdImage = imagecreatefromstring($imageData);
         }
 
-        if (!$this->hasValidGdImage()) {
-            throw new CKFinderException('Unsupported image type (result is not valid GD image): '.$this->mime);
+        if (!\is_resource($this->gdImage)) {
+            throw new CKFinderException('Unsupported image type (not resource): '.$this->mime);
         }
 
         unset($imageData);
@@ -144,17 +144,9 @@ class Image
 
     public function __destruct()
     {
-        if ($this->hasValidGdImage()) {
+        if (\is_resource($this->gdImage)) {
             imagedestroy($this->gdImage);
         }
-    }
-
-    /**
-     * Checks whether this object contains a valid GD image.
-     */
-    public function hasValidGdImage(): bool
-    {
-        return \is_resource($this->gdImage) || $this->gdImage instanceof \GdImage;
     }
 
     /**
@@ -308,11 +300,11 @@ class Image
         $TWEAKFACTOR = 2.4; // Or whatever works for you
         $memoryNeeded = round(
             (
-                $imageWidth * $imageHeight
+            $imageWidth * $imageHeight
                     * $imageBits
                     * $imageChannels / 8
                     + $K64
-            ) * $TWEAKFACTOR
+        ) * $TWEAKFACTOR
         ) + 3 * $MB;
 
         //ini_get('memory_limit') only works if compiled with "--enable-memory-limit" also
@@ -332,10 +324,10 @@ class Image
             if (memory_get_usage() + $memoryNeeded > $memoryLimitMB) {
                 $newLimit = $memoryLimit + ceil(
                     (
-                        memory_get_usage()
+                    memory_get_usage()
                             + $memoryNeeded
                             - $memoryLimitMB
-                    ) / $MB
+                ) / $MB
                 );
                 if (false === @ini_set('memory_limit', $newLimit.'M')) {
                     return false;
@@ -345,10 +337,10 @@ class Image
             if ($memoryNeeded + 3 * $MB > $memoryLimitMB) {
                 $newLimit = $memoryLimit + ceil(
                     (
-                        3 * $MB
+                    3 * $MB
                             + $memoryNeeded
                             - $memoryLimitMB
-                    ) / $MB
+                ) / $MB
                 );
                 if (false === @ini_set('memory_limit', $newLimit.'M')) {
                     return false;

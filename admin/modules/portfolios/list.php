@@ -32,7 +32,7 @@ if (isGet()) {
 
     if (!empty($body['user_id'])) {
         $userId = trim($body['user_id']);
-        if (str_contains($whereClause, 'WHERE')) {
+        if (strContains($whereClause, 'WHERE')) {
             $operator = ' AND';
         } else {
             $operator = 'WHERE';
@@ -43,7 +43,7 @@ if (isGet()) {
 
     if (!empty($body['category_id'])) {
         $categoryId = trim($body['category_id']);
-        if (str_contains($whereClause, 'WHERE')) {
+        if (strContains($whereClause, 'WHERE')) {
             $operator = ' AND';
         } else {
             $operator = 'WHERE';
@@ -55,7 +55,7 @@ if (isGet()) {
 
     if (!empty($body['keyword'])) {
         $keyword = trim($body['keyword']);
-        if (str_contains($whereClause, 'WHERE')) {
+        if (strContains($whereClause, 'WHERE')) {
             $operator = ' AND';
         } else {
             $operator = 'WHERE';

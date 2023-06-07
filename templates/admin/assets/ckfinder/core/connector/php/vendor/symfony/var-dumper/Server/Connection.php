@@ -21,12 +21,8 @@ use Symfony\Component\VarDumper\Dumper\ContextProvider\ContextProviderInterface;
  */
 class Connection
 {
-    private string $host;
-    private array $contextProviders;
-
-    /**
-     * @var resource|null
-     */
+    private $host;
+    private $contextProviders;
     private $socket;
 
     /**
@@ -35,7 +31,7 @@ class Connection
      */
     public function __construct(string $host, array $contextProviders = [])
     {
-        if (!str_contains($host, '://')) {
+        if (false === strpos($host, '://')) {
             $host = 'tcp://'.$host;
         }
 
@@ -68,7 +64,7 @@ class Connection
                 return true;
             }
             if (!$socketIsFresh) {
-                stream_socket_shutdown($this->socket, \STREAM_SHUT_RDWR);
+                stream_socket_shutdown($this->socket, STREAM_SHUT_RDWR);
                 fclose($this->socket);
                 $this->socket = $this->createSocket();
             }
@@ -82,7 +78,7 @@ class Connection
         return false;
     }
 
-    private static function nullErrorHandler(int $t, string $m)
+    private static function nullErrorHandler($t, $m)
     {
         // no-op
     }
@@ -91,7 +87,7 @@ class Connection
     {
         set_error_handler([self::class, 'nullErrorHandler']);
         try {
-            return stream_socket_client($this->host, $errno, $errstr, 3, \STREAM_CLIENT_CONNECT | \STREAM_CLIENT_ASYNC_CONNECT);
+            return stream_socket_client($this->host, $errno, $errstr, 3, STREAM_CLIENT_CONNECT | STREAM_CLIENT_ASYNC_CONNECT);
         } finally {
             restore_error_handler();
         }
