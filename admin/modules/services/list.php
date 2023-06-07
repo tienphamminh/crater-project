@@ -32,7 +32,7 @@ if (isGet()) {
 
     if (!empty($body['user_id'])) {
         $userId = trim($body['user_id']);
-        if (str_contains($whereClause, 'WHERE')) {
+        if (strContains($whereClause, 'WHERE')) {
             $operator = ' AND';
         } else {
             $operator = 'WHERE';
@@ -44,7 +44,7 @@ if (isGet()) {
 
     if (!empty($body['keyword'])) {
         $keyword = trim($body['keyword']);
-        if (str_contains($whereClause, 'WHERE')) {
+        if (strContains($whereClause, 'WHERE')) {
             $operator = ' AND';
         } else {
             $operator = 'WHERE';
@@ -235,12 +235,12 @@ $msgType = getFlashData('msg_type');
                                     ?>
                                     <tr>
                                         <td><?php echo $ordinalNumber . '.'; ?></td>
-                                        <td class="icon-2x">
+                                        <td>
                                             <?php
                                             $icon = html_entity_decode($service['icon']);
                                             echo (isFontIcon($icon))
-                                                ? $icon
-                                                : '<img src="' . $icon . '" width="50">'; ?>
+                                                ? '<div class="icon-2x">' . $icon . '</div>'
+                                                : '<img src="' . htmlspecialchars($icon) . '" width="50">'; ?>
                                         </td>
                                         <td>
                                             <div class="d-flex">

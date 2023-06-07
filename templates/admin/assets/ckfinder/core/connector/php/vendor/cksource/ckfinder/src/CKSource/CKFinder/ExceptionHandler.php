@@ -4,7 +4,7 @@
  * CKFinder
  * ========
  * https://ckeditor.com/ckfinder/
- * Copyright (c) 2007-2021, CKSource - Frederico Knabben. All rights reserved.
+ * Copyright (c) 2007-2020, CKSource - Frederico Knabben. All rights reserved.
  *
  * The software, this file and its contents are subject to the CKFinder
  * License. Please read the license.txt file before using, installing, copying,
@@ -83,8 +83,7 @@ class ExceptionHandler implements EventSubscriberInterface
                 ? $throwable->getMessage()
                 : $this->translator->translateErrorMessage($exceptionCode, $replacements);
 
-        $response = new JsonResponse();
-        $response->withError($exceptionCode, $message);
+        $response = JsonResponse::create()->withError($exceptionCode, $message);
 
         $event->setThrowable(new HttpException($httpStatusCode));
 

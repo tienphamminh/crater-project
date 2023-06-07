@@ -77,14 +77,11 @@ class ConfigurationProvider extends AbstractConfigurationProvider
      */
     public static function defaultProvider(array $config = [])
     {
-        $configProviders = [self::env()];
-        if (
-            !isset($config['use_aws_shared_config_files'])
-            || $config['use_aws_shared_config_files'] != false
-        ) {
-            $configProviders[] = self::ini();
-        }
-        $configProviders[] = self::fallback();
+        $configProviders = [
+            self::env(),
+            self::ini(),
+            self::fallback()
+        ];
 
         $memo = self::memoize(
             call_user_func_array('self::chain', $configProviders)
@@ -108,7 +105,7 @@ class ConfigurationProvider extends AbstractConfigurationProvider
             // Use credentials from environment variables, if available
             $enabled = getenv(self::ENV_ENABLED);
             if ($enabled !== false) {
-                return Promise\Create::promiseFor(
+                return Promise\promise_for(
                     new Configuration(
                         $enabled,
                         getenv(self::ENV_HOST) ?: self::DEFAULT_HOST,
@@ -132,7 +129,7 @@ class ConfigurationProvider extends AbstractConfigurationProvider
     public static function fallback()
     {
         return function() {
-            return Promise\Create::promiseFor(
+            return Promise\promise_for(
                 new Configuration(
                     self::DEFAULT_ENABLED,
                     self::DEFAULT_HOST,
@@ -191,7 +188,7 @@ class ConfigurationProvider extends AbstractConfigurationProvider
                 $data[$profile]['csm_client_id'] = self::DEFAULT_CLIENT_ID;
             }
 
-            return Promise\Create::promiseFor(
+            return Promise\promise_for(
                 new Configuration(
                     $data[$profile]['csm_enabled'],
                     $data[$profile]['csm_host'],

@@ -4,7 +4,7 @@
  * CKFinder
  * ========
  * https://ckeditor.com/ckfinder/
- * Copyright (c) 2007-2021, CKSource - Frederico Knabben. All rights reserved.
+ * Copyright (c) 2007-2020, CKSource - Frederico Knabben. All rights reserved.
  *
  * The software, this file and its contents are subject to the CKFinder
  * License. Please read the license.txt file before using, installing, copying,
@@ -25,7 +25,6 @@ use CKSource\CKFinder\Exception\InvalidExtensionException;
 use CKSource\CKFinder\Exception\InvalidNameException;
 use CKSource\CKFinder\Exception\InvalidUploadException;
 use CKSource\CKFinder\Filesystem\File\UploadedFile;
-use Symfony\Component\HttpFoundation\File\UploadedFile as UploadedFileBase;
 use CKSource\CKFinder\Filesystem\Folder\WorkingFolder;
 use CKSource\CKFinder\Filesystem\Path;
 use CKSource\CKFinder\Image;
@@ -63,11 +62,6 @@ class FileUpload extends CommandAbstract
 
         if (null === $upload) {
             throw new InvalidUploadException();
-        }
-
-        // Extra check to handle older Symfony components on PHP 8.1+.
-        if (is_array($upload)) {
-            $upload = new UploadedFileBase($upload['tmp_name'], $upload['name'], $upload['type'], $upload['error'], false);
         }
 
         $uploadedFile = new UploadedFile($upload, $this->app);

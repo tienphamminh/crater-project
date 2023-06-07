@@ -45,7 +45,7 @@ if (isGet()) {
 
     if (!empty($body['group_id'])) {
         $groupId = trim($body['group_id']);
-        if (str_contains($whereClause, 'WHERE')) {
+        if (strContains($whereClause, 'WHERE')) {
             $operator = ' AND';
         } else {
             $operator = 'WHERE';
@@ -57,7 +57,7 @@ if (isGet()) {
 
     if (!empty($body['keyword'])) {
         $keyword = trim($body['keyword']);
-        if (str_contains($whereClause, 'WHERE')) {
+        if (strContains($whereClause, 'WHERE')) {
             $operator = ' AND';
         } else {
             $operator = 'WHERE';

@@ -55,7 +55,7 @@ function updateRenderLink(url) {
 function showIconOrImage(element, imageUrl) {
     if (imageUrl.startsWith(rootUrl)) {
         element.innerHTML = `<img src="${imageUrl}" class="img-thumbnail img-fluid">`;
-    } else if (imageUrl.startsWith('<i class=')) {
+    } else if (imageUrl.match(/^(<i class="fa)[bdlrs]? fa(-[a-z]+)+("><\/i>)$/)) {
         element.innerHTML = `${imageUrl}`;
         element.classList.add('display-4');
     } else {

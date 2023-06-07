@@ -427,19 +427,19 @@ function logoutOfAllDevices($userId): void
 }
 
 // Get a date formatted according to the specified format and datetime string.
-function getFormattedDate($dateStr, $format = 'H:i:s d-m-Y'): bool|string
+function getFormattedDate($dateStr, $format = 'H:i:s d-m-Y')
 {
     $dateObj = date_create($dateStr);
     if (!empty($dateObj)) {
         return date_format($dateObj, $format);
     }
 
-    return false;
+    return null;
 }
 
 
 // Get query string of search form
-function getSearchQueryString($module, $action, $currentPage): string|null
+function getSearchQueryString($module, $action, $currentPage)
 {
     if (!empty($_SERVER['QUERY_STRING'])) {
         $queryString = $_SERVER['QUERY_STRING'];
@@ -451,10 +451,21 @@ function getSearchQueryString($module, $action, $currentPage): string|null
     return null;
 }
 
-// Check if $str is font-awesome icon tag
-function isFontIcon($str): bool
+//  Check if a string contains a given substring
+function strContains($haystack, $needle): bool
 {
-    if (str_contains($str, '<i class="fa')) {
+    $pos = strpos($haystack, $needle);
+    if ($pos !== false) {
+        return true;
+    }
+
+    return false;
+}
+
+// Check if $str is font-awesome icon tag
+function isFontIcon($htmlStr): bool
+{
+    if (preg_match('/^(<i class="fa)[bdlrs]? fa(-[a-z]+)+("><\/i>)$/', $htmlStr)) {
         return true;
     }
 
