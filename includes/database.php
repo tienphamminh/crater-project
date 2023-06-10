@@ -10,7 +10,7 @@ if (!defined('_INCODE')) {
 function query($sql, $data = [], $getStatement = false)
 {
     global $dbh;
-    
+
     $sth = $dbh->prepare($sql); // $sth: statement handle
 
     if (empty($data)) {
@@ -72,20 +72,16 @@ function delete($tableName, $condition = '', $dataCondition = [])
 function getLimitRows($sql, $limit, $offset, $data = [])
 {
     global $dbh;
-    try {
-        $sth = $dbh->prepare($sql); // $sth: statement handle
-        foreach ($data as $key => $value) {
-            $sth->bindValue($key, $value);
-        }
-        $sth->bindValue('limit', (int)$limit, PDO::PARAM_INT);
-        $sth->bindValue('offset', (int)$offset, PDO::PARAM_INT);
-        $sth->execute();
-        return $sth->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        echo $e->getMessage() . '<br>';
-        echo 'File: ' . $e->getFile() . ' - Line: ' . $e->getLine();
-        exit;
+    
+    $sth = $dbh->prepare($sql); // $sth: statement handle
+    foreach ($data as $key => $value) {
+        $sth->bindValue($key, $value);
     }
+    $sth->bindValue('limit', (int)$limit, PDO::PARAM_INT);
+    $sth->bindValue('offset', (int)$offset, PDO::PARAM_INT);
+    $sth->execute();
+
+    return $sth->fetchAll(PDO::FETCH_ASSOC);
 }
 
 // Fetch all rows returned by a PDO statement object
