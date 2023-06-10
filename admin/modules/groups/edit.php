@@ -88,9 +88,7 @@ if (empty($errors)) {
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-6">
-                    <!-- general form elements -->
                     <div class="card card-primary">
-                        <!-- /.card-header -->
                         <!-- form start -->
                         <form action="" method="post">
                             <input type="hidden" name="id" value="<?php echo $groupId; ?>">
@@ -99,7 +97,7 @@ if (empty($errors)) {
                                 <div class="form-group">
                                     <label for="group-name">Group Name</label>
                                     <input type="text" name="name" class="form-control"
-                                           id="group-name" placeholder="Group Name"
+                                           id="group-name" placeholder="Group Name..."
                                            value="<?php echo getOldFormValue('name', $formValues); ?>">
                                     <?php echo getFormErrorMsg('name', $errors); ?>
                                 </div>
@@ -117,13 +115,11 @@ if (empty($errors)) {
                                 </a>
                             </div>
                         </form>
-                    </div>
-                    <!-- /.card -->
+                    </div> <!-- /.card -->
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+        </div> <!-- /.container-fluid -->
+    </section> <!-- /.content -->
 
 <?php
 // Add Footer

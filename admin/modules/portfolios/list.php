@@ -73,7 +73,7 @@ $users = getAllRows("SELECT id, fullname, email FROM users ORDER BY fullname");
 
 // Pagination
 // Set the limit of number of records to be displayed per page
-$limit = 3;
+$limit = 5;
 
 // Determine the total number of pages available
 $sql = "SELECT id FROM portfolios $whereClause";
@@ -250,7 +250,7 @@ $msgType = getFlashData('msg_type');
                 </div>
             </form>
 
-            <div class="card">
+            <div class="card" style="min-height: 500px">
                 <div class="card-header">
                     <h3 class="card-title text-primary"><?php echo 'Total: ' . $totalRows . ' rows'; ?></h3>
                 </div>

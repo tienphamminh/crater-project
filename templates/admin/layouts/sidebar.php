@@ -259,6 +259,53 @@ if (!defined('_INCODE')) {
                 </li>
                 <!-- /.blogs -->
 
+                <!-- Options -->
+                <li class="nav-item has-treeview <?php echo (isActiveModule('options')) ? 'menu-open' : null; ?>">
+                    <!-- Parent-->
+                    <a href="#"
+                       class="nav-link <?php echo (isActiveModule('options')) ? 'active' : null; ?>">
+                        <i class="nav-icon fas fa-cog"></i>
+                        <p>
+                            Options
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <!-- Child-->
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('options', 'general'); ?>"
+                               class="nav-link <?php echo (isActiveAction('options', 'general'))
+                                   ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>General</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('options', 'header'); ?>"
+                               class="nav-link <?php echo (isActiveAction('options', 'header')) ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Header</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('options', 'footer'); ?>"
+                               class="nav-link <?php echo (isActiveAction('options', 'footer')) ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Footer</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('options', 'home'); ?>"
+                               class="nav-link <?php echo (isActiveAction('options', 'home')) ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Homepage</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <!-- /.options -->
+
             </ul>
 
         </nav>

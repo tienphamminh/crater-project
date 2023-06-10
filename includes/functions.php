@@ -203,20 +203,7 @@ function isNumberFloat($number, $range = [])
 // Check if an input string is VN phone number
 function isPhone($phone): bool
 {
-    $checkFirstZero = false;
-
-    if ($phone[0] == '0') {
-        $checkFirstZero = true;
-        $phone = substr($phone, 1);
-    }
-
-    $checkNumberLast = false;
-
-    if (isNumberInt($phone) && strlen($phone) == 9) {
-        $checkNumberLast = true;
-    }
-
-    if ($checkFirstZero && $checkNumberLast) {
+    if (preg_match('/^(\+84|84|0084|0)[35789]([0-9]{8})$/', $phone)) {
         return true;
     }
 
@@ -470,4 +457,43 @@ function isFontIcon($htmlStr): bool
     }
 
     return false;
+}
+
+// Get option from table 'options' by 'opt_key'
+function getOption($optKey, $getName = false)
+{
+    $sql = "SELECT * FROM `options` WHERE opt_key=:opt_key";
+    $data = ['opt_key' => $optKey];
+    $option = getFirstRow($sql, $data);
+    if (!empty($option)) {
+        if ($getName) {
+            return $option['opt_name'];
+        }
+        return $option['opt_value'];
+    }
+
+    return null;
+}
+
+// Update options
+function updateOptions($options)
+{
+    $updateCount = 0;
+    foreach ($options as $optKey => $optValue) {
+        $dataUpdate = ['opt_value' => $optValue];
+        $condition = "opt_key=:opt_key";
+        $dataCondition = ['opt_key' => $optKey];
+        $isDataUpdated = update('options', $dataUpdate, $condition, $dataCondition);
+        if ($isDataUpdated) {
+            $updateCount++;
+        }
+    }
+
+    if ($updateCount > 0) {
+        setFlashData('msg', $updateCount . ' options have been updated successfully.');
+        setFlashData('msg_type', 'success');
+    } else {
+        setFlashData('msg', 'Something went wrong, please try again.');
+        setFlashData('msg_type', 'danger');
+    }
 }
