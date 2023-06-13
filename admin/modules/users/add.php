@@ -30,7 +30,6 @@ if (isPost()) {
         $errors['group_id']['required'] = 'Required field';
     }
 
-
     // Phone number: Required, valid format
     $phone = trim($body['phone']);
     if (empty($phone)) {
@@ -68,7 +67,6 @@ if (isPost()) {
     } elseif ($confirmPassword != $password) {
         $errors['confirm_password']['match'] = 'Confirm password does not match new password';
     }
-
 
     if (empty($errors)) {
         // Validation successful
@@ -224,15 +222,17 @@ $oldValues = getFlashData('old_values');
                             </div>
                         </div> <!-- /.row -->
                     </div> <!-- /.card-body -->
+
                     <div class="card-footer clearfix">
                         <button type="submit" class="btn btn-primary px-4 float-left">Add</button>
                         <a href="<?php echo getAbsUrlAdmin('users'); ?>"
                            class="btn btn-outline-secondary px-4 float-right">
                             Back
                         </a>
-                    </div>
-                </form> <!-- form end -->
+                    </div> <!-- /.card-footer -->
+                </form>
             </div> <!-- /.card -->
+
         </div> <!-- /.container-fluid -->
     </section> <!-- /.content -->
 

@@ -83,8 +83,8 @@ if (empty($errors)) {
 <div class="card card-warning" style="min-height: 235px">
     <div class="card-header">
         <h3 class="card-title">Edit Blog Category</h3>
-    </div>
-    <!-- /.card-header -->
+    </div> <!-- /.card-header -->
+
     <form action="" method="post">
         <input type="hidden" name="id" value="<?php echo $categoryId; ?>">
         <div class="card-body">
@@ -108,8 +108,8 @@ if (empty($errors)) {
             <div class="form-group">
                 <p class="render-link"><b>URL: </b> <span></span></p>
             </div>
-        </div>
-        <!-- /.card-body -->
+        </div> <!-- /.card-body -->
+
         <div class="card-footer clearfix">
             <button type="submit" class="btn btn-warning px-4 float-left">Update</button>
             <a href="<?php echo getAbsUrlAdmin('blog_categories'); ?>"
@@ -120,6 +120,6 @@ if (empty($errors)) {
                class="btn btn-outline-success px-4 mr-2 float-right">
                 Reset
             </a>
-        </div>
+        </div> <!-- /.card-footer -->
     </form>
-</div>
+</div> <!-- /.card -->

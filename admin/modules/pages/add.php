@@ -117,7 +117,7 @@ $oldValues = getFlashData('old_values');
                            class="btn btn-outline-secondary px-4 float-right">
                             Back
                         </a>
-                    </div>
+                    </div> <!-- /.card-footer -->
                 </form>
             </div> <!-- /.card -->
 

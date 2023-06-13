@@ -212,6 +212,7 @@ if (empty($errors)) {
                 <!-- form start -->
                 <form action="" method="post">
                     <input type="hidden" name="id" value="<?php echo $portfolioId; ?>">
+
                     <div class="card-body">
                         <?php echo getMessage($msg, $msgType); ?>
                         <div class="form-group">
@@ -367,8 +368,7 @@ if (empty($errors)) {
                             <button type="button" class="btn btn-warning add-img-item">
                                 <i class="fas fa-plus mr-1"></i> Add Image
                             </button>
-                        </div> <!-- /.form-group -->
-
+                        </div> <!-- /.img-gallery-container -->
                     </div> <!-- /.card-body -->
 
                     <div class="card-footer clearfix">
@@ -381,7 +381,7 @@ if (empty($errors)) {
                            class="btn btn-outline-success px-4 mr-2 float-right">
                             Reset
                         </a>
-                    </div>
+                    </div> <!-- /.card-footer -->
                 </form>
             </div> <!-- /.card -->
 

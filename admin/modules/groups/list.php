@@ -28,8 +28,7 @@ if (isGet()) {
             $orderClause .= " $sortOrder";
         }
     }
-
-
+    
     if (!empty($body['keyword'])) {
         $keyword = $body['keyword'];
 
@@ -159,14 +158,14 @@ $msgType = getFlashData('msg_type');
                             </button>
                         </div>
                     </div>
-                </div><!-- /keyword and search button -->
+                </div> <!-- /keyword and search button -->
             </form> <!-- /Search Form -->
 
             <div class="card" style="min-height: 500px">
                 <div class="card-header">
                     <h3 class="card-title text-primary"><?php echo 'Total: ' . $totalRows . ' rows'; ?></h3>
-                </div>
-                <!-- /.card-header -->
+                </div> <!-- /.card-header -->
+
                 <div class="card-body">
                     <?php echo getMessage($msg, $msgType); ?>
                     <div class="table-responsive">
@@ -255,9 +254,8 @@ $msgType = getFlashData('msg_type');
                             </tbody>
                         </table>
                     </div>
+                </div> <!-- /.card-body -->
 
-                </div>
-                <!-- /.card-body -->
                 <div class="card-footer clearfix">
                     <ul class="pagination m-0 float-right">
                         <?php
@@ -273,9 +271,8 @@ $msgType = getFlashData('msg_type');
                             </li>
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<?php echo getAbsUrlAdmin(
-                                           'groups'
-                                       ) . '&page=' . $prevPage . $searchQueryString; ?>">
+                                   href="<?php echo getAbsUrlAdmin('groups')
+                                       . '&page=' . $prevPage . $searchQueryString; ?>">
                                     &laquo;
                                 </a>
                             </li>
@@ -306,9 +303,8 @@ $msgType = getFlashData('msg_type');
                             ?>
                             <li class="page-item <?php echo ($index == $currentPage) ? 'active' : null; ?>">
                                 <a class="page-link"
-                                   href="<?php echo getAbsUrlAdmin(
-                                           'groups'
-                                       ) . '&page=' . $index . $searchQueryString; ?>">
+                                   href="<?php echo getAbsUrlAdmin('groups')
+                                       . '&page=' . $index . $searchQueryString; ?>">
                                     <?php echo $index; ?>
                                 </a>
                             </li>
@@ -323,17 +319,15 @@ $msgType = getFlashData('msg_type');
                             ?>
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<?php echo getAbsUrlAdmin(
-                                           'groups'
-                                       ) . '&page=' . $nextPage . $searchQueryString; ?>">
+                                   href="<?php echo getAbsUrlAdmin('groups')
+                                       . '&page=' . $nextPage . $searchQueryString; ?>">
                                     &raquo;
                                 </a>
                             </li>
                             <li class="page-item">
                                 <a class="page-link"
-                                   href="<?php echo getAbsUrlAdmin(
-                                           'groups'
-                                       ) . '&page=' . $totalPages . $searchQueryString; ?>">
+                                   href="<?php echo getAbsUrlAdmin('groups')
+                                       . '&page=' . $totalPages . $searchQueryString; ?>">
                                     Last
                                 </a>
                             </li>
@@ -341,7 +335,7 @@ $msgType = getFlashData('msg_type');
                         endif;
                         ?>
                     </ul>
-                </div>
+                </div> <!-- /.card-footer -->
             </div> <!-- /.card -->
 
         </div> <!-- /.container-fluid -->

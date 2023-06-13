@@ -111,7 +111,6 @@ $oldValues = getFlashData('old_values');
                             <p class="render-link"><b>Service URL:</b> <span></span></p>
                         </div>
 
-
                         <div class="form-group ckfinder-group">
                             <label for="">Icon or Image</label>
                             <div class="row">
@@ -154,13 +153,12 @@ $oldValues = getFlashData('old_values');
                            class="btn btn-outline-secondary px-4 float-right">
                             Back
                         </a>
-                    </div>
+                    </div> <!-- /.card-footer -->
                 </form>
-            </div>
-            <!-- /.card -->
-        </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+            </div> <!-- /.card -->
+
+        </div> <!-- /.container-fluid -->
+    </section> <!-- /.content -->
 
 <?php
 // Add Image Modal
