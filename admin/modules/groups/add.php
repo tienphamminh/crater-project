@@ -24,7 +24,6 @@ if (isPost()) {
         $errors['name']['min'] = 'Group name must be at least 4 characters';
     }
 
-
     if (empty($errors)) {
         // Validation successful
 
@@ -79,18 +78,18 @@ $oldValues = getFlashData('old_values');
                                            value="<?php echo getOldFormValue('name', $oldValues); ?>">
                                     <?php echo getFormErrorMsg('name', $errors); ?>
                                 </div>
-                            </div>
-                            <!-- /.card-body -->
+                            </div> <!-- /.card-body -->
+
                             <div class="card-footer clearfix">
                                 <button type="submit" class="btn btn-primary px-4 float-left">Add</button>
                                 <a href="<?php echo getAbsUrlAdmin('groups'); ?>"
                                    class="btn btn-outline-secondary px-4 float-right">
                                     Back
                                 </a>
-                            </div>
+                            </div> <!-- /.card-footer -->
                         </form>
                     </div> <!-- /.card -->
-                </div>
+                </div> <!-- /.col (left) -->
             </div>
         </div> <!-- /.container-fluid -->
     </section> <!-- /.content -->

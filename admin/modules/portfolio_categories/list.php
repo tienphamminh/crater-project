@@ -36,7 +36,6 @@ if (isGet()) {
         }
     }
 
-
     if (!empty($body['keyword'])) {
         $keyword = $body['keyword'];
 
@@ -171,17 +170,17 @@ $msgType = getFlashData('msg_type');
                                             </button>
                                         </div>
                                     </div>
-                                </div><!-- /keyword and search button -->
+                                </div> <!-- /keyword and search button -->
                             </div>
                         </form>
-                    </div> <!-- /Search Form -->
+                    </div> <!-- /.card -->
 
                     <!-- Data Table -->
                     <div class="card" style="min-height: 500px">
                         <div class="card-header">
                             <h3 class="card-title text-primary"><?php echo 'Total: ' . $totalRows . ' rows'; ?></h3>
-                        </div>
-                        <!-- /.card-header -->
+                        </div> <!-- /.card-header -->
+
                         <div class="card-body">
                             <div class="table-responsive">
                                 <?php echo getMessage($msg, $msgType); ?>
@@ -259,9 +258,8 @@ $msgType = getFlashData('msg_type');
                                     </tbody>
                                 </table>
                             </div>
+                        </div> <!-- /.card-body -->
 
-                        </div>
-                        <!-- /.card-body -->
                         <div class="card-footer clearfix">
                             <ul class="pagination m-0 float-right">
                                 <?php
@@ -342,8 +340,8 @@ $msgType = getFlashData('msg_type');
                                 endif;
                                 ?>
                             </ul>
-                        </div>
-                    </div> <!-- /Data Table -->
+                        </div> <!-- /.card-footer -->
+                    </div> <!-- /.card -->
 
                 </div> <!-- /.col (right) -->
             </div> <!-- /.row -->

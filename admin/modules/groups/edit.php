@@ -92,6 +92,7 @@ if (empty($errors)) {
                         <!-- form start -->
                         <form action="" method="post">
                             <input type="hidden" name="id" value="<?php echo $groupId; ?>">
+
                             <div class="card-body">
                                 <?php echo getMessage($msg, $msgType); ?>
                                 <div class="form-group">
@@ -101,8 +102,8 @@ if (empty($errors)) {
                                            value="<?php echo getOldFormValue('name', $formValues); ?>">
                                     <?php echo getFormErrorMsg('name', $errors); ?>
                                 </div>
-                            </div>
-                            <!-- /.card-body -->
+                            </div> <!-- /.card-body -->
+
                             <div class="card-footer clearfix">
                                 <button type="submit" class="btn btn-primary px-4 float-left">Update</button>
                                 <a href="<?php echo getAbsUrlAdmin('groups'); ?>"
@@ -113,10 +114,10 @@ if (empty($errors)) {
                                    class="btn btn-outline-success px-4 mr-2 float-right">
                                     Reset
                                 </a>
-                            </div>
+                            </div> <!-- /.card-footer -->
                         </form>
                     </div> <!-- /.card -->
-                </div>
+                </div> <!-- /.col (left) -->
             </div>
         </div> <!-- /.container-fluid -->
     </section> <!-- /.content -->

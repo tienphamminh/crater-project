@@ -98,10 +98,12 @@ if (empty($errors)) {
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+
             <div class="card card-primary">
                 <!-- form start -->
                 <form action="" method="post">
                     <input type="hidden" name="id" value="<?php echo $pageId; ?>">
+
                     <div class="card-body">
                         <?php echo getMessage($msg, $msgType); ?>
                         <div class="form-group">
@@ -142,13 +144,12 @@ if (empty($errors)) {
                            class="btn btn-outline-success px-4 mr-2 float-right">
                             Reset
                         </a>
-                    </div>
+                    </div> <!-- /.card-footer -->
                 </form>
-            </div>
-            <!-- /.card -->
-        </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+            </div> <!-- /.card -->
+
+        </div> <!-- /.container-fluid -->
+    </section> <!-- /.content -->
 
 <?php
 // Add Footer

@@ -47,7 +47,6 @@ if (isPost()) {
         $errors['group_id']['required'] = 'Required field';
     }
 
-
     // Phone number: Required, valid format
     $phone = trim($body['phone']);
     if (empty($phone)) {
@@ -140,7 +139,6 @@ if (empty($errors)) {
     $formValues = getFlashData('old_values');
 }
 
-
 ?>
 
     <!-- Main content -->
@@ -150,6 +148,7 @@ if (empty($errors)) {
                 <!-- form start -->
                 <form action="" method="post">
                     <input type="hidden" name="id" value="<?php echo $userId; ?>">
+
                     <div class="card-body">
                         <?php echo getMessage($msg, $msgType); ?>
                         <div class="row">
@@ -254,6 +253,7 @@ if (empty($errors)) {
                             </div>
                         </div> <!-- /.row -->
                     </div> <!-- /.card-body -->
+
                     <div class="card-footer clearfix">
                         <button type="submit" class="btn btn-primary px-4 float-left">Update</button>
                         <a href="<?php echo getAbsUrlAdmin('users'); ?>"
@@ -264,9 +264,10 @@ if (empty($errors)) {
                            class="btn btn-outline-success px-4 mr-2 float-right">
                             Reset
                         </a>
-                    </div>
-                </form> <!-- form end -->
+                    </div> <!-- /.card-footer -->
+                </form>
             </div> <!-- /.card -->
+
         </div> <!-- /.container-fluid -->
     </section> <!-- /.content -->
 

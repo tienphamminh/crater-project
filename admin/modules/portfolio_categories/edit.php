@@ -74,10 +74,11 @@ if (empty($errors)) {
 <div class="card card-warning" style="min-height: 235px">
     <div class="card-header">
         <h3 class="card-title">Edit Portfolio Category</h3>
-    </div>
-    <!-- /.card-header -->
+    </div> <!-- /.card-header -->
+
     <form action="" method="post">
         <input type="hidden" name="id" value="<?php echo $categoryId; ?>">
+
         <div class="card-body">
             <?php echo getMessage($formMsg, $formMsgType); ?>
             <div class="form-group">
@@ -87,8 +88,8 @@ if (empty($errors)) {
                        value="<?php echo getOldFormValue('name', $formValues); ?>">
                 <?php echo getFormErrorMsg('name', $errors); ?>
             </div>
-        </div>
-        <!-- /.card-body -->
+        </div> <!-- /.card-body -->
+
         <div class="card-footer clearfix">
             <button type="submit" class="btn btn-warning px-4 float-left">Update</button>
             <a href="<?php echo getAbsUrlAdmin('portfolio_categories'); ?>"
@@ -99,6 +100,6 @@ if (empty($errors)) {
                class="btn btn-outline-success px-4 mr-2 float-right">
                 Reset
             </a>
-        </div>
+        </div> <!-- /.card-footer -->
     </form>
-</div>
+</div> <!-- /.card -->

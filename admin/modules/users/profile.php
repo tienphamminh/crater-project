@@ -98,13 +98,11 @@ if (empty($errors)) {
         <div class="container-fluid">
 
             <div class="card card-primary">
-
                 <!-- form start -->
                 <form action="" method="post">
                     <div class="card-body">
                         <?php echo getMessage($msg, $msgType); ?>
                         <div class="row">
-
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="fullname">Fullname</label>
@@ -169,11 +167,8 @@ if (empty($errors)) {
                                     <?php echo getFormErrorMsg('introduction', $errors); ?>
                                 </div>
                             </div>
-
-                        </div>
-                        <!-- /.row -->
-                    </div>
-                    <!-- /.card-body -->
+                        </div> <!-- /.row -->
+                    </div> <!-- /.card-body -->
 
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary px-3 clearfix">Update</button>
@@ -181,8 +176,8 @@ if (empty($errors)) {
                            class="btn btn-outline-success px-4 mr-2 float-right">
                             Reset
                         </a>
-                    </div>
-                </form> <!-- form end -->
+                    </div> <!-- /.card-footer -->
+                </form>
             </div> <!-- /.card -->
 
         </div> <!-- /.container-fluid -->

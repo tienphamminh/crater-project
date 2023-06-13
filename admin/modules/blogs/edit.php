@@ -215,7 +215,7 @@ if (empty($errors)) {
                            class="btn btn-outline-success px-4 mr-2 float-right">
                             Reset
                         </a>
-                    </div>
+                    </div> <!-- /.card-footer -->
                 </form>
             </div> <!-- /.card -->
 

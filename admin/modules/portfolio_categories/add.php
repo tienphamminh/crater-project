@@ -18,7 +18,6 @@ if (isPost()) {
         $errors['name']['min'] = 'Category name must be at least 4 characters';
     }
 
-
     if (empty($errors)) {
         // Validation successful
 
@@ -57,8 +56,8 @@ $oldValues = getFlashData('old_values');
 <div class="card card-success" style="min-height: 235px">
     <div class="card-header">
         <h3 class="card-title">Add Portfolio Category</h3>
-    </div>
-    <!-- /.card-header -->
+    </div> <!-- /.card-header -->
+
     <form action="" method="post">
         <div class="card-body">
             <?php echo getMessage($formMsg, $formMsgType); ?>
@@ -69,10 +68,10 @@ $oldValues = getFlashData('old_values');
                        value="<?php echo getOldFormValue('name', $oldValues); ?>">
                 <?php echo getFormErrorMsg('name', $errors); ?>
             </div>
-        </div>
-        <!-- /.card-body -->
+        </div> <!-- /.card-body -->
+
         <div class="card-footer">
             <button type="submit" class="btn btn-success px-4">Add</button>
-        </div>
+        </div> <!-- /.card-footer -->
     </form>
-</div>
+</div> <!-- /.card -->

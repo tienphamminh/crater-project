@@ -283,8 +283,7 @@ $oldValues = getFlashData('old_values');
                             <button type="button" class="btn btn-warning add-img-item">
                                 <i class="fas fa-plus mr-1"></i> Add Image
                             </button>
-                        </div> <!-- /.form-group -->
-
+                        </div> <!-- /.img-gallery-container -->
                     </div> <!-- /.card-body -->
 
                     <div class="card-footer clearfix">
@@ -293,7 +292,7 @@ $oldValues = getFlashData('old_values');
                            class="btn btn-outline-secondary px-4 float-right">
                             Back
                         </a>
-                    </div>
+                    </div> <!-- /.card-footer -->
                 </form>
             </div> <!-- /.card -->
 

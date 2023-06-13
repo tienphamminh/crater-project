@@ -26,7 +26,6 @@ if (isPost()) {
         $errors['slug']['isSlug'] = 'Invalid slug format';
     }
 
-
     if (empty($errors)) {
         // Validation successful
 
@@ -66,8 +65,8 @@ $oldValues = getFlashData('old_values');
 <div class="card card-success" style="min-height: 235px">
     <div class="card-header">
         <h3 class="card-title">Add Blog Category</h3>
-    </div>
-    <!-- /.card-header -->
+    </div> <!-- /.card-header -->
+
     <form action="" method="post">
         <div class="card-body">
             <?php echo getMessage($formMsg, $formMsgType); ?>
@@ -89,10 +88,10 @@ $oldValues = getFlashData('old_values');
             <div class="form-group">
                 <p class="render-link"><b>URL: </b> <span></span></p>
             </div>
-        </div>
-        <!-- /.card-body -->
+        </div> <!-- /.card-body -->
+
         <div class="card-footer">
             <button type="submit" class="btn btn-success px-4">Add</button>
-        </div>
+        </div> <!-- /.card-footer -->
     </form>
-</div>
+</div> <!-- /.card -->
