@@ -23,6 +23,11 @@ $(document).ready(function () {
             $('#modal-image').modal('show');
         }
     });
+
+    // Toggle-badge when close-open sidebar menu
+    $('.toggle-badge').click(function () {
+        $(this).find('span.badge').toggle(300);
+    });
 });
 //======================================================================================================================
 
