@@ -259,6 +259,55 @@ if (!defined('_INCODE')) {
                 </li>
                 <!-- /.blogs -->
 
+                <!-- Contacts -->
+                <li class="nav-item has-treeview <?php echo (isActiveModule('contacts')
+                    || isActiveModule('departments')) ? 'menu-open' : null; ?>">
+                    <!-- Parent-->
+                    <a href="#"
+                       class="nav-link toggle-badge <?php echo (isActiveModule('contacts')
+                           || isActiveModule('departments')) ? 'active' : null; ?>">
+                        <i class="nav-icon fas fa-headset"></i>
+                        <p>
+                            Contacts
+                            <i class="fas fa-angle-left right"></i>
+                            <?php
+                            $unreadContacts = getUnreadContacts();
+                            if (!empty($unreadContacts)):
+                                ?>
+                                <span class="badge badge-danger right" <?php echo (isActiveModule('contacts')
+                                    || isActiveModule('departments')) ? 'style="display: none;"' : null; ?>
+                                ><?php echo $unreadContacts; ?></span>
+                            <?php endif; ?>
+                        </p>
+                    </a>
+                    <!-- Child-->
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('contacts'); ?>"
+                               class="nav-link <?php echo (isActiveAction('contacts', 'list')
+                                   || isActiveAction('contacts', ''))
+                                   ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    List of Contacts
+                                    <?php if (!empty($unreadContacts)): ?>
+                                        <span class="badge badge-danger right"><?php echo $unreadContacts; ?></span>
+                                    <?php endif; ?>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('departments'); ?>"
+                               class="nav-link <?php echo (isActiveModule('departments'))
+                                   ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Departments</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- /.contacts -->
+
                 <!-- Options -->
                 <li class="nav-item has-treeview <?php echo (isActiveModule('options')) ? 'menu-open' : null; ?>">
                     <!-- Parent-->

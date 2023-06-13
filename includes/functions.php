@@ -497,3 +497,11 @@ function updateOptions($options)
         setFlashData('msg_type', 'danger');
     }
 }
+
+// Get unread contact messages
+function getUnreadContacts()
+{
+    $sql = "SELECT id FROM contacts WHERE status=:status";
+    $data = ['status' => 0];
+    return getNumberOfRows($sql, $data);
+}
