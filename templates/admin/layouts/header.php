@@ -30,7 +30,7 @@ saveLastActivity($userId);
     <title>Admin | <?php echo (!empty($dataHeader['pageTitle'])) ? $dataHeader['pageTitle'] : 'Dashboard'; ?></title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/img/crater-favicon.png"/>
+    <link rel="icon" type="image/png" href="<?php echo _WEB_HOST_CORE_TEMPLATE; ?>/assets/images/crater-favicon.png"/>
     <!-- Font Awesome -->
     <link rel="stylesheet"
           href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/plugins/fontawesome-free/css/all.min.css">

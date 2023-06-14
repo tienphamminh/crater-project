@@ -8,11 +8,11 @@ const _INCODE = true;
 // Debug Mode
 const _DEBUG = true;
 
-// Default module, default action
+// Front Page: Default module, default action
 const _DEFAULT_MODULE = 'home';
 const _DEFAULT_ACTION = 'list';
 
-// Absolute path
+// Admin Page: Default module, default action
 const _DEFAULT_ADMIN_MODULE = 'dashboard';
 const _DEFAULT_ADMIN_ACTION = 'list';
 
@@ -21,6 +21,7 @@ define('_WEB_HOST_ROOT', 'http://' . $_SERVER['HTTP_HOST'] . '/crater-project');
 const _WEB_HOST_ROOT_ADMIN = _WEB_HOST_ROOT . '/admin';
 const _WEB_HOST_CLIENT_TEMPLATE = _WEB_HOST_ROOT . '/templates/client';
 const _WEB_HOST_ADMIN_TEMPLATE = _WEB_HOST_ROOT . '/templates/admin';
+const _WEB_HOST_CORE_TEMPLATE = _WEB_HOST_ROOT . '/templates/core';
 
 const _DIR_PATH_ROOT = __DIR__;
 const _DIR_PATH_TEMPLATE = _DIR_PATH_ROOT . '/templates';

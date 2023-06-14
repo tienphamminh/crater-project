@@ -28,7 +28,7 @@ if (isLoggedIn()) {
     <title>Admin | <?php echo (!empty($dataHeader['pageTitle'])) ? $dataHeader['pageTitle'] : 'Auth'; ?></title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/img/crater-favicon.png"/>
+    <link rel="icon" type="image/png" href="<?php echo _WEB_HOST_CORE_TEMPLATE; ?>/assets/images/crater-favicon.png"/>
     <!-- Font Awesome -->
     <link rel="stylesheet"
           href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/plugins/fontawesome-free/css/all.min.css">
@@ -48,7 +48,7 @@ if (isLoggedIn()) {
 <div class="login-box">
 
     <div class="login-logo">
-        <img src="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/img/crater-logo.png" alt="logo"/>
+        <img src="<?php echo _WEB_HOST_CORE_TEMPLATE; ?>/assets/images/crater-logo.png" alt="logo"/>
     </div>
     <!-- /.login-logo -->
 

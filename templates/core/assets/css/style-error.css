@@ -41,7 +41,7 @@ body {
 }
 
 .error-page .error-page-bg.sad-emoji {
-    background-image: url('../img/sad-emoji.png');
+    background-image: url('../images/sad-emoji.png');
 }
 
 .error-page .error-page-bg:before {

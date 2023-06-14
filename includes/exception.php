@@ -27,7 +27,10 @@ function callbackExceptionHandler(Throwable $exception): void
         setFlashData('server_error', 1);
     }
 
-    $path = 'admin/';
+    $path = '';
+    if (isAdminPage()) {
+        $path = 'admin/';
+    }
     if (!empty($_SERVER['QUERY_STRING'])) {
         $path .= '?' . trim($_SERVER['QUERY_STRING']);
     }

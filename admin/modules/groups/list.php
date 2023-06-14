@@ -28,7 +28,7 @@ if (isGet()) {
             $orderClause .= " $sortOrder";
         }
     }
-    
+
     if (!empty($body['keyword'])) {
         $keyword = $body['keyword'];
 
