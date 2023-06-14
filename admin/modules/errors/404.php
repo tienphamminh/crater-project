@@ -17,7 +17,7 @@ if (!defined('_INCODE')) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/img/crater-favicon.png"/>
+    <link rel="icon" type="image/png" href="<?php echo _WEB_HOST_CORE_TEMPLATE; ?>/assets/images/crater-favicon.png"/>
 
     <title>404 Not Found</title>
 
@@ -25,7 +25,7 @@ if (!defined('_INCODE')) {
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
 
     <!-- Custom stylesheet -->
-    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/css/style-error.css"/>
+    <link type="text/css" rel="stylesheet" href="<?php echo _WEB_HOST_CORE_TEMPLATE; ?>/assets/css/style-error.css"/>
 </head>
 
 <body>

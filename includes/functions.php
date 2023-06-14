@@ -386,6 +386,21 @@ function isActiveAction($module, $action): bool
     return false;
 }
 
+// Check if current file (index.php) is in 'admin' directory
+function isAdminPage(): bool
+{
+    if (!empty($_SERVER['PHP_SELF'])) {
+        $currentFile = $_SERVER['PHP_SELF'];
+        $currentDir = dirname($currentFile);
+        $basename = basename($currentDir);
+        if (trim($basename) == 'admin') {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 // Get user details
 function getUserDetails($userId, $fields = '*')
 {

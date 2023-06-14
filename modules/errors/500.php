@@ -39,7 +39,7 @@ if (!defined('_INCODE')) {
             Sorry, something went wrong on our end.
             We are currently trying to fix the problem.
         </p>
-        <a href="<?php echo getAbsUrlAdmin(); ?>">Back to Dashboard</a>
+        <a href="">Back to Homepage</a>
     </div>
 </div>
 

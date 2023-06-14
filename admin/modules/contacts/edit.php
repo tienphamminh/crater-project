@@ -160,7 +160,7 @@ if (empty($errors)) {
                                     <?php echo getFormErrorMsg('department_id', $errors); ?>
                                 </div>
                             </div>
-                            
+
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Processing Status:</label>

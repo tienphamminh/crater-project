@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+ob_start();
 
 require_once 'config.php';
 
@@ -12,20 +13,42 @@ require_once 'includes/functions.php';
 require_once 'includes/connect.php';
 require_once 'includes/database.php';
 require_once 'includes/session.php';
+require_once 'includes/exception.php';
+require_once 'includes/permalink.php';
 
-$module = _DEFAULT_MODULE;
-$action = _DEFAULT_ACTION;
+ini_set('display_errors', 0);
+error_reporting(0);
 
-if (!empty($_GET['module'])) {
-    if (is_string($_GET['module'])) {
-        $module = trim($_GET['module']);
+// Register function: 'callbackErrorHandler' as a default error handler
+set_error_handler('callbackErrorHandler');
+// Register function: 'callbackExceptionHandler' as a default exception handler (Global exception handler)
+set_exception_handler('callbackExceptionHandler');
+
+if (_DEBUG) {
+    // Debug On
+    $debugError = getFlashData('debug_error');
+    if (!empty($debugError)) {
+        require_once 'modules/errors/debug.php';
+        exit;
+    }
+} else {
+    // Debug Off
+    $serverError = getFlashData('server_error');
+    if (!empty($serverError)) {
+        http_response_code(500);
+        require_once 'modules/errors/500.php';
+        exit;
     }
 }
 
-if (!empty($_GET['action'])) {
-    if (is_string($_GET['action'])) {
-        $action = trim($_GET['action']);
-    }
+$module = getCurrentModule();
+if (empty($module)) {
+    $module = _DEFAULT_MODULE;
+}
+
+$action = getCurrentAction();
+if (empty($action)) {
+    $action = _DEFAULT_ACTION;
 }
 
 $path = 'modules/' . $module . '/' . $action . '.php';
