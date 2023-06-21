@@ -14,7 +14,7 @@ if (!defined('_INCODE')) {
     <!-- Brand Logo -->
     <a href="<?php echo getAbsUrlAdmin(); ?>" class="brand-link">
         <img class="brand-image"
-             src="<?php echo _WEB_HOST_CORE_TEMPLATE; ?>/assets/images/crater-icon.png" alt="crater-icon">
+             src="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/img/crater-icon.png" alt="crater-icon">
         <span class="brand-text font-weight-normal" style="color: #26bdef">Admin Page</span>
     </a>
     <!-- /.brand-logo -->

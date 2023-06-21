@@ -48,7 +48,7 @@ if (isLoggedIn()) {
 <div class="login-box">
 
     <div class="login-logo">
-        <img src="<?php echo _WEB_HOST_CORE_TEMPLATE; ?>/assets/images/crater-logo.png" alt="logo"/>
+        <img src="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/img/crater-logo.png" alt="logo"/>
     </div>
     <!-- /.login-logo -->
 
