@@ -1,0 +1,105 @@
+.header .contact li i,
+.header .social li:hover a,
+.hero-area .slider-text h1 span,
+.fun-facts .text-content h1 span,
+.services .single-service i,
+.services button,
+.hero-area .button .btn.video:hover i,
+.blogs-main .meta span i,
+.blogs-main .meta span a:hover,
+.blogs-main button,
+.blogs-main.archives .pagination li:hover a,
+.blogs-main.archives .post-tab .post-info a:hover,
+.footer .social li:hover a,
+.footer .single-tweet p a,
+.footer .single-widget.about .list li i,
+.footer .single-widget li:hover a,
+.blogs-main.archives .post-tab .post-info p,
+.blogs-main.archives.single .blog-inner p b,
+.blogs-main.archives.single .blog-inner p u,
+.blogs-main.archives.single .author-left h4 span,
+.blogs-main.archives.single .comment-info p i,
+.about-us .single-video a:hover,
+.blogs-main.archives.single .social-share li:hover a,
+.services .single-service:hover h2 a,
+.footer .single-tweet i,
+.footer .single-tweet p i,
+.blogs-main.archives .single-sidebar ul li a:hover,
+.blogs-main .blog-inner h4:hover a,
+.team .t-social li a:hover,
+.breadcrumbs ul li:hover a,
+.breadcrumbs ul li.active a,
+.portfolio .portfolio-hover h4:hover a,
+.team .t-social li.active a,
+.footer .copyright p a,
+.section-title h1,
+.breadcrumbs ul li + li::before {
+  color: #26bdef;
+}
+.header .search-form .icon,
+.header .navigation ul.menu > li > a::before,
+.header .navigation ul.menu li ul li:hover > a,
+.header .button .btn,
+.hero-area .button .btn,
+.hero-area .owl-controls .owl-dots .owl-dot span,
+.hero-area .owl-controls .owl-dots .owl-dot.active span,
+.fun-facts .icon,
+.services .single-service.slick-center,
+.services button:hover,
+.portfolio .portfolio-nav ul li.active,
+.portfolio .portfolio-nav ul li:hover,
+.portfolio .cbp-filter-counter,
+.portfolio .portfolio-hover .button a:hover,
+.header .link a span,
+.portfolio .portfolio-hover .button .primary,
+.hero-area .owl-controls .owl-nav div:hover,
+.team .t-icon a,
+.call-to-action::before,
+.blogs-main button:hover,
+.blogs-main.archives .pagination li.active a,
+.blogs-main.archives .single-sidebar h2 i,
+.blogs-main.archives .post-tab .nav li a.active,
+.blogs-main.archives.single .arrow li a,
+.blogs-main.archives.single .form-group .btn,
+.about-us .progress .progress-bar,
+.about-us .progress .percent,
+.contact-us .form-main h2::before,
+.contact-us .nice-select .option:hover,
+.contact-us .social li a i,
+.footer .top-arrow .btn,
+.footer .single-widget.newsletter button,
+.preloader-inner .single-loader,
+.btn.primary,
+.header .mobile-menu {
+  background: #26bdef;
+}
+.portfolio .cbp-filter-counter::before,
+.about-us .progress .percent::before {
+  border-top-color: #26bdef;
+}
+.header .navigation ul.menu li ul,
+.blogs-main.archives.single blockquote {
+  border-left-color: #26bdef;
+}
+.portfolio .portfolio-nav,
+.call-to-action::after,
+.contact-us .nice-select::after {
+  border-bottom-color: #26bdef;
+}
+.contact-us .nice-select::after {
+  border-right-color: #26bdef;
+}
+.hero-area .button .btn.video i,
+.hero-area .owl-controls .owl-dots .owl-dot span::before,
+.blogs-main.archives .pagination li:hover a,
+.contact-us .form-group textarea:hover,
+.contact-us .form-group .nice-select:hover,
+.contact-us .form-group input:hover,
+.contact-us .form-group input:focus,
+.contact-us .form-group textarea:hover,
+.blogs-main.archives.single .form-group input:hover,
+.blogs-main.archives.single .form-group textarea:hover,
+.blogs-main.archives.single .arrow li:hover a,
+.blogs-main.archives .tags ul li a:hover {
+  border-color: #26bdef;
+}
