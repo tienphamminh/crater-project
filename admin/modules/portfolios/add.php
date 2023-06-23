@@ -243,8 +243,8 @@ $oldValues = getFlashData('old_values');
                                                                value="<?php echo (!empty($oldImgItem)) ? $oldImgItem : null; ?>">
                                                         <!-- Browse Button -->
                                                         <div class="input-group-append">
-                                                            <button type="button" class="btn btn-success"
-                                                                    id="choose-img-item-<?php echo $index; ?>">
+                                                            <button type="button"
+                                                                    class="btn btn-success ckfinder-choose-img">
                                                                 <i class="fas fa-upload"></i>
                                                                 <span class="d-none d-xl-inline ml-1">Choose Image</span>
                                                             </button>
@@ -255,8 +255,8 @@ $oldValues = getFlashData('old_values');
                                                     <div class="d-flex">
                                                         <!-- Delete Button -->
                                                         <div style="width: 65%">
-                                                            <button type="button" class="btn btn-danger btn-block"
-                                                                    id="remove-img-item-<?php echo $index; ?>">
+                                                            <button type="button"
+                                                                    class="btn btn-danger btn-block remove-img-item">
                                                                 <i class="fas fa-times"></i>
                                                             </button>
                                                         </div>
