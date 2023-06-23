@@ -34,8 +34,9 @@
 .footer .copyright p a,
 .section-title h1,
 .breadcrumbs ul li + li::before {
-  color: #26bdef;
+    color: var(--theme-color);
 }
+
 .header .search-form .icon,
 .header .navigation ul.menu > li > a::before,
 .header .navigation ul.menu li ul li:hover > a,
@@ -71,24 +72,29 @@
 .preloader-inner .single-loader,
 .btn.primary,
 .header .mobile-menu {
-  background: #26bdef;
+    background: var(--theme-color);
 }
+
 .portfolio .cbp-filter-counter::before,
 .about-us .progress .percent::before {
-  border-top-color: #26bdef;
+    border-top-color: var(--theme-color);
 }
+
 .header .navigation ul.menu li ul,
 .blogs-main.archives.single blockquote {
-  border-left-color: #26bdef;
+    border-left-color: var(--theme-color);
 }
+
 .portfolio .portfolio-nav,
 .call-to-action::after,
 .contact-us .nice-select::after {
-  border-bottom-color: #26bdef;
+    border-bottom-color: var(--theme-color);
 }
+
 .contact-us .nice-select::after {
-  border-right-color: #26bdef;
+    border-right-color: var(--theme-color);
 }
+
 .hero-area .button .btn.video i,
 .hero-area .owl-controls .owl-dots .owl-dot span::before,
 .blogs-main.archives .pagination li:hover a,
@@ -101,5 +107,5 @@
 .blogs-main.archives.single .form-group textarea:hover,
 .blogs-main.archives.single .arrow li:hover a,
 .blogs-main.archives .tags ul li a:hover {
-  border-color: #26bdef;
+    border-color: var(--theme-color);
 }
