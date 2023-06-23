@@ -210,6 +210,16 @@ function isPhone($phone): bool
     return false;
 }
 
+// Check if an input string is HEX color code
+function isHexColor($code): bool
+{
+    if (preg_match('/^#([0-9a-fA-F]{2}){3,4}$/', $code)) {
+        return true;
+    }
+
+    return false;
+}
+
 // Check if an input string is valid slug
 function isSlug($slug): bool
 {
@@ -342,10 +352,8 @@ function autoRemoveLoginTokens($duration): void
     }
 }
 
-// Get absolute URL for '<a href="">' (Admin Page)
-function getAbsUrlAdmin($module = '', $action = '', $params = []): string
+function getAbsUrl($url, $module = '', $action = '', $params = []): string
 {
-    $url = _WEB_HOST_ROOT_ADMIN . '/';
     if (!empty($module)) {
         $url .= '?module=' . $module;
     }
@@ -360,6 +368,20 @@ function getAbsUrlAdmin($module = '', $action = '', $params = []): string
     }
 
     return $url;
+}
+
+// Get absolute URL for '<a href="">' (Admin Page)
+function getAbsUrlAdmin($module = '', $action = '', $params = []): string
+{
+    $url = _WEB_HOST_ROOT_ADMIN . '/';
+    return getAbsUrl($url, $module, $action, $params);
+}
+
+// Get absolute URL for '<a href="">' (Front Page)
+function getAbsUrlFront($module = '', $action = '', $params = []): string
+{
+    $url = _WEB_HOST_ROOT . '/';
+    return getAbsUrl($url, $module, $action, $params);
 }
 
 // Check current module for adding '.active', '.menu-open' class to current element in the 'sidebar-menu'

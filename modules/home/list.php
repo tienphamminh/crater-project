@@ -7,7 +7,7 @@ if (!defined('_INCODE')) {
 }
 
 // Add Header
-$dataHeader = ['pageTitle' => 'Homepage'];
+$dataHeader = ['pageTitle' => 'Get creative - Get Coding'];
 addLayout('header', 'client', $dataHeader);
 ?>
     <!-- Hero Area -->
