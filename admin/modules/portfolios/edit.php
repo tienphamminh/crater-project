@@ -305,10 +305,10 @@ if (empty($errors)) {
                             <?php echo getFormErrorMsg('content', $errors); ?>
                         </div>
 
-                        <div class="form-group img-gallery-container">
+                        <div class="form-group gallery-container">
                             <label for="">Image Gallery</label>
                             <!-- Image gallery -->
-                            <div class="img-gallery" id="sortable">
+                            <div class="img-gallery sortable">
                                 <?php
                                 if (!empty($errors['gallery'])) {
                                     $galleryErrors = reset($errors['gallery']);
@@ -322,12 +322,15 @@ if (empty($errors)) {
                                             <div class="row">
                                                 <div class="col-10 col-xl-11">
                                                     <div class="input-group mb-3">
-                                                        <input type="text" name="gallery[]" readonly
-                                                               class="form-control ckfinder-render-img img-item-popup"
-                                                               placeholder="Choose image..." style="cursor: pointer"
+                                                        <input type="text" name="gallery[]"
+                                                               class="form-control ckfinder-render-img"
+                                                               placeholder="Choose image..."
                                                                value="<?php echo (!empty($oldImgItem)) ? $oldImgItem : null; ?>">
                                                         <!-- Browse Button -->
                                                         <div class="input-group-append">
+                                                            <span class="btn input-group-text view-img">
+                                                                <i class="fas fa-search-plus"></i>
+                                                            </span>
                                                             <button type="button"
                                                                     class="btn btn-success ckfinder-choose-img">
                                                                 <i class="fas fa-upload"></i>
@@ -346,8 +349,8 @@ if (empty($errors)) {
                                                             </button>
                                                         </div>
                                                         <!-- Drag Handle -->
-                                                        <div class="ml-auto d-flex align-items-center drag-handle"
-                                                             style="width: 20%; cursor: move;">
+                                                        <div class="ml-auto drag-handle"
+                                                             style="width: 20%; cursor: move; line-height: 38px;">
                                                             <i class="fas fa-sort fa-lg text-secondary"></i>
                                                         </div>
                                                     </div>

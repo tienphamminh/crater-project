@@ -1,4 +1,4 @@
-// JQuery
+// ================================================= JQuery ============================================================
 $(document).ready(function () {
 
     // Initialize tooltips
@@ -22,6 +22,14 @@ $(document).ready(function () {
             $('.image-preview').attr('src', imgTag.attr('src'));
             $('#modal-image').modal('show');
         }
+    });
+
+    // Sortable jQuery UI
+    $('.sortable').sortable({
+        opacity: 0.7,
+        revert: 200,
+        handle: ".drag-handle",
+        containment: ".gallery-container",
     });
 
     // Toggle-badge when close-open sidebar menu
@@ -128,9 +136,9 @@ window.addEventListener('beforeunload', () => {
 
 //======================================================================================================================
 // Use CKEditor with class '.editor'
-let textAreaElements = document.querySelectorAll('.editor');
-if (textAreaElements !== null) {
-    textAreaElements.forEach((element, index) => {
+let textAreaList = document.querySelectorAll('.editor');
+if (textAreaList !== null) {
+    textAreaList.forEach((element, index) => {
         element.id = 'editor-' + (index + 1);
         CKEDITOR.replace(element.id);
     });
@@ -138,9 +146,9 @@ if (textAreaElements !== null) {
 
 //======================================================================================================================
 // Display FontAwesome Icon or Image when insert icon tag or choose Image
-let ckfinderGroups = document.querySelectorAll('.ckfinder-group');
-if (ckfinderGroups !== null) {
-    ckfinderGroups.forEach((element) => {
+let ckfinderGroupList = document.querySelectorAll('.ckfinder-group');
+if (ckfinderGroupList !== null) {
+    ckfinderGroupList.forEach((element) => {
         let renderImage = element.querySelector('.ckfinder-render-img');
         let showImage = element.querySelector('.ckfinder-show-img');
         if (showImage !== null) {
@@ -192,18 +200,18 @@ function openCKFinder(element) {
     });
 }
 
-let chooseImages = document.querySelectorAll('.ckfinder-choose-img');
-if (chooseImages !== null) {
-    chooseImages.forEach((element) => {
+let chooseImageList = document.querySelectorAll('.ckfinder-choose-img');
+if (chooseImageList !== null) {
+    chooseImageList.forEach((element) => {
         openCKFinder(element);
     })
 }
 
 //======================================================================================================================
 // Sizing FontAwesome Icon
-let customIcons = document.querySelectorAll('.icon-2x');
-if (customIcons !== null) {
-    customIcons.forEach((element) => {
+let customIconList = document.querySelectorAll('.icon-2x');
+if (customIconList !== null) {
+    customIconList.forEach((element) => {
         let iconElement = element.querySelector('i');
         if (iconElement !== null) {
             iconElement.classList.add('fa-2x');
@@ -228,10 +236,11 @@ function deleteItemOfGallery(removeBtnElement, itemClassname) {
     });
 }
 
-// Show Image Modal (when click input)
-function showImgModal() {
-    $('.img-item-popup').click(function () {
-        let imgUrl = $(this).val().trim();
+// Show Image Modal (when click zoom-in icon)
+function viewImg(selector = '.view-img') {
+    $(selector).click(function () {
+        // console.log($(this).get(0));
+        let imgUrl = $(this).parent().siblings('input').val().trim();
         if (imgUrl) {
             $('.image-preview').attr('src', imgUrl);
             $('#modal-image').modal('show');
@@ -239,19 +248,59 @@ function showImgModal() {
     });
 }
 
+viewImg();
+
+function moveItem(upSelector = '.move-up', downSelector = '.move-down') {
+    $(upSelector).click(function () {
+        let movableItem = $(this).parents('.movable');
+        if (movableItem.prev()) {
+            movableItem.insertBefore(movableItem.prev());
+        }
+    });
+
+    $(downSelector).click(function () {
+        let movableItem = $(this).parents('.movable');
+        if (movableItem.next()) {
+            movableItem.insertAfter(movableItem.next());
+        }
+    });
+}
+
+moveItem();
+
+// function moveItem2(element) {
+//     element.addEventListener('click', (e) => {
+//         console.log(e.target);
+//         if (e.target.classList.contains('move-up')) {
+//             if (element.previousElementSibling) {
+//                 element.parentNode.insertBefore(element, element.previousElementSibling);
+//             }
+//         } else if (e.target.classList.contains('move-down')) {
+//             if (element.nextElementSibling) {
+//                 element.parentNode.insertBefore(element.nextElementSibling, element);
+//             }
+//         }
+//     });
+// }
+//
+// let movableItemList = document.querySelectorAll('.movable');
+// if (movableItemList !== null) {
+//     movableItemList.forEach((element) => {
+//         moveItem2(element);
+//     });
+// }
+
 // ======== Image gallery repeater (drag and drop sortable list of img items) ========
 let addImgItem = document.querySelector('.add-img-item');
 let imgGallery = document.querySelector('.img-gallery');
 
 if (addImgItem !== null && imgGallery !== null) {
-    let imgItems = imgGallery.querySelectorAll('.img-item');
-    if (imgItems !== null) {
+    let imgItemList = imgGallery.querySelectorAll('.img-item');
+    if (imgItemList !== null) {
         let removeImgItemList = imgGallery.querySelectorAll('.remove-img-item');
         removeImgItemList.forEach((element) => {
             deleteItemOfGallery(element, 'img-item');
         });
-        // Show Image modal from input
-        showImgModal();
     }
 
     let imgItemId = 0;
@@ -261,12 +310,14 @@ if (addImgItem !== null && imgGallery !== null) {
                                     <div class="row">
                                         <div class="col-10 col-xl-11">
                                             <div class="input-group mb-3">
-                                                <input type="text" name="gallery[]" readonly
-                                                       class="form-control ckfinder-render-img img-item-popup"
-                                                       placeholder="Choose image..."
-                                                       style="cursor: pointer">
+                                                <input type="text" name="gallery[]"
+                                                       class="form-control ckfinder-render-img"
+                                                       placeholder="Choose image...">
                                                 <div class="input-group-append">
-                                                    <button type="button" id="choose-img-item-${imgItemId}"
+                                                    <span class="btn input-group-text" id="view-img-${imgItemId}">
+                                                        <i class="fas fa-search-plus"></i>
+                                                    </span>
+                                                    <button type="button" id="ckfinder-choose-img-${imgItemId}"
                                                             class="btn btn-success">
                                                         <i class="fas fa-upload"></i>
                                                         <span class="d-none d-xl-inline ml-1">Choose Image</span>
@@ -276,14 +327,16 @@ if (addImgItem !== null && imgGallery !== null) {
                                         </div>
                                         <div class="col-2 col-xl-1">
                                             <div class="d-flex">
+                                                <!-- Delete Button -->
                                                 <div style="width: 65%">
                                                     <button type="button" id="remove-img-item-${imgItemId}"
                                                             class="btn btn-danger btn-block">
                                                         <i class="fas fa-times"></i>
                                                     </button>
                                                 </div>
-                                                <div class="ml-auto d-flex align-items-center drag-handle"
-                                                     style="width: 20%; cursor: move;">
+                                                <!-- Drag Handle -->
+                                                <div class="ml-auto drag-handle"
+                                                     style="width: 20%; cursor: move; line-height: 38px;">
                                                     <i class="fas fa-sort fa-lg text-secondary"></i> 
                                                 </div>
                                             </div>
@@ -294,56 +347,55 @@ if (addImgItem !== null && imgGallery !== null) {
         imgGallery.insertAdjacentHTML('beforeend', imgItemHtml);
 
         // Open CKFinder
-        let chooseImgItem = imgGallery.querySelector(`#choose-img-item-${imgItemId}`);
-        openCKFinder(chooseImgItem);
+        let chooseImg = imgGallery.querySelector(`#ckfinder-choose-img-${imgItemId}`);
+        openCKFinder(chooseImg);
 
         // Delete img-item
         let removeImgItem = imgGallery.querySelector(`#remove-img-item-${imgItemId}`);
         deleteItemOfGallery(removeImgItem, 'img-item');
 
         // Show Image modal from input
-        showImgModal();
+        viewImg(`.img-gallery  #view-img-${imgItemId}`);
 
         imgItemId++;
     });
-
-    // Sortable jQuery UI
-    $("#sortable").sortable({
-        opacity: 0.7,
-        revert: 200,
-        handle: ".drag-handle",
-        containment: ".img-gallery-container",
-    });
 }
-
 
 // ======== (Homepage) Slide gallery repeater ========
 let addSlideItem = document.querySelector('.add-slide-item');
 let slideGallery = document.querySelector('.slide-gallery');
 
 if (addSlideItem !== null && slideGallery !== null) {
-    let slideItems = slideGallery.querySelectorAll('.slide-item');
+    let slideItemList = slideGallery.querySelectorAll('.slide-item');
 
-    if (slideItems !== null) {
+    if (slideItemList !== null) {
         let removeSlideItemList = slideGallery.querySelectorAll('.remove-slide-item');
         removeSlideItemList.forEach((element) => {
             deleteItemOfGallery(element, 'slide-item');
         });
-        // Show Image modal from input
-        showImgModal();
     }
 
     let slideItemId = 0;
     addSlideItem.addEventListener('click', (e) => {
-        let slideItemHtml = `<div class="slide-item">
+        let slideItemHtml = `<div class="slide-item movable">
                                 <!-- Child Card -->
                                 <div class="card card-primary bg-light mt-5 shadow border">
-                                    <!-- Delete Button -->
                                     <div style="position: absolute; top: 0px; right: 0px;">
-                                        <button type="button" id="remove-slide-item-${slideItemId}" 
-                                                class="btn btn-danger px-4"
-                                                style="border-top-left-radius: 0; border-bottom-right-radius: 0;"
-                                        >
+                                        <div class="btn-group">
+                                            <!-- Move UP -->
+                                            <span class="btn btn-warning px-2 py-0" id="move-up-${slideItemId}" 
+                                                  style="font-size: 25px;">
+                                                <i class="fas fa-caret-up"></i>
+                                            </span>
+                                            <!-- Move DOWN -->
+                                            <span class="btn btn-warning px-2 py-0" id="move-down-${slideItemId}"
+                                                  style="font-size: 25px;">
+                                                <i class="fas fa-caret-down"></i>
+                                            </span>
+                                        </div>
+                                        <!-- Delete Button -->
+                                        <button type="button" id="remove-slide-item-${slideItemId}"
+                                                class="btn btn-danger px-4">
                                             <span class="d-block d-md-none"><i class="fas fa-times"></i></span>
                                             <span class="d-none d-md-inline">Delete</span>
                                         </button>
@@ -356,27 +408,35 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                     <input type="text" name="slide_title[]" class="form-control"
                                                            placeholder="Slide Title...">
                                                 </div>
-                                                <div class="form-group">
-                                                    <label>YouTube Video URL</label>
-                                                    <input type="url" name="slide_video[]" class="form-control"
-                                                           placeholder="YouTube Video URL...">
-                                                </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>[View More] Button | Text</label>
-                                                    <input type="text" name="slide_btn_text[]" class="form-control"
-                                                           placeholder="Text of Button...">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>[View More] Button | Link</label>
-                                                    <input type="text" name="slide_btn_link[]" class="form-control"
-                                                           placeholder="Link of Button...">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>[View More] Button | Text</label>
+                                                            <input type="text" name="slide_btn_text[]"
+                                                                   class="form-control"
+                                                                   placeholder="Text of Button...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>[View More] Button | Link</label>
+                                                            <input type="text" name="slide_btn_link[]"
+                                                                   class="form-control"
+                                                                   placeholder="Link of Button...">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div> <!-- /.row -->
                                         <div class="row">
                                             <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>YouTube Video URL</label>
+                                                    <input type="url" name="slide_video[]" class="form-control"
+                                                           placeholder="YouTube Video URL...">
+                                                </div>
                                                 <div class="form-group">
                                                     <label>Slide Description</label>
                                                     <textarea name="slide_desc[]" class="form-control"
@@ -390,13 +450,15 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                 <div class="form-group ckfinder-group">
                                                     <label>Background Image</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" name="slide_background[]" readonly
-                                                               class="form-control ckfinder-render-img img-item-popup"
-                                                               placeholder="Choose image..."
-                                                               style="cursor: pointer">
+                                                        <input type="text" name="slide_background[]"
+                                                               class="form-control ckfinder-render-img"
+                                                               placeholder="Choose image...">
                                                         <div class="input-group-append">
-                                                            <button type="button" id="choose-img-bg-${slideItemId}"
-                                                                    class="btn btn-success">
+                                                            <span class="btn input-group-text view-img-${slideItemId}">
+                                                                <i class="fas fa-search-plus"></i>
+                                                            </span>
+                                                            <button type="button"
+                                                                    class="btn btn-success ckfinder-choose-img-${slideItemId}">
                                                                 <i class="fas fa-upload"></i>
                                                                 <span class="d-none d-xl-inline ml-1">Choose Image</span>
                                                             </button>
@@ -407,13 +469,15 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                 <div class="form-group ckfinder-group">
                                                     <label>Image 1</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" name="slide_image_1[]" readonly
-                                                               class="form-control ckfinder-render-img img-item-popup"
-                                                               placeholder="Choose image..."
-                                                               style="cursor: pointer">
+                                                        <input type="text" name="slide_image_1[]"
+                                                               class="form-control ckfinder-render-img"
+                                                               placeholder="Choose image...">
                                                         <div class="input-group-append">
-                                                            <button type="button" id="choose-img-one-${slideItemId}"
-                                                                    class="btn btn-success">
+                                                            <span class="btn input-group-text view-img-${slideItemId}">
+                                                                <i class="fas fa-search-plus"></i>
+                                                            </span>
+                                                            <button type="button"
+                                                                    class="btn btn-success ckfinder-choose-img-${slideItemId}">
                                                                 <i class="fas fa-upload"></i>
                                                                 <span class="d-none d-xl-inline ml-1">Choose Image</span>
                                                             </button>
@@ -424,18 +488,31 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                 <div class="form-group ckfinder-group">
                                                     <label>Image 2</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" name="slide_image_2[]" readonly
-                                                               class="form-control ckfinder-render-img img-item-popup"
-                                                               placeholder="Choose image..."
-                                                               style="cursor: pointer">
+                                                        <input type="text" name="slide_image_2[]"
+                                                               class="form-control ckfinder-render-img"
+                                                               placeholder="Choose image...">
                                                         <div class="input-group-append">
-                                                            <button type="button" id="choose-img-two-${slideItemId}"
-                                                                    class="btn btn-success">
+                                                            <span class="btn input-group-text view-img-${slideItemId}">
+                                                                <i class="fas fa-search-plus"></i>
+                                                            </span>
+                                                            <button type="button"
+                                                                    class="btn btn-success ckfinder-choose-img-${slideItemId}">
                                                                 <i class="fas fa-upload"></i>
                                                                 <span class="d-none d-xl-inline ml-1">Choose Image</span>
                                                             </button>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Position of Image 1, 2</label>
+                                                    <select name="slide_images_position" class="form-control">
+                                                        <option value="left">
+                                                            Left
+                                                        </option>
+                                                        <option value="right">
+                                                            Right
+                                                        </option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div> <!-- /.row -->
@@ -446,19 +523,23 @@ if (addSlideItem !== null && slideGallery !== null) {
         slideGallery.insertAdjacentHTML('beforeend', slideItemHtml);
 
         // Open CKFinder
-        let chooseImgOne = slideGallery.querySelector(`#choose-img-one-${slideItemId}`);
-        openCKFinder(chooseImgOne);
-        let chooseImgTwo = slideGallery.querySelector(`#choose-img-two-${slideItemId}`);
-        openCKFinder(chooseImgTwo);
-        let chooseImgBg = slideGallery.querySelector(`#choose-img-bg-${slideItemId}`);
-        openCKFinder(chooseImgBg);
+        let chooseImageList = slideGallery.querySelectorAll(`.ckfinder-choose-img-${slideItemId}`);
+        chooseImageList.forEach((element) => {
+            openCKFinder(element);
+        })
+
+        // Show Image modal from input
+        viewImg(`.slide-gallery .view-img-${slideItemId}`);
 
         // Delete slide-item button
         let removeSlideItem = slideGallery.querySelector(`#remove-slide-item-${slideItemId}`);
         deleteItemOfGallery(removeSlideItem, 'slide-item');
 
-        // Show Image modal from input
-        showImgModal();
+        // Move up, down item
+        moveItem(`#move-up-${slideItemId}`, `#move-down-${slideItemId}`);
+
+        // let movableItem = slideGallery.querySelector(`#movable-${slideItemId}`);
+        // moveItem2(movableItem);
 
         slideItemId++;
     });
