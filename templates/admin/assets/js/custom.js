@@ -379,7 +379,7 @@ if (addSlideItem !== null && slideGallery !== null) {
     addSlideItem.addEventListener('click', (e) => {
         let slideItemHtml = `<div class="slide-item movable">
                                 <!-- Child Card -->
-                                <div class="card card-primary bg-light mt-5 shadow border">
+                                <div class="card card-primary bg-light mb-4 shadow border">
                                     <div style="position: absolute; top: 0px; right: 0px;">
                                         <div class="btn-group">
                                             <!-- Move UP -->
@@ -405,7 +405,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Slide Title</label>
-                                                    <input type="text" name="slide_title[]" class="form-control"
+                                                    <input type="text" name="home_hero[slide_title][]" class="form-control"
                                                            placeholder="Slide Title...">
                                                 </div>
                                             </div>
@@ -414,7 +414,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>[View More] Button | Text</label>
-                                                            <input type="text" name="slide_btn_text[]"
+                                                            <input type="text" name="home_hero[slide_btn_text][]"
                                                                    class="form-control"
                                                                    placeholder="Text of Button...">
                                                         </div>
@@ -422,7 +422,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>[View More] Button | Link</label>
-                                                            <input type="text" name="slide_btn_link[]"
+                                                            <input type="text" name="home_hero[slide_btn_link][]"
                                                                    class="form-control"
                                                                    placeholder="Link of Button...">
                                                         </div>
@@ -434,12 +434,12 @@ if (addSlideItem !== null && slideGallery !== null) {
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>YouTube Video URL</label>
-                                                    <input type="url" name="slide_video[]" class="form-control"
+                                                    <input type="url" name="home_hero[slide_video][]" class="form-control"
                                                            placeholder="YouTube Video URL...">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Slide Description</label>
-                                                    <textarea name="slide_desc[]" class="form-control"
+                                                    <textarea name="home_hero[slide_desc][]" class="form-control"
                                                               placeholder="Slide Description..."
                                                               style="height: 210px"
                                                     ></textarea>
@@ -450,7 +450,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                 <div class="form-group ckfinder-group">
                                                     <label>Background Image</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" name="slide_background[]"
+                                                        <input type="text" name="home_hero[slide_background][]"
                                                                class="form-control ckfinder-render-img"
                                                                placeholder="Choose image...">
                                                         <div class="input-group-append">
@@ -469,7 +469,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                 <div class="form-group ckfinder-group">
                                                     <label>Image 1</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" name="slide_image_1[]"
+                                                        <input type="text" name="home_hero[slide_image_1][]"
                                                                class="form-control ckfinder-render-img"
                                                                placeholder="Choose image...">
                                                         <div class="input-group-append">
@@ -488,7 +488,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                 <div class="form-group ckfinder-group">
                                                     <label>Image 2</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" name="slide_image_2[]"
+                                                        <input type="text" name="home_hero[slide_image_2][]"
                                                                class="form-control ckfinder-render-img"
                                                                placeholder="Choose image...">
                                                         <div class="input-group-append">
@@ -505,7 +505,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Position of Image 1, 2</label>
-                                                    <select name="slide_images_position" class="form-control">
+                                                    <select name="home_hero[slide_images_position][]" class="form-control">
                                                         <option value="left">
                                                             Left
                                                         </option>
