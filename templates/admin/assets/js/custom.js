@@ -402,14 +402,46 @@ if (addSlideItem !== null && slideGallery !== null) {
                                     </div>
                                     <div class="card-body pt-5">
                                         <div class="row">
+                                            <!-- Col Left -->
                                             <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Slide Layout</label>
+                                                            <select name="home_hero[slide_layout][]" class="form-control">
+                                                                <option value="left">Left (Default)</option>
+                                                                <option value="right">Right</option>
+                                                                <option value="center">Center (No images)</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Slide Text Align</label>
+                                                            <select name="home_hero[slide_text_align][]" class="form-control">
+                                                                <option value="left">Left (Default)</option>
+                                                                <option value="right">Right</option>
+                                                                <option value="center">Center</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="form-group">
                                                     <label>Slide Title</label>
                                                     <input type="text" name="home_hero[slide_title][]" class="form-control"
                                                            placeholder="Slide Title...">
                                                 </div>
-                                            </div>
+                                                <div class="form-group">
+                                                    <label>Slide Description</label>
+                                                    <textarea name="home_hero[slide_desc][]" class="form-control"
+                                                              placeholder="Slide Description..."
+                                                              style="height: 210px"
+                                                    ></textarea>
+                                                </div>
+                                            </div> <!-- /.col (left) -->
+                                            <!-- Col Right -->
                                             <div class="col-md-6">
+                                                <!-- View More Button -->
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -427,25 +459,26 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                                    placeholder="Link of Button...">
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div> <!-- /.row -->
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>YouTube Video URL</label>
-                                                    <input type="url" name="home_hero[slide_video][]" class="form-control"
-                                                           placeholder="YouTube Video URL...">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Slide Description</label>
-                                                    <textarea name="home_hero[slide_desc][]" class="form-control"
-                                                              placeholder="Slide Description..."
-                                                              style="height: 210px"
-                                                    ></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
+                                                </div> <!-- End View More Button -->
+                                                <!-- Play Button -->
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>[Play] Button | Text</label>
+                                                            <input type="text" name="home_hero[slide_play_text][]"
+                                                                   class="form-control"
+                                                                   placeholder="Text of Button...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>[Play] Button | Link (YouTube)</label>
+                                                            <input type="text" name="home_hero[slide_play_link][]"
+                                                                   class="form-control"
+                                                                   placeholder="Link of Button...">
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- End Play Button -->
                                                 <!-- Slide Background -->
                                                 <div class="form-group ckfinder-group">
                                                     <label>Background Image</label>
@@ -503,18 +536,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label>Position of Image 1, 2</label>
-                                                    <select name="home_hero[slide_images_position][]" class="form-control">
-                                                        <option value="left">
-                                                            Left
-                                                        </option>
-                                                        <option value="right">
-                                                            Right
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                            </div> <!-- /.col (right) -->
                                         </div> <!-- /.row -->
                                     </div> <!-- /.card-body (child) -->
                                 </div> <!-- /.card (child) -->
@@ -542,5 +564,14 @@ if (addSlideItem !== null && slideGallery !== null) {
         // moveItem2(movableItem);
 
         slideItemId++;
+    });
+}
+
+let customRange = document.querySelector('.custom-range');
+let rangeValue = document.querySelector('.range-value');
+if (customRange !== null && rangeValue !== null) {
+    rangeValue.innerHTML = customRange.value + '%';
+    customRange.addEventListener('input', (e) => {
+        rangeValue.innerHTML = e.currentTarget.value + '%';
     });
 }
