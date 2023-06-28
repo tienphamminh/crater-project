@@ -357,7 +357,7 @@
     height: 100%;
     content: "";
     background: #fff;
-    opacity: 0.94;
+    opacity: var(--home-hero-opacity);
 }
 
 .hero-area .slider-text {

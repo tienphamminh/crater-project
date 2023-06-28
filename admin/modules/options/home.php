@@ -25,9 +25,23 @@ if (isPost()) {
             $slides = [];
 
             for ($index = 0; $index < $totalSlides; $index++) {
-                $slideData = [];
-                foreach ($homeHero as $key => $value) {
-                    $slideData[$key] = $value[$index];
+                $slideData = [
+                    'slide_layout' => $homeHero['slide_layout'][$index],
+                    'slide_text_align' => $homeHero['slide_text_align'][$index],
+                    'slide_title' => $homeHero['slide_title'][$index],
+                    'slide_desc' => $homeHero['slide_desc'][$index],
+                    'slide_btn_text' => $homeHero['slide_btn_text'][$index],
+                    'slide_btn_link' => $homeHero['slide_btn_link'][$index],
+                    'slide_play_text' => $homeHero['slide_play_text'][$index],
+                    'slide_play_link' => $homeHero['slide_play_link'][$index],
+                    'slide_background' => $homeHero['slide_background'][$index],
+                    'slide_image_1' => $homeHero['slide_image_1'][$index],
+                    'slide_image_2' => $homeHero['slide_image_2'][$index],
+                ];
+
+                if ($slideData['slide_layout'] == 'center') {
+                    $slideData['slide_image_1'] = '';
+                    $slideData['slide_image_2'] = '';
                 }
 
                 $slides[] = $slideData;
@@ -80,6 +94,21 @@ $oldValues = getFlashData('old_values');
                     <div class="card-body py-4">
                         <?php echo ($formName == 'hero-area') ? getMessage($msg, $msgType) : null; ?>
 
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>
+                                        <?php echo getOption('home_hero_opacity', true); ?>:
+                                        <h5 class="d-inline pl-2"><span class="badge badge-info range-value"></span>
+                                        </h5>
+                                    </label>
+                                    <input type="range" name="home_hero_opacity"
+                                           class="custom-range" min="0" max="100"
+                                           value="<?php echo getOption('home_hero_opacity'); ?>">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="slide-gallery">
                             <?php
                             $slidesJson = getOption('home_hero');
@@ -91,7 +120,7 @@ $oldValues = getFlashData('old_values');
                                         <!-- Slide Item -->
                                         <div class="slide-item movable">
                                             <!-- Child Card -->
-                                            <div class="card card-primary bg-light mt-5 shadow border">
+                                            <div class="card card-primary bg-light mb-4 shadow border">
                                                 <div style="position: absolute; top: 0px; right: 0px;">
                                                     <div class="btn-group">
                                                         <!-- Move UP -->
@@ -115,7 +144,62 @@ $oldValues = getFlashData('old_values');
                                                 </div>
                                                 <div class="card-body pt-5">
                                                     <div class="row">
+                                                        <!-- Col Left -->
                                                         <div class="col-md-6">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label>Slide Layout</label>
+                                                                        <select name="home_hero[slide_layout][]"
+                                                                                class="form-control">
+                                                                            <option value="left"
+                                                                                <?php echo ($slide['slide_layout'] == 'left')
+                                                                                    ? 'selected'
+                                                                                    : null; ?>>
+                                                                                Left (Default)
+                                                                            </option>
+                                                                            <option value="right"
+                                                                                <?php echo ($slide['slide_layout'] == 'right')
+                                                                                    ? 'selected'
+                                                                                    : null; ?>>
+                                                                                Right
+                                                                            </option>
+                                                                            <option value="center"
+                                                                                <?php echo ($slide['slide_layout'] == 'center')
+                                                                                    ? 'selected'
+                                                                                    : null; ?>>
+                                                                                Center (No images)
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label>Slide Text Align</label>
+                                                                        <select name="home_hero[slide_text_align][]"
+                                                                                class="form-control">
+                                                                            <option value="left"
+                                                                                <?php echo ($slide['slide_text_align'] == 'left')
+                                                                                    ? 'selected'
+                                                                                    : null; ?>>
+                                                                                Left (Default)
+                                                                            </option>
+                                                                            <option value="right"
+                                                                                <?php echo ($slide['slide_text_align'] == 'right')
+                                                                                    ? 'selected'
+                                                                                    : null; ?>>
+                                                                                Right
+                                                                            </option>
+                                                                            <option value="center"
+                                                                                <?php echo ($slide['slide_text_align'] == 'center')
+                                                                                    ? 'selected'
+                                                                                    : null; ?>>
+                                                                                Center
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                             <div class="form-group">
                                                                 <label>Slide Title</label>
                                                                 <input type="text" name="home_hero[slide_title][]"
@@ -123,9 +207,18 @@ $oldValues = getFlashData('old_values');
                                                                        placeholder="Slide Title..."
                                                                        value="<?php echo $slide['slide_title']; ?>">
                                                             </div>
-
-                                                        </div>
+                                                            <div class="form-group">
+                                                                <label>Slide Description</label>
+                                                                <textarea name="home_hero[slide_desc][]"
+                                                                          class="form-control"
+                                                                          placeholder="Slide Description..."
+                                                                          style="height: 210px"
+                                                                ><?php echo $slide['slide_desc']; ?></textarea>
+                                                            </div>
+                                                        </div> <!-- /.col (left) -->
+                                                        <!-- Col Right -->
                                                         <div class="col-md-6">
+                                                            <!-- View More Button -->
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
@@ -147,28 +240,30 @@ $oldValues = getFlashData('old_values');
                                                                                value="<?php echo $slide['slide_btn_link']; ?>">
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> <!-- /.row -->
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label>YouTube Video URL</label>
-                                                                <input type="url" name="home_hero[slide_video][]"
-                                                                       class="form-control"
-                                                                       placeholder="YouTube Video URL..."
-                                                                       value="<?php echo $slide['slide_video']; ?>">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Slide Description</label>
-                                                                <textarea name="home_hero[slide_desc][]"
-                                                                          class="form-control"
-                                                                          placeholder="Slide Description..."
-                                                                          style="height: 210px"
-                                                                ><?php echo $slide['slide_desc']; ?></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
+                                                            </div> <!-- End View More Button -->
+                                                            <!-- Play Button -->
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label>[Play] Button | Text</label>
+                                                                        <input type="text"
+                                                                               name="home_hero[slide_play_text][]"
+                                                                               class="form-control"
+                                                                               placeholder="Text of Button..."
+                                                                               value="<?php echo $slide['slide_play_text']; ?>">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label>[Play] Button | Link (YouTube)</label>
+                                                                        <input type="text"
+                                                                               name="home_hero[slide_play_link][]"
+                                                                               class="form-control"
+                                                                               placeholder="Link of Button..."
+                                                                               value="<?php echo $slide['slide_play_link']; ?>">
+                                                                    </div>
+                                                                </div>
+                                                            </div> <!-- End Play Button -->
                                                             <!-- Slide Background -->
                                                             <div class="form-group ckfinder-group">
                                                                 <label>Background Image</label>
@@ -230,25 +325,7 @@ $oldValues = getFlashData('old_values');
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label>Position of Image 1, 2</label>
-                                                                <select name="home_hero[slide_images_position][]"
-                                                                        class="form-control">
-                                                                    <option value="left"
-                                                                        <?php echo ($slide['slide_images_position'] == 'left')
-                                                                            ? 'selected'
-                                                                            : null; ?>>
-                                                                        Left
-                                                                    </option>
-                                                                    <option value="right"
-                                                                        <?php echo ($slide['slide_images_position'] == 'right')
-                                                                            ? 'selected'
-                                                                            : null; ?>>
-                                                                        Right
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
+                                                        </div> <!-- /.col (right) -->
                                                     </div> <!-- /.row -->
                                                 </div> <!-- /.card-body (child) -->
                                             </div> <!-- /.card (child) -->
