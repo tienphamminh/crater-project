@@ -52,6 +52,9 @@ saveLastActivity($userId);
     <!-- Daterange picker -->
     <link rel="stylesheet"
           href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/plugins/daterangepicker/daterangepicker.css">
+    <!-- Ion range slider -->
+    <link rel="stylesheet"
+          href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
     <!-- summernote -->
     <link rel="stylesheet" href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/plugins/summernote/summernote-bs4.css">
     <!-- Google Font: Source Sans Pro -->

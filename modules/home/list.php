@@ -13,9 +13,9 @@ addLayout('header', 'client', $dataHeader);
 
 
 <?php
-$slidesJson = getOption('home_hero');
-if (!empty($slidesJson)):
-    $slides = json_decode($slidesJson, true);
+$homeHero = json_decode(getOption('home_hero'), true);
+if (!empty($homeHero['slider'])):
+    $slides = json_decode($homeHero['slider'], true);
     if (!empty($slides) && is_array($slides)) :
         ?>
         <!-- Hero Area -->
@@ -101,19 +101,22 @@ endif;
 
 
     <!-- About Us -->
+<?php
+$homeAbout = json_decode(getOption('home_about'), true);
+if (!empty($homeAbout['general'])) {
+    $generalOpts = json_decode($homeAbout['general'], true);
+}
+?>
     <section class="about-us section">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="section-title wow fadeInUp">
-                        <span class="title-bg">Crater</span>
-                        <h1>About Company</h1>
-                        <p>
-                            contrary to popular belief, Lorem Ipsum is not simply random
-                            text. It has roots in a piece of classical Latin literature from
-                            45 BC, making it over 2000 years old
-                        </p>
-                        <p></p>
+                        <span class="title-bg"
+                        ><?php echo (!empty($generalOpts['bg_title'])) ? $generalOpts['bg_title'] : null; ?></span>
+                        <?php echo (!empty($generalOpts['main_title']))
+                            ? html_entity_decode($generalOpts['main_title'])
+                            : null; ?>
                     </div>
                 </div>
             </div>
@@ -122,10 +125,18 @@ endif;
                     <!-- Video -->
                     <div class="about-video">
                         <div class="single-video overlay">
-                            <a href="https://www.youtube.com/watch?v=E-2ocmhF6TA"
-                               class="video-popup mfp-fade"
-                            ><i class="fa fa-play"></i></a>
-                            <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/gallery-4.jpg" alt="#"/>
+                            <?php
+                            if (!empty($generalOpts['intro_video']) && !empty($generalOpts['intro_image'])) :
+                                ?>
+                                <a href="<?php echo $generalOpts['intro_video']; ?>"
+                                   class="video-popup mfp-fade"
+                                ><i class="fa fa-play"></i></a>
+                            <?php endif; ?>
+                            <?php
+                            if (!empty($generalOpts['intro_image'])) :
+                                ?>
+                                <img src="<?php echo $generalOpts['intro_image']; ?>" alt="#"/>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <!--/ End Video -->
@@ -133,115 +144,57 @@ endif;
                 <div class="col-lg-6 col-12 wow fadeInRight" data-wow-delay="0.8s">
                     <!-- About Content -->
                     <div class="about-content">
-                        <h2>We are professional website design & development company!</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna Lorem ipsum
-                            dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                            minim veniam, quis nostrud exercitation. You think water moves
-                            fast? You should see ice.
-                        </p>
-                        <p>
-                            You think water moves fast? You should see ice. It moves like it
-                            has a mind. Like it knows it killed the world once and got a
-                            taste for murder. After the avalanche, it took us a weeked do
-                            incididunt magna Lorem
-                        </p>
-                        <p>
-                            You think water moves fast? You should see ice. It moves like it
-                            has a mind. Like it knows it killed the world once and got a
-                            taste for murder. After the avalancip isicing elit, sed do
-                            eiusmod tempor incididunt
-                        </p>
+                        <?php echo (!empty($generalOpts['intro_content']))
+                            ? html_entity_decode($generalOpts['intro_content'])
+                            : null; ?>
                     </div>
                     <!--/ End About Content -->
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="progress-main">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-12 wow fadeInUp"
-                                 data-wow-delay="0.4s">
-                                <!-- Single Skill -->
-                                <div class="single-progress">
-                                    <h4>Communication</h4>
-                                    <div class="progress">
-                                        <div class="progress-bar"
-                                             role="progressbar"
-                                             style="width: 78%"
-                                             aria-valuenow="25"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100"
-                                        >
-                                            <span class="percent">78%</span>
+            <?php
+            if (!empty($homeAbout['skill'])):
+                $skills = json_decode($homeAbout['skill'], true);
+                if (!empty($skills) && is_array($skills)) :
+                    ?>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="progress-main">
+                                <div class="row">
+                                    <?php
+                                    $delay = 0.4;
+                                    foreach ($skills as $skill) :
+                                        ?>
+                                        <div class="col-lg-6 col-md-6 col-12 wow fadeInUp"
+                                             data-wow-delay="<?php echo $delay; ?>s">
+                                            <!-- Single Skill -->
+                                            <div class="single-progress">
+                                                <h4><?php echo $skill['skill_name']; ?></h4>
+                                                <div class="progress">
+                                                    <div class="progress-bar"
+                                                         role="progressbar"
+                                                         style="width: <?php echo $skill['skill_percent']; ?>%"
+                                                         aria-valuenow="25"
+                                                         aria-valuemin="0"
+                                                         aria-valuemax="100"
+                                                    >
+                                                        <span class="percent"><?php echo $skill['skill_percent']; ?>%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--/ End Single Skill -->
                                         </div>
-                                    </div>
+                                        <?php
+                                        $delay += 0.2;
+                                    endforeach;
+                                    ?>
                                 </div>
-                                <!--/ End Single Skill -->
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-12 wow fadeInUp"
-                                 data-wow-delay="0.6s">
-                                <!-- Single Skill -->
-                                <div class="single-progress">
-                                    <h4>Business Develop</h4>
-                                    <div class="progress">
-                                        <div class="progress-bar"
-                                             role="progressbar"
-                                             style="width: 80%"
-                                             aria-valuenow="25"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100"
-                                        >
-                                            <span class="percent">80%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/ End Single Skill -->
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-12 wow fadeInUp"
-                                 data-wow-delay="0.8s">
-                                <!-- Single Skill -->
-                                <div class="single-progress">
-                                    <h4>Creative Work</h4>
-                                    <div class="progress">
-                                        <div class="progress-bar"
-                                             role="progressbar"
-                                             style="width: 90%"
-                                             aria-valuenow="25"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100"
-                                        >
-                                            <span class="percent">90%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/ End Single Skill -->
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-12 wow fadeInUp"
-                                 data-wow-delay="1s">
-                                <!-- Single Skill -->
-                                <div class="single-progress">
-                                    <h4>Bootstrap 4</h4>
-                                    <div class="progress">
-                                        <div class="progress-bar"
-                                             role="progressbar"
-                                             style="width: 95%"
-                                             aria-valuenow="25"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100"
-                                        >
-                                            <span class="percent">95%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/ End Single Skill -->
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                <?php
+                endif;
+            endif;
+            ?>
         </div>
     </section>
     <!--/ End About Us -->

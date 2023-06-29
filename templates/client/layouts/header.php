@@ -21,10 +21,16 @@ if (empty($logoUrl)) {
     // Default logo
     $logoUrl = _WEB_HOST_CLIENT_TEMPLATE . '/assets/images/crater-logo.png';
 }
-$homeHeroOpacity = (int)getOption('home_hero_opacity') / 100;
-if (empty($homeHeroOpacity)) {
+
+$homeHero = json_decode(getOption('home_hero'), true);
+if (!empty($homeHero['general'])) {
+    $generalOpts = json_decode($homeHero['general'], true);
+}
+if (!empty($generalOpts['bg_opacity'])) {
+    $bgOpacity = $generalOpts['bg_opacity'];
+} else {
     // Default opacity
-    $homeHeroOpacity = 0.94;
+    $bgOpacity = 0.94;
 }
 
 ?>
@@ -53,7 +59,7 @@ if (empty($homeHeroOpacity)) {
     <style>
         :root {
             --theme-color: <?php echo $themeColor; ?>;
-            --home-hero-opacity: <?php echo $homeHeroOpacity; ?>;
+            --home-hero-opacity: <?php echo $bgOpacity; ?>;
         }
     </style>
 
