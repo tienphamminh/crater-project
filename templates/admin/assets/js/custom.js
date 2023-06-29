@@ -36,6 +36,18 @@ $(document).ready(function () {
     $('.toggle-badge').click(function () {
         $(this).find('span.badge').toggle(300);
     });
+
+    $('.opacity-range').ionRangeSlider({
+        skin: 'round',
+        min: 0,
+        max: 1,
+        type: 'single',
+        step: 0.01,
+        postfix: '',
+        prettify: false,
+        hasGrid: true
+    })
+
 });
 //======================================================================================================================
 
@@ -250,6 +262,21 @@ function viewImg(selector = '.view-img') {
 
 viewImg();
 
+// Show Percent Range Slider
+function showPercentRange(selector = '.percent-range') {
+    $(selector).ionRangeSlider({
+        min: 0,
+        max: 100,
+        type: 'single',
+        step: 1,
+        postfix: '%',
+        prettify: false,
+        hasGrid: true
+    });
+}
+
+showPercentRange();
+
 function moveItem(upSelector = '.move-up', downSelector = '.move-down') {
     $(upSelector).click(function () {
         let movableItem = $(this).parents('.movable');
@@ -408,7 +435,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Slide Layout</label>
-                                                            <select name="home_hero[slide_layout][]" class="form-control">
+                                                            <select name="home_hero[slider][slide_layout][]" class="form-control">
                                                                 <option value="left">Left (Default)</option>
                                                                 <option value="right">Right</option>
                                                                 <option value="center">Center (No images)</option>
@@ -418,7 +445,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Slide Text Align</label>
-                                                            <select name="home_hero[slide_text_align][]" class="form-control">
+                                                            <select name="home_hero[slider][slide_text_align][]" class="form-control">
                                                                 <option value="left">Left (Default)</option>
                                                                 <option value="right">Right</option>
                                                                 <option value="center">Center</option>
@@ -428,12 +455,12 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Slide Title</label>
-                                                    <input type="text" name="home_hero[slide_title][]" class="form-control"
+                                                    <input type="text" name="home_hero[slider][slide_title][]" class="form-control"
                                                            placeholder="Slide Title...">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Slide Description</label>
-                                                    <textarea name="home_hero[slide_desc][]" class="form-control"
+                                                    <textarea name="home_hero[slider][slide_desc][]" class="form-control"
                                                               placeholder="Slide Description..."
                                                               style="height: 210px"
                                                     ></textarea>
@@ -446,7 +473,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>[View More] Button | Text</label>
-                                                            <input type="text" name="home_hero[slide_btn_text][]"
+                                                            <input type="text" name="home_hero[slider][slide_btn_text][]"
                                                                    class="form-control"
                                                                    placeholder="Text of Button...">
                                                         </div>
@@ -454,7 +481,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>[View More] Button | Link</label>
-                                                            <input type="text" name="home_hero[slide_btn_link][]"
+                                                            <input type="text" name="home_hero[slider][slide_btn_link][]"
                                                                    class="form-control"
                                                                    placeholder="Link of Button...">
                                                         </div>
@@ -465,7 +492,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>[Play] Button | Text</label>
-                                                            <input type="text" name="home_hero[slide_play_text][]"
+                                                            <input type="text" name="home_hero[slider][slide_play_text][]"
                                                                    class="form-control"
                                                                    placeholder="Text of Button...">
                                                         </div>
@@ -473,7 +500,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>[Play] Button | Link (YouTube)</label>
-                                                            <input type="text" name="home_hero[slide_play_link][]"
+                                                            <input type="text" name="home_hero[slider][slide_play_link][]"
                                                                    class="form-control"
                                                                    placeholder="Link of Button...">
                                                         </div>
@@ -483,7 +510,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                 <div class="form-group ckfinder-group">
                                                     <label>Background Image</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" name="home_hero[slide_background][]"
+                                                        <input type="text" name="home_hero[slider][slide_background][]"
                                                                class="form-control ckfinder-render-img"
                                                                placeholder="Choose image...">
                                                         <div class="input-group-append">
@@ -502,7 +529,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                 <div class="form-group ckfinder-group">
                                                     <label>Image 1</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" name="home_hero[slide_image_1][]"
+                                                        <input type="text" name="home_hero[slider][slide_image_1][]"
                                                                class="form-control ckfinder-render-img"
                                                                placeholder="Choose image...">
                                                         <div class="input-group-append">
@@ -521,7 +548,7 @@ if (addSlideItem !== null && slideGallery !== null) {
                                                 <div class="form-group ckfinder-group">
                                                     <label>Image 2</label>
                                                     <div class="input-group mb-3">
-                                                        <input type="text" name="home_hero[slide_image_2][]"
+                                                        <input type="text" name="home_hero[slider][slide_image_2][]"
                                                                class="form-control ckfinder-render-img"
                                                                placeholder="Choose image...">
                                                         <div class="input-group-append">
@@ -567,11 +594,88 @@ if (addSlideItem !== null && slideGallery !== null) {
     });
 }
 
-let customRange = document.querySelector('.custom-range');
-let rangeValue = document.querySelector('.range-value');
-if (customRange !== null && rangeValue !== null) {
-    rangeValue.innerHTML = customRange.value + '%';
-    customRange.addEventListener('input', (e) => {
-        rangeValue.innerHTML = e.currentTarget.value + '%';
+// ======== (Homepage-About Company) Skill gallery repeater ========
+let addSkillItem = document.querySelector('.add-skill-item');
+let skillGallery = document.querySelector('.skill-gallery');
+
+if (addSkillItem !== null && skillGallery !== null) {
+    let skillItemList = skillGallery.querySelectorAll('.skill-item');
+
+    if (skillItemList !== null) {
+        let removeSkillItemList = skillGallery.querySelectorAll('.remove-skill-item');
+        removeSkillItemList.forEach((element) => {
+            deleteItemOfGallery(element, 'skill-item');
+        });
+    }
+
+    let skillItemId = 0;
+    addSkillItem.addEventListener('click', (e) => {
+        let skillItemHtml = `<!-- Skill Item -->
+                                <div class="skill-item movable">
+                                    <!-- Child Card -->
+                                    <div class="card bg-light mb-4 shadow border">
+                                        <div style="position: absolute; top: 0px; right: 0px;">
+                                            <div class="btn-group">
+                                                <!-- Move UP -->
+                                                <span class="btn btn-warning px-2 py-0" id="move-up-${skillItemId}"
+                                                      style="font-size: 24px;">
+                                                    <i class="fas fa-caret-up"></i>
+                                                </span>
+                                                <!-- Move DOWN -->
+                                                <span class="btn btn-warning px-2 py-0" id="move-down-${skillItemId}"
+                                                      style="font-size: 24px;">
+                                                    <i class="fas fa-caret-down"></i>
+                                                </span>
+                                            </div>
+                                            <!-- Delete Button -->
+                                            <button type="button" id="remove-skill-item-${skillItemId}" 
+                                                    class="btn btn-danger px-4">
+                                                <span class="d-block d-md-none">
+                                                    <i class="fas fa-times"></i>
+                                                </span>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                        <div class="card-body pt-5">
+                                            <div class="row">
+                                                <!-- Col Left -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Skill Name</label>
+                                                        <input type="text" name="home_about[skill][skill_name][]"
+                                                               class="form-control"
+                                                               placeholder="Skill Name..."
+                                                               value="">
+                                                    </div>
+                                                </div> <!-- /.col (left) -->
+                                                <!-- Col Right -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Percentage</label>
+                                                        <input type="text" name="home_about[skill][skill_percent][]" 
+                                                               id="percent-range-${skillItemId}"
+                                                               class="form-control"
+                                                               value="">
+                                                    </div>
+                                                </div> <!-- /.col (right) -->
+                                            </div> <!-- /.row -->
+                                        </div> <!-- /.card-body (child) -->
+                                    </div> <!-- /.card (child) -->
+                                </div>
+                                <!-- /.skill-item -->`;
+
+        skillGallery.insertAdjacentHTML('beforeend', skillItemHtml);
+
+        // Delete skill-item button
+        let removeSkillItem = skillGallery.querySelector(`#remove-skill-item-${skillItemId}`);
+        deleteItemOfGallery(removeSkillItem, 'skill-item');
+
+        // Move up, down item
+        moveItem(`#move-up-${skillItemId}`, `#move-down-${skillItemId}`);
+
+        // Show percent range
+        showPercentRange(`#percent-range-${skillItemId}`);
+
+        skillItemId++;
     });
 }
