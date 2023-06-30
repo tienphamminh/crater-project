@@ -31,9 +31,12 @@ saveLastActivity($userId);
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="<?php echo _WEB_HOST_CORE_TEMPLATE; ?>/assets/images/crater-favicon.png"/>
-    <!-- Font Awesome -->
+    <!-- Font Awesome 5-->
     <link rel="stylesheet"
           href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/plugins/fontawesome-free/css/all.min.css">
+    <!-- Font Awesome 4-->
+    <link rel="stylesheet"
+          href="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/plugins/fontawesome4/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bbootstrap 4 -->

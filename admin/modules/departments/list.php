@@ -167,7 +167,7 @@ $msgType = getFlashData('msg_type');
                                         </div>
                                         <div class="col-2">
                                             <button type="submit" class="btn btn-primary btn-block">
-                                                <i class="fa fa-search"></i>
+                                                <i class="fas fa-search"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -231,7 +231,7 @@ $msgType = getFlashData('msg_type');
                                                         ['view' => 'edit', 'id' => $department['id']]
                                                     ); ?>"
                                                        class="btn btn-warning btn-sm">
-                                                        <i class="fa fa-edit"></i>
+                                                        <i class="fas fa-edit"></i>
                                                     </a>
                                                 </td>
                                                 <td>
@@ -239,7 +239,7 @@ $msgType = getFlashData('msg_type');
                                                     <button type="button" class="btn btn-danger btn-sm cf-delete"
                                                             value="<?php echo $department['id']; ?>"
                                                             data-msg="<?php echo $msgDelete; ?>">
-                                                        <i class="fa fa-trash"></i>
+                                                        <i class="fas fa-trash"></i>
                                                     </button>
                                                 </td>
                                             </tr>
