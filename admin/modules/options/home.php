@@ -107,6 +107,22 @@ if (isPost()) {
         $body['home_about'] = json_encode($body['home_about']);
     }
 
+    if ($formName == 'service') {
+        if (!empty($body['home_service'])) {
+            if (!empty($body['home_service']['general'])) {
+                $general = $body['home_service']['general'];
+                $body['home_service']['general'] = json_encode($general);
+            } else {
+                $body['home_service']['general'] = '';
+            }
+        } else {
+            $body['home_service'] = [
+                'general' => '',
+            ];
+        }
+        $body['home_service'] = json_encode($body['home_service']);
+    }
+
     if (empty($errors)) {
         unset($body['form_name']);
         updateOptions($body);
@@ -149,7 +165,7 @@ $oldValues = getFlashData('old_values');
                         echo ($formName == 'hero-area') ? getMessage($msg, $msgType) : null;
                         $homeHero = json_decode(getOption('home_hero'), true);
                         if (!empty($homeHero['general'])) {
-                            $generalOpts = json_decode($homeHero['general'], true);
+                            $heroGeneralOpts = json_decode($homeHero['general'], true);
                         }
                         ?>
 
@@ -159,7 +175,8 @@ $oldValues = getFlashData('old_values');
                                     <label>Background Opacity:</label>
                                     <input type="text" name="home_hero[general][bg_opacity]"
                                            class="form-control opacity-range"
-                                           value="<?php echo (!empty($generalOpts['bg_opacity'])) ? $generalOpts['bg_opacity'] : null; ?>">
+                                           value="<?php echo (!empty($heroGeneralOpts['bg_opacity']))
+                                               ? $heroGeneralOpts['bg_opacity'] : null; ?>">
                                 </div>
                             </div>
                         </div>
@@ -415,7 +432,7 @@ $oldValues = getFlashData('old_values');
                         </a>
                     </div> <!-- /.card-footer -->
                 </form>
-            </div> <!-- /.card -->
+            </div>
             <!-- End Hero Area -->
 
             <!-- About Company -->
@@ -431,7 +448,7 @@ $oldValues = getFlashData('old_values');
                         echo ($formName == 'about-comp') ? getMessage($msg, $msgType) : null;
                         $homeAbout = json_decode(getOption('home_about'), true);
                         if (!empty($homeAbout['general'])) {
-                            $generalOpts = json_decode($homeAbout['general'], true);
+                            $aboutGeneralOpts = json_decode($homeAbout['general'], true);
                         }
                         ?>
 
@@ -439,7 +456,8 @@ $oldValues = getFlashData('old_values');
                             <label>Background Title</label>
                             <input type="text" name="home_about[general][bg_title]" class="form-control"
                                    placeholder="Background Title..."
-                                   value="<?php echo (!empty($generalOpts['bg_title'])) ? $generalOpts['bg_title'] : null; ?>">
+                                   value="<?php echo (!empty($aboutGeneralOpts['bg_title']))
+                                       ? $aboutGeneralOpts['bg_title'] : null; ?>">
                         </div>
                         <div class="form-group ckfinder-group">
                             <label>Intro Image</label>
@@ -448,7 +466,8 @@ $oldValues = getFlashData('old_values');
                                        name="home_about[general][intro_image]"
                                        class="form-control ckfinder-render-img"
                                        placeholder="Choose image..."
-                                       value="<?php echo (!empty($generalOpts['intro_image'])) ? $generalOpts['intro_image'] : null; ?>">
+                                       value="<?php echo (!empty($aboutGeneralOpts['intro_image']))
+                                           ? $aboutGeneralOpts['intro_image'] : null; ?>">
                                 <div class="input-group-append">
                                     <span class="btn input-group-text view-img">
                                         <i class="fas fa-search-plus"></i>
@@ -465,17 +484,20 @@ $oldValues = getFlashData('old_values');
                             <label>[Play] Button | Link (YouTube)</label>
                             <input type="text" name="home_about[general][intro_video]" class="form-control"
                                    placeholder="Link of Button..."
-                                   value="<?php echo (!empty($generalOpts['intro_video'])) ? $generalOpts['intro_video'] : null; ?>">
+                                   value="<?php echo (!empty($aboutGeneralOpts['intro_video']))
+                                       ? $aboutGeneralOpts['intro_video'] : null; ?>">
                         </div>
                         <div class="form-group">
                             <label>Main Title</label>
                             <textarea name="home_about[general][main_title]" class="form-control editor"
-                            ><?php echo (!empty($generalOpts['main_title'])) ? $generalOpts['main_title'] : null; ?></textarea>
+                            ><?php echo (!empty($aboutGeneralOpts['main_title']))
+                                    ? $aboutGeneralOpts['main_title'] : null; ?></textarea>
                         </div>
                         <div class="form-group">
                             <label>Company Introduction</label>
                             <textarea name="home_about[general][intro_content]" class="form-control editor"
-                            ><?php echo (!empty($generalOpts['intro_content'])) ? $generalOpts['intro_content'] : null; ?></textarea>
+                            ><?php echo (!empty($aboutGeneralOpts['intro_content']))
+                                    ? $aboutGeneralOpts['intro_content'] : null; ?></textarea>
                         </div>
 
                         <div class="form-group">
@@ -563,7 +585,51 @@ $oldValues = getFlashData('old_values');
                         </a>
                     </div> <!-- /.card-footer -->
                 </form>
-            </div> <!-- /.card -->
+            </div>
+            <!-- End About Company -->
+
+            <!-- Services -->
+            <div class="card card-primary mb-5" id="service">
+                <div class="card-header">
+                    <h3 class="card-title">Services</h3>
+                </div> <!-- /.card-header -->
+                <!-- form start -->
+                <form action="" method="post">
+                    <input type="hidden" name="form_name" value="service">
+                    <div class="card-body py-4">
+                        <?php
+                        echo ($formName == 'service') ? getMessage($msg, $msgType) : null;
+                        $homeService = json_decode(getOption('home_service'), true);
+                        if (!empty($homeService['general'])) {
+                            $serviceGeneralOpts = json_decode($homeService['general'], true);
+                        }
+                        ?>
+
+                        <div class="form-group">
+                            <label>Background Title</label>
+                            <input type="text" name="home_service[general][bg_title]" class="form-control"
+                                   placeholder="Background Title..."
+                                   value="<?php echo (!empty($serviceGeneralOpts['bg_title']))
+                                       ? $serviceGeneralOpts['bg_title'] : null; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Main Title</label>
+                            <textarea name="home_service[general][main_title]" class="form-control editor"
+                            ><?php echo (!empty($serviceGeneralOpts['main_title']))
+                                    ? $serviceGeneralOpts['main_title'] : null; ?></textarea>
+                        </div>
+                    </div> <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                        <button type="submit" class="btn btn-primary px-4 float-left">Update</button>
+                        <a href="<?php echo getAbsUrlAdmin('options', 'home'); ?>"
+                           class="btn btn-outline-success px-4 mr-2 float-right">
+                            Reset
+                        </a>
+                    </div> <!-- /.card-footer -->
+                </form>
+            </div>
+            <!-- End Services -->
+
         </div> <!-- /.container-fluid -->
     </section> <!-- /.content -->
 

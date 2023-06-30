@@ -104,7 +104,7 @@ endif;
 <?php
 $homeAbout = json_decode(getOption('home_about'), true);
 if (!empty($homeAbout['general'])) {
-    $generalOpts = json_decode($homeAbout['general'], true);
+    $aboutGeneralOpts = json_decode($homeAbout['general'], true);
 }
 ?>
     <section class="about-us section">
@@ -113,10 +113,11 @@ if (!empty($homeAbout['general'])) {
                 <div class="col-12">
                     <div class="section-title wow fadeInUp">
                         <span class="title-bg"
-                        ><?php echo (!empty($generalOpts['bg_title'])) ? $generalOpts['bg_title'] : null; ?></span>
-                        <?php echo (!empty($generalOpts['main_title']))
-                            ? html_entity_decode($generalOpts['main_title'])
-                            : null; ?>
+                        ><?php echo (!empty($aboutGeneralOpts['bg_title']))
+                                ? $aboutGeneralOpts['bg_title'] : null; ?></span>
+
+                        <?php echo (!empty($aboutGeneralOpts['main_title']))
+                            ? html_entity_decode($aboutGeneralOpts['main_title']) : null; ?>
                     </div>
                 </div>
             </div>
@@ -126,16 +127,16 @@ if (!empty($homeAbout['general'])) {
                     <div class="about-video">
                         <div class="single-video overlay">
                             <?php
-                            if (!empty($generalOpts['intro_video']) && !empty($generalOpts['intro_image'])) :
+                            if (!empty($aboutGeneralOpts['intro_video']) && !empty($aboutGeneralOpts['intro_image'])) :
                                 ?>
-                                <a href="<?php echo $generalOpts['intro_video']; ?>"
+                                <a href="<?php echo $aboutGeneralOpts['intro_video']; ?>"
                                    class="video-popup mfp-fade"
                                 ><i class="fa fa-play"></i></a>
                             <?php endif; ?>
                             <?php
-                            if (!empty($generalOpts['intro_image'])) :
+                            if (!empty($aboutGeneralOpts['intro_image'])) :
                                 ?>
-                                <img src="<?php echo $generalOpts['intro_image']; ?>" alt="#"/>
+                                <img src="<?php echo $aboutGeneralOpts['intro_image']; ?>" alt="#"/>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -144,9 +145,8 @@ if (!empty($homeAbout['general'])) {
                 <div class="col-lg-6 col-12 wow fadeInRight" data-wow-delay="0.8s">
                     <!-- About Content -->
                     <div class="about-content">
-                        <?php echo (!empty($generalOpts['intro_content']))
-                            ? html_entity_decode($generalOpts['intro_content'])
-                            : null; ?>
+                        <?php echo (!empty($aboutGeneralOpts['intro_content']))
+                            ? html_entity_decode($aboutGeneralOpts['intro_content']) : null; ?>
                     </div>
                     <!--/ End About Content -->
                 </div>
@@ -200,128 +200,51 @@ if (!empty($homeAbout['general'])) {
     <!--/ End About Us -->
 
     <!-- Services -->
+<?php
+$homeService = json_decode(getOption('home_service'), true);
+if (!empty($homeService['general'])) {
+    $serviceGeneralOpts = json_decode($homeService['general'], true);
+}
+?>
     <section id="services" class="services section">
         <div class="container">
             <div class="row">
                 <div class="col-12 wow fadeInUp">
                     <div class="section-title">
-                        <span class="title-bg">Services</span>
-                        <h1>What we provide</h1>
-                        <p>
-                            Sed lorem enim, faucibus at erat eget, laoreet tincidunt tortor.
-                            Ut sed mi nec ligula bibendum aliquam. Sed scelerisque maximus
-                            magna, a vehicula turpis Proin
-                        </p>
-                        <p></p>
+                        <span class="title-bg"><?php echo (!empty($serviceGeneralOpts['bg_title']))
+                                ? $serviceGeneralOpts['bg_title'] : null; ?></span>
+
+                        <?php echo (!empty($serviceGeneralOpts['main_title']))
+                            ? html_entity_decode($serviceGeneralOpts['main_title']) : null; ?>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="service-slider">
-                        <!-- Single Service -->
-                        <div class="single-service">
-                            <i class="fa fa-magic"></i>
-                            <h2><a href="service-single.html">Consulting</a></h2>
-                            <p>
-                                welcome to our consectetuer adipiscing elit, sed diam nonummy
-                                nibh euismod tincidunt
-                            </p>
+            <?php
+            $result = getAllRows("SELECT * FROM services ORDER BY name");
+            $services = $result;
+            if (!empty($services)) :
+                while (count($services) <= 4) {
+                    $services = array_merge($services, $result);
+                }
+                ?>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="service-slider">
+                            <?php foreach ($services as $service) : ?>
+                                <!-- Single Service -->
+                                <div class="single-service">
+                                    <?php echo html_entity_decode($service['icon']); ?>
+                                    <h2><a href="#"><?php echo $service['name']; ?></a></h2>
+                                    <p>
+                                        <?php echo $service['description']; ?>
+                                    </p>
+                                </div>
+                                <!-- End Single Service -->
+                            <?php endforeach; ?>
                         </div>
-                        <!-- End Single Service -->
-                        <!-- Single Service -->
-                        <div class="single-service">
-                            <i class="fa fa-lightbulb-o"></i>
-                            <h2><a href="service-single.html">Creative Idea</a></h2>
-                            <p>
-                                Creative and erat, porta non porttitor non, dignissim et enim
-                                Aenean ac enim feugiat classical Latin
-                            </p>
-                        </div>
-                        <!-- End Single Service -->
-                        <!-- Single Service -->
-                        <div class="single-service">
-                            <i class="fa fa-wordpress"></i>
-                            <h2><a href="service-single.html">Development</a></h2>
-                            <p>
-                                just fine erat, porta non porttitor non, dignissim et enim
-                                Aenean ac enim feugiat classical Latin
-                            </p>
-                        </div>
-                        <!-- End Single Service -->
-                        <!-- Single Service -->
-                        <div class="single-service">
-                            <i class="fa fa-bullhorn"></i>
-                            <h2><a href="service-single.html">Marketing</a></h2>
-                            <p>
-                                Possible of erat, porta non porttitor non, dignissim et enim
-                                Aenean ac enim feugiat classical Latin
-                            </p>
-                        </div>
-                        <!-- End Single Service -->
-                        <!-- Single Service -->
-                        <div class="single-service">
-                            <i class="fa fa-magic"></i>
-                            <h2><a href="service-single.html">Consulting</a></h2>
-                            <p>
-                                welcome to our consectetuer adipiscing elit, sed diam nonummy
-                                nibh euismod tincidunt
-                            </p>
-                        </div>
-                        <!-- End Single Service -->
-                        <!-- Single Service -->
-                        <div class="single-service">
-                            <i class="fa fa-lightbulb-o"></i>
-                            <h2><a href="service-single.html">Creative Idea</a></h2>
-                            <p>
-                                Creative and erat, porta non porttitor non, dignissim et enim
-                                Aenean ac enim feugiat classical Latin
-                            </p>
-                        </div>
-                        <!-- End Single Service -->
-                        <!-- Single Service -->
-                        <div class="single-service">
-                            <i class="fa fa-wordpress"></i>
-                            <h2><a href="service-single.html">Development</a></h2>
-                            <p>
-                                just fine erat, porta non porttitor non, dignissim et enim
-                                Aenean ac enim feugiat classical Latin
-                            </p>
-                        </div>
-                        <!-- End Single Service -->
-                        <!-- Single Service -->
-                        <div class="single-service">
-                            <i class="fa fa-bullhorn"></i>
-                            <h2><a href="service-single.html">Marketing</a></h2>
-                            <p>
-                                Possible of erat, porta non porttitor non, dignissim et enim
-                                Aenean ac enim feugiat classical Latin
-                            </p>
-                        </div>
-                        <!-- End Single Service -->
-                        <!-- Single Service -->
-                        <div class="single-service">
-                            <i class="fa fa-bullseye"></i>
-                            <h2><a href="service-single.html">Direct Work</a></h2>
-                            <p>
-                                Everything ien erat, porta non porttitor non, dignissim et
-                                enim Aenean ac enim feugiat Latin
-                            </p>
-                        </div>
-                        <!-- End Single Service -->
-                        <!-- Single Service -->
-                        <div class="single-service">
-                            <i class="fa fa-cube"></i>
-                            <h2><a href="service-single.html">Creative Plan</a></h2>
-                            <p>
-                                Information sapien erat, non porttitor non, dignissim et enim
-                                Aenean ac enim feugiat classical Latin
-                            </p>
-                        </div>
-                        <!-- End Single Service -->
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
         </div>
     </section>
     <!--/ End Services -->

@@ -79,7 +79,7 @@ $msgType = getFlashData('msg_type');
             <!-- add button -->
             <p>
                 <a href="<?php echo getAbsUrlAdmin('groups', 'add'); ?>" class="btn btn-success px-3">
-                    <i class="fa fa-plus mr-1"></i> Add group
+                    <i class="fas fa-plus mr-1"></i> Add group
                 </a>
             </p> <!-- /add button -->
             <hr>
@@ -153,7 +153,7 @@ $msgType = getFlashData('msg_type');
                         </div>
                         <div class="col-2">
                             <button type="submit" class="btn btn-primary btn-block">
-                                <i class="fa fa-search"></i>
+                                <i class="fas fa-search"></i>
                                 <span class="d-none d-md-inline ml-1">Search</span>
                             </button>
                         </div>
@@ -217,7 +217,7 @@ $msgType = getFlashData('msg_type');
                                             <a href="<?php
                                             echo getAbsUrlAdmin('groups', 'assign') . '&id=' . $group['id']; ?>"
                                                class="btn btn-info btn-sm">
-                                                <i class="fa fa-tags"></i>
+                                                <i class="fas fa-tags"></i>
                                                 <span class="d-none d-xl-inline">Assign</span>
                                             </a>
                                         </td>
@@ -225,7 +225,7 @@ $msgType = getFlashData('msg_type');
                                             <a href="<?php
                                             echo getAbsUrlAdmin('groups', 'edit') . '&id=' . $group['id']; ?>"
                                                class="btn btn-warning btn-sm">
-                                                <i class="fa fa-edit"></i>
+                                                <i class="fas fa-edit"></i>
                                                 <span class="d-none d-xl-inline">Edit</span>
                                             </a>
                                         </td>
@@ -234,7 +234,7 @@ $msgType = getFlashData('msg_type');
                                             <button type="button" class="btn btn-danger btn-sm cf-delete"
                                                     value="<?php echo $group['id']; ?>"
                                                     data-msg="<?php echo $msgDelete; ?>">
-                                                <i class="fa fa-trash"></i>
+                                                <i class="fas fa-trash"></i>
                                                 <span class="d-none d-xl-inline">Delete</span>
                                             </button>
                                         </td>

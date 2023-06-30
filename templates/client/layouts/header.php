@@ -24,10 +24,10 @@ if (empty($logoUrl)) {
 
 $homeHero = json_decode(getOption('home_hero'), true);
 if (!empty($homeHero['general'])) {
-    $generalOpts = json_decode($homeHero['general'], true);
+    $heroGeneralOpts = json_decode($homeHero['general'], true);
 }
-if (!empty($generalOpts['bg_opacity'])) {
-    $bgOpacity = $generalOpts['bg_opacity'];
+if (!empty($heroGeneralOpts['bg_opacity'])) {
+    $bgOpacity = $heroGeneralOpts['bg_opacity'];
 } else {
     // Default opacity
     $bgOpacity = 0.94;
