@@ -29,23 +29,23 @@ if (isPost()) {
 
             if (!empty($body['home_hero']['slider'])) {
                 // Convert all slides data to Json
-                $slider = $body['home_hero']['slider'];
+                $slideFields = $body['home_hero']['slider'];
 
-                $totalSlides = count($slider['slide_title']);
+                $totalSlides = count($slideFields['slide_title']);
                 $slides = [];
                 for ($index = 0; $index < $totalSlides; $index++) {
                     $slideData = [
-                        'slide_layout' => $slider['slide_layout'][$index],
-                        'slide_text_align' => $slider['slide_text_align'][$index],
-                        'slide_title' => $slider['slide_title'][$index],
-                        'slide_desc' => $slider['slide_desc'][$index],
-                        'slide_btn_text' => $slider['slide_btn_text'][$index],
-                        'slide_btn_link' => $slider['slide_btn_link'][$index],
-                        'slide_play_text' => $slider['slide_play_text'][$index],
-                        'slide_play_link' => $slider['slide_play_link'][$index],
-                        'slide_background' => $slider['slide_background'][$index],
-                        'slide_image_1' => $slider['slide_image_1'][$index],
-                        'slide_image_2' => $slider['slide_image_2'][$index],
+                        'slide_layout' => $slideFields['slide_layout'][$index],
+                        'slide_text_align' => $slideFields['slide_text_align'][$index],
+                        'slide_title' => $slideFields['slide_title'][$index],
+                        'slide_desc' => $slideFields['slide_desc'][$index],
+                        'slide_btn_text' => $slideFields['slide_btn_text'][$index],
+                        'slide_btn_link' => $slideFields['slide_btn_link'][$index],
+                        'slide_play_text' => $slideFields['slide_play_text'][$index],
+                        'slide_play_link' => $slideFields['slide_play_link'][$index],
+                        'slide_background' => $slideFields['slide_background'][$index],
+                        'slide_image_1' => $slideFields['slide_image_1'][$index],
+                        'slide_image_2' => $slideFields['slide_image_2'][$index],
                     ];
 
                     if ($slideData['slide_layout'] == 'center') {
@@ -61,10 +61,7 @@ if (isPost()) {
                 $body['home_hero']['slider'] = '';
             }
         } else {
-            $body['home_hero'] = [
-                'general' => '',
-                'slider' => ''
-            ];
+            $body['home_hero'] = ['general' => '', 'slider' => ''];
         }
         $body['home_hero'] = json_encode($body['home_hero']);
     }
@@ -81,14 +78,14 @@ if (isPost()) {
 
             if (!empty($body['home_about']['skill'])) {
                 // Convert all skills data to Json
-                $aboutSkill = $body['home_about']['skill'];
+                $skillFields = $body['home_about']['skill'];
 
-                $totalSkills = count($aboutSkill['skill_name']);
+                $totalSkills = count($skillFields['skill_name']);
                 $skills = [];
                 for ($index = 0; $index < $totalSkills; $index++) {
                     $skillData = [
-                        'skill_name' => $aboutSkill['skill_name'][$index],
-                        'skill_percent' => $aboutSkill['skill_percent'][$index],
+                        'skill_name' => $skillFields['skill_name'][$index],
+                        'skill_percent' => $skillFields['skill_percent'][$index],
                     ];
 
                     $skills[] = $skillData;
@@ -99,10 +96,7 @@ if (isPost()) {
                 $body['home_about']['skill'] = '';
             }
         } else {
-            $body['home_about'] = [
-                'general' => '',
-                'skill' => ''
-            ];
+            $body['home_about'] = ['general' => '', 'skill' => ''];
         }
         $body['home_about'] = json_encode($body['home_about']);
     }
@@ -116,11 +110,46 @@ if (isPost()) {
                 $body['home_service']['general'] = '';
             }
         } else {
-            $body['home_service'] = [
-                'general' => '',
-            ];
+            $body['home_service'] = ['general' => '',];
         }
         $body['home_service'] = json_encode($body['home_service']);
+    }
+
+    if ($formName == 'fact') {
+        if (!empty($body['home_fact'])) {
+
+            if (!empty($body['home_fact']['general'])) {
+                $general = $body['home_fact']['general'];
+                $body['home_fact']['general'] = json_encode($general);
+            } else {
+                $body['home_fact']['general'] = '';
+            }
+
+            if (!empty($body['home_fact']['fact'])) {
+                // Convert all facts data to Json
+                $factFields = $body['home_fact']['fact'];
+
+                $totalFacts = count($factFields['fact_name']);
+                $facts = [];
+                for ($index = 0; $index < $totalFacts; $index++) {
+                    $factData = [
+                        'fact_name' => $factFields['fact_name'][$index],
+                        'fact_figure' => $factFields['fact_figure'][$index],
+                        'fact_unit' => $factFields['fact_unit'][$index],
+                        'fact_icon' => $factFields['fact_icon'][$index],
+                    ];
+
+                    $facts[] = $factData;
+                }
+                $body['home_fact']['fact'] = json_encode($facts);
+            } else {
+                // If delete all skills, set to empty
+                $body['home_fact']['fact'] = '';
+            }
+        } else {
+            $body['home_fact'] = ['general' => '', 'fact' => ''];
+        }
+        $body['home_fact'] = json_encode($body['home_fact']);
     }
 
     if (empty($errors)) {
@@ -153,7 +182,7 @@ $oldValues = getFlashData('old_values');
         <div class="container-fluid">
 
             <!-- Hero Area -->
-            <div class="card card-primary mb-5" id="hero-area">
+            <div class="card card-primary mb-5 border border-primary" id="hero-area">
                 <div class="card-header">
                     <h3 class="card-title">Hero Area (Main Slider)</h3>
                 </div> <!-- /.card-header -->
@@ -436,7 +465,7 @@ $oldValues = getFlashData('old_values');
             <!-- End Hero Area -->
 
             <!-- About Company -->
-            <div class="card card-primary mb-5" id="about-comp">
+            <div class="card card-primary mb-5 border border-primary" id="about-comp">
                 <div class="card-header">
                     <h3 class="card-title">About Company</h3>
                 </div> <!-- /.card-header -->
@@ -481,7 +510,7 @@ $oldValues = getFlashData('old_values');
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>[Play] Button | Link (YouTube)</label>
+                            <label>Intro Video (YouTube)</label>
                             <input type="text" name="home_about[general][intro_video]" class="form-control"
                                    placeholder="Link of Button..."
                                    value="<?php echo (!empty($aboutGeneralOpts['intro_video']))
@@ -589,7 +618,7 @@ $oldValues = getFlashData('old_values');
             <!-- End About Company -->
 
             <!-- Services -->
-            <div class="card card-primary mb-5" id="service">
+            <div class="card card-primary mb-5 border border-primary" id="service">
                 <div class="card-header">
                     <h3 class="card-title">Services</h3>
                 </div> <!-- /.card-header -->
@@ -629,6 +658,166 @@ $oldValues = getFlashData('old_values');
                 </form>
             </div>
             <!-- End Services -->
+
+            <!-- Facts -->
+            <div class="card card-primary mb-5 border border-primary" id="fact">
+                <div class="card-header">
+                    <h3 class="card-title">Interesting Facts</h3>
+                </div> <!-- /.card-header -->
+                <!-- form start -->
+                <form action="" method="post">
+                    <input type="hidden" name="form_name" value="fact">
+                    <div class="card-body py-4">
+                        <?php
+                        echo ($formName == 'fact') ? getMessage($msg, $msgType) : null;
+                        $homeFact = json_decode(getOption('home_fact'), true);
+                        if (!empty($homeFact['general'])) {
+                            $factGeneralOpts = json_decode($homeFact['general'], true);
+                        }
+                        ?>
+
+                        <div class="form-group">
+                            <label>Small Title</label>
+                            <input type="text" name="home_fact[general][small_title]" class="form-control"
+                                   placeholder="Small Title..."
+                                   value="<?php echo (!empty($factGeneralOpts['small_title']))
+                                       ? $factGeneralOpts['small_title'] : null; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" name="home_fact[general][main_title]" class="form-control"
+                                   placeholder="Title..."
+                                   value="<?php echo (!empty($factGeneralOpts['main_title']))
+                                       ? $factGeneralOpts['main_title'] : null; ?>">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Button | Text</label>
+                                    <input type="text" class="form-control"
+                                           name="home_fact[general][btn_text]"
+                                           placeholder="Text of Button..."
+                                           value="<?php echo (!empty($factGeneralOpts['btn_text']))
+                                               ? $factGeneralOpts['btn_text'] : null; ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Button | Link</label>
+                                    <input type="text" class="form-control"
+                                           name="home_fact[general][btn_link]"
+                                           placeholder="Link of Button..."
+                                           value="<?php echo (!empty($factGeneralOpts['btn_link']))
+                                               ? $factGeneralOpts['btn_link'] : null; ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Content</label>
+                            <textarea name="home_fact[general][content]" class="form-control editor"
+                            ><?php echo (!empty($factGeneralOpts['content']))
+                                    ? $factGeneralOpts['content'] : null; ?></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-size: 18px;">List of Facts:</label>
+                            <div class="fact-gallery">
+                                <?php
+                                if (!empty($homeFact['fact'])):
+                                    $facts = json_decode($homeFact['fact'], true);
+                                    if (!empty($facts) && is_array($facts)) :
+                                        foreach ($facts as $fact) :
+                                            ?>
+                                            <!-- Fact Item -->
+                                            <div class="fact-item movable">
+                                                <!-- Child Card -->
+                                                <div class="card bg-light mb-4 shadow border">
+                                                    <div style="position: absolute; top: 0px; right: 0px;">
+                                                        <div class="btn-group">
+                                                            <!-- Move UP -->
+                                                            <span class="btn btn-warning px-2 py-0 move-up"
+                                                                  style="font-size: 24px;">
+                                                                <i class="fas fa-caret-up"></i>
+                                                            </span>
+                                                            <!-- Move DOWN -->
+                                                            <span class="btn btn-warning px-2 py-0 move-down"
+                                                                  style="font-size: 24px;">
+                                                                <i class="fas fa-caret-down"></i>
+                                                            </span>
+                                                        </div>
+                                                        <!-- Delete Button -->
+                                                        <button type="button"
+                                                                class="btn btn-danger px-4 remove-fact-item">
+                                                            <span class="d-block d-md-none">
+                                                                <i class="fas fa-times"></i>
+                                                            </span>
+                                                            <span class="d-none d-md-inline">Delete</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="card-body pt-5">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label>Fact Name</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="home_fact[fact][fact_name][]"
+                                                                           placeholder="Fact Name..."
+                                                                           value="<?php echo $fact['fact_name']; ?>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label>Fact Figure</label>
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control"
+                                                                               name="home_fact[fact][fact_figure][]"
+                                                                               placeholder="Fact Figure..."
+                                                                               value="<?php echo $fact['fact_figure']; ?>">
+                                                                        <input type="text" class="form-control"
+                                                                               name="home_fact[fact][fact_unit][]"
+                                                                               placeholder="Unit..."
+                                                                               value="<?php echo $fact['fact_unit']; ?>">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label>Fact Icon</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="home_fact[fact][fact_icon][]"
+                                                                           placeholder="Fact Icon..."
+                                                                           value="<?php echo $fact['fact_icon']; ?>">
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- /.row -->
+                                                    </div> <!-- /.card-body (child) -->
+                                                </div> <!-- /.card (child) -->
+                                            </div>
+                                            <!-- /.fact-item -->
+                                        <?php
+                                        endforeach;
+                                    endif;
+                                endif;
+                                ?>
+                            </div> <!-- /.fact-gallery -->
+                        </div>
+
+                        <!-- Add Slide Button -->
+                        <button type="button" class="btn btn-warning px-3 add-fact-item">
+                            <i class="fas fa-plus mr-1"></i> Add Fact
+                        </button>
+
+                    </div> <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                        <button type="submit" class="btn btn-primary px-4 float-left">Update</button>
+                        <a href="<?php echo getAbsUrlAdmin('options', 'home'); ?>"
+                           class="btn btn-outline-success px-4 mr-2 float-right">
+                            Reset
+                        </a>
+                    </div> <!-- /.card-footer -->
+                </form>
+            </div>
+            <!-- End Facts -->
 
         </div> <!-- /.container-fluid -->
     </section> <!-- /.content -->

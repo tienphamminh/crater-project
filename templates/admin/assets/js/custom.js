@@ -679,3 +679,95 @@ if (addSkillItem !== null && skillGallery !== null) {
         skillItemId++;
     });
 }
+
+// ======== (Homepage-Fact) Fact gallery repeater ========
+let addFactItem = document.querySelector('.add-fact-item');
+let factGallery = document.querySelector('.fact-gallery');
+
+if (addFactItem !== null && factGallery !== null) {
+    let factItemList = factGallery.querySelectorAll('.fact-item');
+
+    if (factItemList !== null) {
+        let removeFactItemList = factGallery.querySelectorAll('.remove-fact-item');
+        removeFactItemList.forEach((element) => {
+            deleteItemOfGallery(element, 'fact-item');
+        });
+    }
+
+    let factItemId = 0;
+    addFactItem.addEventListener('click', (e) => {
+        let factItemHtml = `<!-- Fact Item -->
+                                <div class="fact-item movable">
+                                    <!-- Child Card -->
+                                    <div class="card bg-light mb-4 shadow border">
+                                        <div style="position: absolute; top: 0px; right: 0px;">
+                                            <div class="btn-group">
+                                                <!-- Move UP -->
+                                                <span class="btn btn-warning px-2 py-0" id="move-up-${factItemId}"
+                                                      style="font-size: 24px;">
+                                                    <i class="fas fa-caret-up"></i>
+                                                </span>
+                                                <!-- Move DOWN -->
+                                                <span class="btn btn-warning px-2 py-0" id="move-down-${factItemId}"
+                                                      style="font-size: 24px;">
+                                                    <i class="fas fa-caret-down"></i>
+                                                </span>
+                                            </div>
+                                            <!-- Delete Button -->
+                                            <button type="button" id="remove-fact-item-${factItemId}"
+                                                    class="btn btn-danger px-4">
+                                                <span class="d-block d-md-none">
+                                                    <i class="fas fa-times"></i>
+                                                </span>
+                                                <span class="d-none d-md-inline">Delete</span>
+                                            </button>
+                                        </div>
+                                        <div class="card-body pt-5">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Fact Name</label>
+                                                        <input type="text" class="form-control"
+                                                               name="home_fact[fact][fact_name][]"
+                                                               placeholder="Fact Name...">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Fact Figure</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control"
+                                                                   name="home_fact[fact][fact_figure][]"
+                                                                   placeholder="Fact Figure...">
+                                                            <input type="text" class="form-control"
+                                                                   name="home_fact[fact][fact_unit][]"
+                                                                   placeholder="Unit...">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Fact Icon</label>
+                                                        <input type="text" class="form-control"
+                                                               name="home_fact[fact][fact_icon][]"
+                                                               placeholder="Fact Icon...">
+                                                    </div>
+                                                </div>
+                                            </div> <!-- /.row -->
+                                        </div> <!-- /.card-body (child) -->
+                                    </div> <!-- /.card (child) -->
+                                </div>
+                                <!-- /.fact-item -->`;
+
+        factGallery.insertAdjacentHTML('beforeend', factItemHtml);
+
+        // Delete fact-item button
+        let removeFactItem = factGallery.querySelector(`#remove-fact-item-${factItemId}`);
+        deleteItemOfGallery(removeFactItem, 'fact-item');
+
+        // Move up, down item
+        moveItem(`#move-up-${factItemId}`, `#move-down-${factItemId}`);
+
+        factItemId++;
+    });
+}
