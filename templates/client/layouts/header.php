@@ -33,6 +33,17 @@ if (!empty($heroGeneralOpts['bg_opacity'])) {
     $bgOpacity = 0.94;
 }
 
+$homeCta = json_decode(getOption('home_cta'), true);
+if (!empty($homeCta['general'])) {
+    $ctaGeneralOpts = json_decode($homeCta['general'], true);
+}
+if (!empty($ctaGeneralOpts['bg_image'])) {
+    $bgImage = $ctaGeneralOpts['bg_image'];
+} else {
+    // Default Call to Action background image
+    $bgImage = _WEB_HOST_CLIENT_TEMPLATE . '/assets/images/call-to-action.jpg';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -60,6 +71,7 @@ if (!empty($heroGeneralOpts['bg_opacity'])) {
         :root {
             --theme-color: <?php echo $themeColor; ?>;
             --home-hero-opacity: <?php echo $bgOpacity; ?>;
+            --home-cta-bg-img: url("<?php echo $bgImage; ?>");
         }
     </style>
 

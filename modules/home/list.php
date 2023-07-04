@@ -99,7 +99,6 @@ if (!empty($homeHero['slider'])):
 endif;
 ?>
 
-
     <!-- About Us -->
 <?php
 $homeAbout = json_decode(getOption('home_about'), true);
@@ -201,6 +200,7 @@ if (!empty($homeAbout['general'])) {
 
     <!-- Services -->
 <?php
+$services = getAllRows("SELECT * FROM services ORDER BY name");
 $homeService = json_decode(getOption('home_service'), true);
 if (!empty($homeService['general'])) {
     $serviceGeneralOpts = json_decode($homeService['general'], true);
@@ -220,11 +220,10 @@ if (!empty($homeService['general'])) {
                 </div>
             </div>
             <?php
-            $result = getAllRows("SELECT * FROM services ORDER BY name");
-            $services = $result;
             if (!empty($services)) :
+                $temp = $services;
                 while (count($services) <= 4) {
-                    $services = array_merge($services, $result);
+                    $services = array_merge($services, $temp);
                 }
                 ?>
                 <div class="row">
@@ -323,20 +322,24 @@ if (!empty($homeFact['general'])) {
     </section>
     <!--/ End Fun Facts -->
 
+<?php
+$portfolioCategories = getAllRows("SELECT * FROM portfolio_categories ORDER BY name");
+$portfolios = getAllRows("SELECT * FROM portfolios ORDER BY name");
+$homePortfolio = json_decode(getOption('home_portfolio'), true);
+if (!empty($homePortfolio['general'])) {
+    $portfolioGeneralOpts = json_decode($homePortfolio['general'], true);
+}
+?>
     <!-- Portfolio -->
     <section id="portfolio" class="portfolio section">
         <div class="container">
             <div class="row">
                 <div class="col-12 wow fadeInUp">
                     <div class="section-title">
-                        <span class="title-bg">Projects</span>
-                        <h1>Our Portfolio</h1>
-                        <p>
-                            Sed lorem enim, faucibus at erat eget, laoreet tincidunt tortor.
-                            Ut sed mi nec ligula bibendum aliquam. Sed scelerisque maximus
-                            magna, a vehicula turpis Proin
-                        </p>
-                        <p></p>
+                        <span class="title-bg"><?php echo (!empty($portfolioGeneralOpts['bg_title']))
+                                ? $portfolioGeneralOpts['bg_title'] : null; ?></span>
+                        <?php echo (!empty($portfolioGeneralOpts['main_title']))
+                            ? html_entity_decode($portfolioGeneralOpts['main_title']) : null; ?>
                     </div>
                 </div>
             </div>
@@ -346,29 +349,22 @@ if (!empty($homeFact['general'])) {
                     <div class="portfolio-nav">
                         <ul class="tr-list list-inline" id="portfolio-menu">
                             <li data-filter="*" class="cbp-filter-item active">
-                                All Works
+                                All Portfolios
                                 <div class="cbp-filter-counter"></div>
                             </li>
-                            <li data-filter=".animation" class="cbp-filter-item">
-                                Animation
-                                <div class="cbp-filter-counter"></div>
-                            </li>
-                            <li data-filter=".website" class="cbp-filter-item">
-                                Website
-                                <div class="cbp-filter-counter"></div>
-                            </li>
-                            <li data-filter=".package" class="cbp-filter-item">
-                                Package
-                                <div class="cbp-filter-counter"></div>
-                            </li>
-                            <li data-filter=".development" class="cbp-filter-item">
-                                Development
-                                <div class="cbp-filter-counter"></div>
-                            </li>
-                            <li data-filter=".printing" class="cbp-filter-item">
-                                Printing
-                                <div class="cbp-filter-counter"></div>
-                            </li>
+                            <?php
+                            if (!empty($portfolioCategories)):
+                                foreach ($portfolioCategories as $category):
+                                    ?>
+                                    <li data-filter=".portfolio-cate-<?php echo $category['id']; ?>"
+                                        class="cbp-filter-item">
+                                        <?php echo $category['name']; ?>
+                                        <div class="cbp-filter-counter"></div>
+                                    </li>
+                                <?php
+                                endforeach;
+                            endif;
+                            ?>
                         </ul>
                     </div>
                     <!--/ End portfolio Nav -->
@@ -378,197 +374,98 @@ if (!empty($homeFact['general'])) {
                 <div class="row">
                     <div class="col-12">
                         <div id="portfolio-item">
-                            <!-- Single portfolio -->
-                            <div class="cbp-item website animation printing">
-                                <div class="portfolio-single">
-                                    <div class="portfolio-head">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/portfolio/p1.jpg"
-                                             alt="#"/>
-                                    </div>
-                                    <div class="portfolio-hover">
-                                        <h4><a href="portfolio-single.html">Creative Work</a></h4>
-                                        <p>
-                                            Maecenas sapien erat, porta non porttitor non, dignissim
-                                            et enim. Aenean ac enim
-                                        </p>
-                                        <div class="button">
-                                            <a class="primary"
-                                               data-fancybox="gallery01"
-                                               href="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/portfolio/p1.jpg"
-                                            ><i class="fa fa-search"></i></a>
-                                            <div style="display: none">
-                                                <a data-fancybox="gallery01"
-                                                   href="https://lipsum.app/id/61/1600x1200"
-                                                ><img src="https://lipsum.app/id/61/120x80"/></a>
-                                                <a data-fancybox="gallery01"
-                                                   href="https://lipsum.app/id/62/1600x1200"
-                                                ><img src="https://lipsum.app/id/62/120x80"/></a>
-                                                <a data-fancybox="gallery01"
-                                                   href="https://lipsum.app/id/63/1600x1200"
-                                                ><img src="https://lipsum.app/id/63/120x80"/></a>
+                            <?php
+                            if (!empty($portfolios)):
+                                foreach ($portfolios as $portfolio) :
+                                    ?>
+                                    <!-- Single portfolio -->
+                                    <div class="cbp-item portfolio-cate-<?php echo $portfolio['portfolio_category_id']; ?>">
+                                        <div class="portfolio-single">
+                                            <div class="portfolio-head">
+                                                <img src="<?php echo $portfolio['thumbnail']; ?>"
+                                                     alt="#"/>
                                             </div>
-                                            <a href="portfolio-single.html"><i class="fa fa-link"></i></a>
+                                            <div class="portfolio-hover">
+                                                <h4><a href="#"><?php echo $portfolio['name']; ?></a></h4>
+                                                <p>
+                                                    <?php echo $portfolio['description']; ?>
+                                                </p>
+                                                <div class="button">
+                                                    <a class="primary"
+                                                       data-fancybox="portfolio-gallery-<?php echo $portfolio['id']; ?>"
+                                                       href="<?php echo $portfolio['thumbnail']; ?>"
+                                                    ><i class="fa fa-search"></i></a>
+                                                    <div style="display: none">
+                                                        <?php
+                                                        // Retrieve portfolio images data
+                                                        $sql = "SELECT * FROM portfolio_images WHERE portfolio_id=:portfolio_id";
+                                                        $data = ['portfolio_id' => $portfolio['id']];
+                                                        $gallery = getAllRows($sql, $data);
+                                                        if (!empty($gallery)):
+                                                            foreach ($gallery as $image):
+                                                                ?>
+                                                                <a data-fancybox="portfolio-gallery-<?php echo $portfolio['id']; ?>"
+                                                                   href="<?php echo $image['image']; ?>"
+                                                                ></a>
+                                                            <?php
+                                                            endforeach;
+                                                        endif;
+                                                        ?>
+                                                    </div>
+                                                    <a href="<?php echo $portfolio['video']; ?>"
+                                                       class="primary video-popup mfp-fade"
+                                                    ><i class="fa fa-play"></i></a>
+                                                    <a href="#"><i class="fa fa-link"></i></a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <!--/ End portfolio -->
-                            <!-- Single portfolio -->
-                            <div class="cbp-item website package development">
-                                <div class="portfolio-single">
-                                    <div class="portfolio-head">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/portfolio/p2.jpg"
-                                             alt="#"/>
-                                    </div>
-                                    <div class="portfolio-hover">
-                                        <h4>
-                                            <a href="portfolio-single.html">Responsive Design</a>
-                                        </h4>
-                                        <p>
-                                            Maecenas sapien erat, porta non porttitor non, dignissim
-                                            et enim. Aenean ac enim
-                                        </p>
-                                        <div class="button">
-                                            <a href="https://www.youtube.com/watch?v=E-2ocmhF6TA"
-                                               class="primary cbp-lightbox"
-                                            ><i class="fa fa-play"></i></a>
-                                            <a href="portfolio-single.html"
-                                            ><i class="fa fa-link"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/ End portfolio -->
-                            <!-- Single portfolio -->
-                            <div class="cbp-item website animation">
-                                <div class="portfolio-single">
-                                    <div class="portfolio-head">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/portfolio/p3.jpg"
-                                             alt="#"/>
-                                    </div>
-                                    <div class="portfolio-hover">
-                                        <h4>
-                                            <a href="portfolio-single.html">Bootstrap Based</a>
-                                        </h4>
-                                        <p>
-                                            Maecenas sapien erat, porta non porttitor non, dignissim
-                                            et enim. Aenean ac enim
-                                        </p>
-                                        <div class="button">
-                                            <a class="primary"
-                                               data-fancybox="gallery"
-                                               href="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/portfolio/p3.jpg"
-                                            ><i class="fa fa-search"></i></a>
-                                            <a href="portfolio-single.html"
-                                            ><i class="fa fa-link"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/ End portfolio -->
-                            <!-- Single portfolio -->
-                            <div class="cbp-item development printing">
-                                <div class="portfolio-single">
-                                    <div class="portfolio-head">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/portfolio/p4.jpg"
-                                             alt="#"/>
-                                    </div>
-                                    <div class="portfolio-hover">
-                                        <h4><a href="portfolio-single.html">Clean Design</a></h4>
-                                        <p>
-                                            Maecenas sapien erat, porta non porttitor non, dignissim
-                                            et enim. Aenean ac enim
-                                        </p>
-                                        <div class="button">
-                                            <a href="https://www.youtube.com/watch?v=E-2ocmhF6TA"
-                                               class="primary cbp-lightbox"
-                                            ><i class="fa fa-play"></i></a>
-                                            <a href="portfolio-single.html"
-                                            ><i class="fa fa-link"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/ End portfolio -->
-                            <!-- Single portfolio -->
-                            <div class="cbp-item development package">
-                                <div class="portfolio-single">
-                                    <div class="portfolio-head">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/portfolio/p5.jpg"
-                                             alt="#"/>
-                                    </div>
-                                    <div class="portfolio-hover">
-                                        <h4><a href="portfolio-single.html">Animation</a></h4>
-                                        <p>
-                                            Maecenas sapien erat, porta non porttitor non, dignissim
-                                            et enim. Aenean ac enim
-                                        </p>
-                                        <div class="button">
-                                            <a class="primary"
-                                               data-fancybox="gallery"
-                                               href="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/portfolio/p5.jpg"
-                                            ><i class="fa fa-search"></i></a>
-                                            <a href="portfolio-single.html"
-                                            ><i class="fa fa-link"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/ End portfolio -->
-                            <!-- Single portfolio -->
-                            <div class="cbp-item website animation printing">
-                                <div class="portfolio-single">
-                                    <div class="portfolio-head">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/portfolio/p6.jpg"
-                                             alt="#"/>
-                                    </div>
-                                    <div class="portfolio-hover">
-                                        <h4><a href="portfolio-single.html">Parallax</a></h4>
-                                        <p>
-                                            Maecenas sapien erat, porta non porttitor non, dignissim
-                                            et enim. Aenean ac enim
-                                        </p>
-                                        <div class="button">
-                                            <a href="https://www.youtube.com/watch?v=E-2ocmhF6TA"
-                                               class="primary cbp-lightbox"
-                                            ><i class="fa fa-play"></i></a>
-                                            <a href="portfolio-single.html"
-                                            ><i class="fa fa-link"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/ End portfolio -->
+                                    <!--/ End portfolio -->
+                                <?php
+                                endforeach;
+                            endif;
+                            ?>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="button">
-                            <a class="btn primary" href="portfolio-3-column.html"
-                            >More Portfolio</a>
+                    <!-- Button -->
+                    <?php
+                    if (!empty($portfolioGeneralOpts['btn_text']) && !empty($portfolioGeneralOpts['btn_link'])) :
+                        ?>
+                        <div class="col-12">
+                            <div class="button">
+                                <a class="btn primary" href="<?php echo $portfolioGeneralOpts['btn_link']; ?>"
+                                ><?php echo $portfolioGeneralOpts['btn_text']; ?></a>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </section>
     <!--/ End portfolio -->
 
+<?php
+$homeCta = json_decode(getOption('home_cta'), true);
+if (!empty($homeCta['general'])) {
+    $ctaGeneralOpts = json_decode($homeCta['general'], true);
+}
+?>
     <!-- Call To Action -->
     <section class="call-to-action section" data-stellar-background-ratio="0.5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-12 wow fadeInUp">
                     <div class="call-to-main">
-                        <h2>
-                            We have 35+ Years of experiences for creating creative website
-                            project.
-                        </h2>
-                        <p>
-                            Maecenas sapien erat, porta non porttitor non, dignissim et
-                            enim. Aenean ac enim feugiat, facilisis arcu vehicula, consequat
-                            sem. Cras et vulputate nisi, ac dignissim mi. Etiam laoreet
-                        </p>
-                        <a href="contact.html" class="btn">Buy This Theme</a>
+                        <!-- Content -->
+                        <?php echo (!empty($ctaGeneralOpts['content']))
+                            ? html_entity_decode($ctaGeneralOpts['content']) : null; ?>
+                        <!-- Button -->
+                        <?php
+                        if (!empty($ctaGeneralOpts['btn_text']) && !empty($ctaGeneralOpts['btn_link'])) :
+                            ?>
+                            <a href="<?php echo $ctaGeneralOpts['btn_link']; ?>"
+                               class="btn"><?php echo $ctaGeneralOpts['btn_text']; ?></a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -576,340 +473,132 @@ if (!empty($homeFact['general'])) {
     </section>
     <!--/ End Call To Action -->
 
+<?php
+// Retrieve data
+$columnNames = "blogs.id, blogs.blog_category_id, blogs.title, blogs.description, blogs.thumbnail, blogs.views_count, blogs.created_at, blog_categories.name AS category_name";
+$sql = "SELECT $columnNames FROM blogs INNER JOIN blog_categories ON blogs.blog_category_id=blog_categories.id ORDER BY blogs.created_at DESC";
+$blogs = getAllRows($sql);
+$homeBlog = json_decode(getOption('home_blog'), true);
+if (!empty($homeBlog['general'])) {
+    $blogGeneralOpts = json_decode($homeBlog['general'], true);
+}
+?>
     <!-- Blogs Area -->
     <section class="blogs-main section">
         <div class="container">
             <div class="row">
                 <div class="col-12 wow fadeInUp">
                     <div class="section-title">
-                        <span class="title-bg">News</span>
-                        <h1>Latest Blogs</h1>
-                        <p>
-                            Sed lorem enim, faucibus at erat eget, laoreet tincidunt tortor.
-                            Ut sed mi nec ligula bibendum aliquam. Sed scelerisque maximus
-                            magna, a vehicula turpis Proin
-                        </p>
-                        <p></p>
+                        <span class="title-bg"><?php echo (!empty($blogGeneralOpts['bg_title']))
+                                ? $blogGeneralOpts['bg_title'] : null; ?></span>
+                        <?php echo (!empty($blogGeneralOpts['main_title']))
+                            ? html_entity_decode($blogGeneralOpts['main_title']) : null; ?>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="row blog-slider">
-                        <div class="col-lg-4 col-12">
-                            <!-- Single Blog -->
-                            <div class="single-blog">
-                                <div class="blog-head">
-                                    <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/blogs/blog1.jpg"
-                                         alt="#"/>
-                                </div>
-                                <div class="blog-bottom">
-                                    <div class="blog-inner">
-                                        <h4>
-                                            <a href="blog-single.html"
-                                            >Recognizing the need is the primary</a>
-                                        </h4>
-                                        <p>
-                                            Maecenas sapien erat, porta non porttitor non, dignissim
-                                            et enim. Aenean ac tincidunt tortor sedelon bond
-                                        </p>
-                                        <div class="meta">
-                                            <span><i class="fa fa-folder"></i><a href="#">Marketing</a></span>
-                                            <span><i class="fa fa-calendar"></i>03 May, 2018</span>
-                                            <span><i class="fa fa-eye"></i><a href="#">333k</a></span>
+            <?php
+            if (!empty($blogs)) :
+                $temp = $blogs;
+                while (count($blogs) <= 4) {
+                    $blogs = array_merge($blogs, $temp);
+                }
+                ?>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row blog-slider">
+                            <?php foreach ($blogs as $blog): ?>
+                                <div class="col-lg-4 col-12">
+                                    <!-- Single Blog -->
+                                    <div class="single-blog">
+                                        <div class="blog-head">
+                                            <img src="<?php echo $blog['thumbnail']; ?>"
+                                                 alt="#"/>
+                                        </div>
+                                        <div class="blog-bottom">
+                                            <div class="blog-inner">
+                                                <h4>
+                                                    <a href="#"><?php echo $blog['title']; ?></a>
+                                                </h4>
+                                                <p>
+                                                    <?php echo $blog['description']; ?>
+                                                </p>
+                                                <div class="meta">
+                                                    <span><i class="fa fa-folder"></i><a
+                                                                href="#"><?php echo $blog['category_name']; ?></a></span>
+                                                    <span><i class="fa fa-calendar"></i><?php
+                                                        echo getFormattedDate($blog['created_at'], 'd-m-Y');
+                                                        ?></span>
+                                                    <span><i class="fa fa-eye"></i><?php echo $blog['views_count']; ?></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <!-- End Single Blog -->
                                 </div>
-                            </div>
-                            <!-- End Single Blog -->
-                        </div>
-                        <div class="col-lg-4 col-12">
-                            <!-- Single Blog -->
-                            <div class="single-blog">
-                                <div class="blog-head">
-                                    <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/blogs/blog2.jpg"
-                                         alt="#"/>
-                                </div>
-                                <div class="blog-bottom">
-                                    <div class="blog-inner">
-                                        <h4>
-                                            <a href="blog-single.html"
-                                            >How to grow your business with blank table!</a>
-                                        </h4>
-                                        <p>
-                                            Maecenas sapien erat, porta non porttitor non, dignissim
-                                            et enim. Aenean ac tincidunt tortor sedelon bond
-                                        </p>
-                                        <div class="meta">
-                                            <span><i class="fa fa-folder"></i><a href="#">Business</a></span>
-                                            <span><i class="fa fa-calendar"></i>28 April, 2018</span>
-                                            <span><i class="fa fa-eye"></i><a href="#">5m</a></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Blog -->
-                        </div>
-                        <div class="col-lg-4 col-12">
-                            <!-- Single Blog -->
-                            <div class="single-blog">
-                                <div class="blog-head">
-                                    <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/blogs/blog3.jpg"
-                                         alt="#"/>
-                                </div>
-                                <div class="blog-bottom">
-                                    <div class="blog-inner">
-                                        <h4>
-                                            <a href="blog-single.html"
-                                            >10 ways to improve your startup Business</a>
-                                        </h4>
-                                        <p>
-                                            Maecenas sapien erat, porta non porttitor non, dignissim
-                                            et enim. Aenean ac tincidunt tortor sedelon bond
-                                        </p>
-                                        <div class="meta">
-                                            <span><i class="fa fa-folder"></i><a href="#">Brand</a></span>
-                                            <span><i class="fa fa-calendar"></i>15 April, 2018</span>
-                                            <span><i class="fa fa-eye"></i><a href="#">10m</a></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Blog -->
-                        </div>
-                        <div class="col-lg-4 col-12">
-                            <!-- Single Blog -->
-                            <div class="single-blog">
-                                <div class="blog-head">
-                                    <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/blogs/blog4.jpg"
-                                         alt="#"/>
-                                </div>
-                                <div class="blog-bottom">
-                                    <div class="blog-inner">
-                                        <h4>
-                                            <a href="blog-single.html"
-                                            >Recognizing the need is the primary</a>
-                                        </h4>
-                                        <p>
-                                            Maecenas sapien erat, porta non porttitor non, dignissim
-                                            et enim. Aenean ac tincidunt tortor sedelon bond
-                                        </p>
-                                        <div class="meta">
-                                            <span><i class="fa fa-folder"></i><a href="#">Online</a></span>
-                                            <span><i class="fa fa-calendar"></i>25 March, 2018</span>
-                                            <span><i class="fa fa-eye"></i><a href="#">38k</a></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Blog -->
-                        </div>
-                        <div class="col-lg-4 col-12">
-                            <!-- Single Blog -->
-                            <div class="single-blog">
-                                <div class="blog-head">
-                                    <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/blogs/blog5.jpg"
-                                         alt="#"/>
-                                </div>
-                                <div class="blog-bottom">
-                                    <div class="blog-inner">
-                                        <h4>
-                                            <a href="blog-single.html"
-                                            >How to grow your business with blank table!</a>
-                                        </h4>
-                                        <p>
-                                            Maecenas sapien erat, porta non porttitor non, dignissim
-                                            et enim. Aenean ac tincidunt tortor sedelon bond
-                                        </p>
-                                        <div class="meta">
-                                            <span><i class="fa fa-folder"></i><a href="#">Marketing</a></span>
-                                            <span><i class="fa fa-calendar"></i>10 March, 2018</span>
-                                            <span><i class="fa fa-eye"></i><a href="#">100k</a></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Blog -->
-                        </div>
-                        <div class="col-lg-4 col-12">
-                            <!-- Single Blog -->
-                            <div class="single-blog">
-                                <div class="blog-head">
-                                    <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/blogs/blog6.jpg"
-                                         alt="#"/>
-                                </div>
-                                <div class="blog-bottom">
-                                    <div class="blog-inner">
-                                        <h4>
-                                            <a href="blog-single.html"
-                                            >10 ways to improve your startup Business</a>
-                                        </h4>
-                                        <p>
-                                            Maecenas sapien erat, porta non porttitor non, dignissim
-                                            et enim. Aenean ac tincidunt tortor sedelon bond
-                                        </p>
-                                        <div class="meta">
-                                            <span><i class="fa fa-folder"></i><a href="#">Website</a></span>
-                                            <span><i class="fa fa-calendar"></i>21 February, 2018</span>
-                                            <span><i class="fa fa-eye"></i><a href="#">320k</a></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Blog -->
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
         </div>
     </section>
     <!--/ End Blogs Area -->
 
+<?php
+$homePartner = json_decode(getOption('home_partner'), true);
+if (!empty($homePartner['general'])) {
+    $partnerGeneralOpts = json_decode($homePartner['general'], true);
+}
+?>
     <!-- Partners -->
     <section id="partners" class="partners section">
         <div class="container">
             <div class="row">
                 <div class="col-12 wow fadeInUp">
                     <div class="section-title">
-                        <span class="title-bg">Clients</span>
-                        <h1>Our Partners</h1>
-                        <p>
-                            Sed lorem enim, faucibus at erat eget, laoreet tincidunt tortor.
-                            Ut sed mi nec ligula bibendum aliquam. Sed scelerisque maximus
-                            magna, a vehicula turpis Proin
-                        </p>
-                        <p></p>
+                        <span class="title-bg"><?php echo (!empty($partnerGeneralOpts['bg_title']))
+                                ? $partnerGeneralOpts['bg_title'] : null; ?></span>
+                        <?php echo (!empty($partnerGeneralOpts['main_title']))
+                            ? html_entity_decode($partnerGeneralOpts['main_title']) : null; ?>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="partners-inner">
-                        <div class="row no-gutters">
-                            <!-- Single Partner -->
-                            <div class="col-lg-2 col-md-3 col-12">
-                                <div class="single-partner">
-                                    <a href="#" target="_blank">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/partner-1.png"
-                                             alt="#"/>
-                                    </a>
+            <?php
+            if (!empty($homePartner['partner'])):
+                $partners = json_decode($homePartner['partner'], true);
+                if (!empty($partners) && is_array($partners)) :
+                    ?>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="partners-inner">
+                                <div class="row no-gutters justify-content-center">
+                                    <?php
+                                    foreach ($partners as $partner):
+                                        if (!empty($partner['partner_logo']) && !empty($partner['partner_link'])):
+                                            ?>
+                                            <!-- Single Partner -->
+                                            <div class="col-lg-2 col-md-3 col-12">
+                                                <div class="single-partner">
+                                                    <a href="<?php echo $partner['partner_link']; ?>"
+                                                       target="_blank">
+                                                        <img src="<?php echo $partner['partner_logo']; ?>"
+                                                             alt="#"/>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <!--/ End Single Partner -->
+                                        <?php
+                                        endif;
+                                    endforeach;
+                                    ?>
                                 </div>
                             </div>
-                            <!--/ End Single Partner -->
-                            <!-- Single Partner -->
-                            <div class="col-lg-2 col-md-3 col-12">
-                                <div class="single-partner">
-                                    <a href="#" target="_blank">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/partner-2.png"
-                                             alt="#"/>
-                                    </a>
-                                </div>
-                            </div>
-                            <!--/ End Single Partner -->
-                            <!-- Single Partner -->
-                            <div class="col-lg-2 col-md-3 col-12">
-                                <div class="single-partner">
-                                    <a href="#" target="_blank">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/partner-3.png"
-                                             alt="#"/>
-                                    </a>
-                                </div>
-                            </div>
-                            <!--/ End Single Partner -->
-                            <!-- Single Partner -->
-                            <div class="col-lg-2 col-md-3 col-12">
-                                <div class="single-partner">
-                                    <a href="#" target="_blank">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/partner-4.png"
-                                             alt="#"/>
-                                    </a>
-                                </div>
-                            </div>
-                            <!--/ End Single Partner -->
-                            <!-- Single Partner -->
-                            <div class="col-lg-2 col-md-3 col-12">
-                                <div class="single-partner">
-                                    <a href="#" target="_blank">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/partner-5.png"
-                                             alt="#"/>
-                                    </a>
-                                </div>
-                            </div>
-                            <!--/ End Single Partner -->
-                            <!-- Single Partner -->
-                            <div class="col-lg-2 col-md-3 col-12">
-                                <div class="single-partner">
-                                    <a href="#" target="_blank">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/partner-6.png"
-                                             alt="#"/>
-                                    </a>
-                                </div>
-                            </div>
-                            <!--/ End Single Partner -->
-                            <!-- Single Partner -->
-                            <div class="col-lg-2 col-md-3 col-12">
-                                <div class="single-partner">
-                                    <a href="#" target="_blank">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/partner-7.png"
-                                             alt="#"/>
-                                    </a>
-                                </div>
-                            </div>
-                            <!--/ End Single Partner -->
-                            <!-- Single Partner -->
-                            <div class="col-lg-2 col-md-3 col-12">
-                                <div class="single-partner">
-                                    <a href="#" target="_blank">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/partner-8.png"
-                                             alt="#"/>
-                                    </a>
-                                </div>
-                            </div>
-                            <!--/ End Single Partner -->
-                            <!-- Single Partner -->
-                            <div class="col-lg-2 col-md-3 col-12">
-                                <div class="single-partner">
-                                    <a href="#" target="_blank">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/partner-5.png"
-                                             alt="#"/>
-                                    </a>
-                                </div>
-                            </div>
-                            <!--/ End Single Partner -->
-                            <!-- Single Partner -->
-                            <div class="col-lg-2 col-md-3 col-12">
-                                <div class="single-partner">
-                                    <a href="#" target="_blank">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/partner-6.png"
-                                             alt="#"/>
-                                    </a>
-                                </div>
-                            </div>
-                            <!--/ End Single Partner -->
-                            <!-- Single Partner -->
-                            <div class="col-lg-2 col-md-3 col-12">
-                                <div class="single-partner">
-                                    <a href="#" target="_blank">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/partner-7.png"
-                                             alt="#"/>
-                                    </a>
-                                </div>
-                            </div>
-                            <!--/ End Single Partner -->
-                            <!-- Single Partner -->
-                            <div class="col-lg-2 col-md-3 col-12">
-                                <div class="single-partner">
-                                    <a href="#" target="_blank">
-                                        <img src="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/images/partner-3.png"
-                                             alt="#"/>
-                                    </a>
-                                </div>
-                            </div>
-                            <!--/ End Single Partner -->
                         </div>
                     </div>
-                </div>
-            </div>
+                <?php
+                endif;
+            endif;
+            ?>
         </div>
     </section>
     <!--/ End Partners -->
