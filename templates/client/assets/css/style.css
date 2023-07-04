@@ -1155,7 +1155,7 @@
 ========================================*/
 .call-to-action {
     position: relative;
-    background-image: url("../images/call-to-action.jpg");
+    background-image: var(--home-cta-bg-img);
     background-repeat: no-repeat;
     background-size: cover;
 }

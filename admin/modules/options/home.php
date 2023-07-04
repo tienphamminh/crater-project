@@ -152,6 +152,82 @@ if (isPost()) {
         $body['home_fact'] = json_encode($body['home_fact']);
     }
 
+    if ($formName == 'portfolio') {
+        if (!empty($body['home_portfolio'])) {
+            if (!empty($body['home_portfolio']['general'])) {
+                $general = $body['home_portfolio']['general'];
+                $body['home_portfolio']['general'] = json_encode($general);
+            } else {
+                $body['home_portfolio']['general'] = '';
+            }
+        } else {
+            $body['home_portfolio'] = ['general' => '',];
+        }
+        $body['home_portfolio'] = json_encode($body['home_portfolio']);
+    }
+
+    if ($formName == 'cta') {
+        if (!empty($body['home_cta'])) {
+            if (!empty($body['home_cta']['general'])) {
+                $general = $body['home_cta']['general'];
+                $body['home_cta']['general'] = json_encode($general);
+            } else {
+                $body['home_cta']['general'] = '';
+            }
+        } else {
+            $body['home_cta'] = ['general' => '',];
+        }
+        $body['home_cta'] = json_encode($body['home_cta']);
+    }
+
+    if ($formName == 'blog') {
+        if (!empty($body['home_blog'])) {
+            if (!empty($body['home_blog']['general'])) {
+                $general = $body['home_blog']['general'];
+                $body['home_blog']['general'] = json_encode($general);
+            } else {
+                $body['home_blog']['general'] = '';
+            }
+        } else {
+            $body['home_blog'] = ['general' => '',];
+        }
+        $body['home_blog'] = json_encode($body['home_blog']);
+    }
+
+    if ($formName == 'partner') {
+        if (!empty($body['home_partner'])) {
+
+            if (!empty($body['home_partner']['general'])) {
+                $general = $body['home_partner']['general'];
+                $body['home_partner']['general'] = json_encode($general);
+            } else {
+                $body['home_partner']['general'] = '';
+            }
+
+            if (!empty($body['home_partner']['partner'])) {
+                // Convert all partners data to Json
+                $partnerFields = $body['home_partner']['partner'];
+                $totalPartners = count($partnerFields['partner_logo']);
+                $partners = [];
+                for ($index = 0; $index < $totalPartners; $index++) {
+                    $partnerData = [
+                        'partner_logo' => $partnerFields['partner_logo'][$index],
+                        'partner_link' => $partnerFields['partner_link'][$index],
+                    ];
+
+                    $partners[] = $partnerData;
+                }
+                $body['home_partner']['partner'] = json_encode($partners);
+            } else {
+                // If delete all partners, set to empty
+                $body['home_partner']['partner'] = '';
+            }
+        } else {
+            $body['home_partner'] = ['general' => '', 'partner' => ''];
+        }
+        $body['home_partner'] = json_encode($body['home_partner']);
+    }
+
     if (empty($errors)) {
         unset($body['form_name']);
         updateOptions($body);
@@ -818,6 +894,319 @@ $oldValues = getFlashData('old_values');
                 </form>
             </div>
             <!-- End Facts -->
+
+            <!-- Portfolios -->
+            <div class="card card-primary mb-5 border border-primary" id="portfolio">
+                <div class="card-header">
+                    <h3 class="card-title">Portfolios</h3>
+                </div> <!-- /.card-header -->
+                <!-- form start -->
+                <form action="" method="post">
+                    <input type="hidden" name="form_name" value="portfolio">
+                    <div class="card-body py-4">
+                        <?php
+                        echo ($formName == 'portfolio') ? getMessage($msg, $msgType) : null;
+                        $homePortfolio = json_decode(getOption('home_portfolio'), true);
+                        if (!empty($homePortfolio['general'])) {
+                            $portfolioGeneralOpts = json_decode($homePortfolio['general'], true);
+                        }
+                        ?>
+
+                        <div class="form-group">
+                            <label>Background Title</label>
+                            <input type="text" name="home_portfolio[general][bg_title]" class="form-control"
+                                   placeholder="Background Title..."
+                                   value="<?php echo (!empty($portfolioGeneralOpts['bg_title']))
+                                       ? $portfolioGeneralOpts['bg_title'] : null; ?>">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Button | Text</label>
+                                    <input type="text" class="form-control"
+                                           name="home_portfolio[general][btn_text]"
+                                           placeholder="Text of Button..."
+                                           value="<?php echo (!empty($portfolioGeneralOpts['btn_text']))
+                                               ? $portfolioGeneralOpts['btn_text'] : null; ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Button | Link</label>
+                                    <input type="text" class="form-control"
+                                           name="home_portfolio[general][btn_link]"
+                                           placeholder="Link of Button..."
+                                           value="<?php echo (!empty($portfolioGeneralOpts['btn_link']))
+                                               ? $portfolioGeneralOpts['btn_link'] : null; ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Main Title</label>
+                            <textarea name="home_portfolio[general][main_title]" class="form-control editor"
+                            ><?php echo (!empty($portfolioGeneralOpts['main_title']))
+                                    ? $portfolioGeneralOpts['main_title'] : null; ?></textarea>
+                        </div>
+                    </div> <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                        <button type="submit" class="btn btn-primary px-4 float-left">Update</button>
+                        <a href="<?php echo getAbsUrlAdmin('options', 'home'); ?>"
+                           class="btn btn-outline-success px-4 mr-2 float-right">
+                            Reset
+                        </a>
+                    </div> <!-- /.card-footer -->
+                </form>
+            </div>
+            <!-- End Portfolios -->
+
+            <!-- Call to Action -->
+            <div class="card card-primary mb-5 border border-primary" id="cta">
+                <div class="card-header">
+                    <h3 class="card-title">Portfolios</h3>
+                </div> <!-- /.card-header -->
+                <!-- form start -->
+                <form action="" method="post">
+                    <input type="hidden" name="form_name" value="cta">
+                    <div class="card-body py-4">
+                        <?php
+                        echo ($formName == 'cta') ? getMessage($msg, $msgType) : null;
+                        $homeCta = json_decode(getOption('home_cta'), true);
+                        if (!empty($homeCta['general'])) {
+                            $ctaGeneralOpts = json_decode($homeCta['general'], true);
+                        }
+                        ?>
+
+                        <div class="form-group ckfinder-group">
+                            <label>Background Image</label>
+                            <div class="input-group mb-3">
+                                <input type="text"
+                                       name="home_cta[general][bg_image]"
+                                       class="form-control ckfinder-render-img"
+                                       placeholder="Choose image..."
+                                       value="<?php echo (!empty($ctaGeneralOpts['bg_image']))
+                                           ? $ctaGeneralOpts['bg_image'] : null; ?>">
+                                <div class="input-group-append">
+                                    <span class="btn input-group-text view-img">
+                                        <i class="fas fa-search-plus"></i>
+                                    </span>
+                                    <button type="button"
+                                            class="btn btn-success ckfinder-choose-img">
+                                        <i class="fas fa-upload"></i>
+                                        <span class="d-none d-xl-inline ml-1">Choose Image</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Button | Text</label>
+                                    <input type="text" class="form-control"
+                                           name="home_cta[general][btn_text]"
+                                           placeholder="Text of Button..."
+                                           value="<?php echo (!empty($ctaGeneralOpts['btn_text']))
+                                               ? $ctaGeneralOpts['btn_text'] : null; ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Button | Link</label>
+                                    <input type="text" class="form-control"
+                                           name="home_cta[general][btn_link]"
+                                           placeholder="Link of Button..."
+                                           value="<?php echo (!empty($ctaGeneralOpts['btn_link']))
+                                               ? $ctaGeneralOpts['btn_link'] : null; ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Content</label>
+                            <textarea name="home_cta[general][content]" class="form-control editor"
+                            ><?php echo (!empty($ctaGeneralOpts['content']))
+                                    ? $ctaGeneralOpts['content'] : null; ?></textarea>
+                        </div>
+                    </div> <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                        <button type="submit" class="btn btn-primary px-4 float-left">Update</button>
+                        <a href="<?php echo getAbsUrlAdmin('options', 'home'); ?>"
+                           class="btn btn-outline-success px-4 mr-2 float-right">
+                            Reset
+                        </a>
+                    </div> <!-- /.card-footer -->
+                </form>
+            </div>
+            <!-- End Call to Action -->
+
+            <!-- Blogs -->
+            <div class="card card-primary mb-5 border border-primary" id="blog">
+                <div class="card-header">
+                    <h3 class="card-title">Blogs</h3>
+                </div> <!-- /.card-header -->
+                <!-- form start -->
+                <form action="" method="post">
+                    <input type="hidden" name="form_name" value="blog">
+                    <div class="card-body py-4">
+                        <?php
+                        echo ($formName == 'blog') ? getMessage($msg, $msgType) : null;
+                        $homeBlog = json_decode(getOption('home_blog'), true);
+                        if (!empty($homeBlog['general'])) {
+                            $blogGeneralOpts = json_decode($homeBlog['general'], true);
+                        }
+                        ?>
+
+                        <div class="form-group">
+                            <label>Background Title</label>
+                            <input type="text" name="home_blog[general][bg_title]" class="form-control"
+                                   placeholder="Background Title..."
+                                   value="<?php echo (!empty($blogGeneralOpts['bg_title']))
+                                       ? $blogGeneralOpts['bg_title'] : null; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Main Title</label>
+                            <textarea name="home_blog[general][main_title]" class="form-control editor"
+                            ><?php echo (!empty($blogGeneralOpts['main_title']))
+                                    ? $blogGeneralOpts['main_title'] : null; ?></textarea>
+                        </div>
+                    </div> <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                        <button type="submit" class="btn btn-primary px-4 float-left">Update</button>
+                        <a href="<?php echo getAbsUrlAdmin('options', 'home'); ?>"
+                           class="btn btn-outline-success px-4 mr-2 float-right">
+                            Reset
+                        </a>
+                    </div> <!-- /.card-footer -->
+                </form>
+            </div>
+            <!-- End Blogs -->
+
+            <!-- Partners -->
+            <div class="card card-primary mb-5 border border-primary" id="partner">
+                <div class="card-header">
+                    <h3 class="card-title">Partners</h3>
+                </div> <!-- /.card-header -->
+                <!-- form start -->
+                <form action="" method="post">
+                    <input type="hidden" name="form_name" value="partner">
+                    <div class="card-body py-4">
+                        <?php
+                        echo ($formName == 'partner') ? getMessage($msg, $msgType) : null;
+                        $homePartner = json_decode(getOption('home_partner'), true);
+                        if (!empty($homePartner['general'])) {
+                            $partnerGeneralOpts = json_decode($homePartner['general'], true);
+                        }
+                        ?>
+                        <div class="form-group">
+                            <label>Background Title</label>
+                            <input type="text" name="home_partner[general][bg_title]" class="form-control"
+                                   placeholder="Background Title..."
+                                   value="<?php echo (!empty($partnerGeneralOpts['bg_title']))
+                                       ? $partnerGeneralOpts['bg_title'] : null; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Main Title</label>
+                            <textarea name="home_partner[general][main_title]" class="form-control editor"
+                            ><?php echo (!empty($partnerGeneralOpts['main_title']))
+                                    ? $partnerGeneralOpts['main_title'] : null; ?></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label style="font-size: 18px;">List of Partners:</label>
+                            <div class="partner-gallery">
+                                <?php
+                                if (!empty($homePartner['partner'])):
+                                    $partners = json_decode($homePartner['partner'], true);
+                                    if (!empty($partners) && is_array($partners)) :
+                                        foreach ($partners as $partner) :
+                                            ?>
+                                            <!-- Partner Item -->
+                                            <div class="partner-item movable">
+                                                <!-- Child Card -->
+                                                <div class="card bg-light mb-4 shadow border">
+                                                    <div style="position: absolute; top: 0px; right: 0px;">
+                                                        <div class="btn-group">
+                                                            <!-- Move UP -->
+                                                            <span class="btn btn-warning px-2 py-0 move-up"
+                                                                  style="font-size: 24px;">
+                                                                <i class="fas fa-caret-up"></i>
+                                                            </span>
+                                                            <!-- Move DOWN -->
+                                                            <span class="btn btn-warning px-2 py-0 move-down"
+                                                                  style="font-size: 24px;">
+                                                                <i class="fas fa-caret-down"></i>
+                                                            </span>
+                                                        </div>
+                                                        <!-- Delete Button -->
+                                                        <button type="button"
+                                                                class="btn btn-danger px-4 remove-partner-item">
+                                                            <span class="d-block d-md-none">
+                                                                <i class="fas fa-times"></i>
+                                                            </span>
+                                                            <span class="d-none d-md-inline">Delete</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="card-body pt-5">
+                                                        <div class="row">
+                                                            <!-- Logo -->
+                                                            <div class="col-md-6">
+                                                                <div class="form-group ckfinder-group">
+                                                                    <label>Partner Logo</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text"
+                                                                               name="home_partner[partner][partner_logo][]"
+                                                                               class="form-control ckfinder-render-img"
+                                                                               placeholder="Choose image..."
+                                                                               value="<?php echo $partner['partner_logo']; ?>">
+                                                                        <div class="input-group-append">
+                                                                        <span class="btn input-group-text view-img">
+                                                                            <i class="fas fa-search-plus"></i>
+                                                                        </span>
+                                                                            <button type="button"
+                                                                                    class="btn btn-success ckfinder-choose-img">
+                                                                                <i class="fas fa-upload"></i>
+                                                                                <span class="d-none d-xl-inline ml-1">Choose Image</span>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Link -->
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Partner Link</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="home_partner[partner][partner_link][]"
+                                                                           placeholder="Link of Logo..."
+                                                                           value="<?php echo $partner['partner_link']; ?>">
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- /.row -->
+                                                    </div> <!-- /.card-body (child) -->
+                                                </div> <!-- /.card (child) -->
+                                            </div>
+                                            <!-- /.partner-item -->
+                                        <?php
+                                        endforeach;
+                                    endif;
+                                endif;
+                                ?>
+                            </div> <!-- /.partner-gallery -->
+                        </div>
+
+                        <!-- Add Slide Button -->
+                        <button type="button" class="btn btn-warning px-3 add-partner-item">
+                            <i class="fas fa-plus mr-1"></i> Add Partner
+                        </button>
+
+                    </div> <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                        <button type="submit" class="btn btn-primary px-4 float-left">Update</button>
+                        <a href="<?php echo getAbsUrlAdmin('options', 'home'); ?>"
+                           class="btn btn-outline-success px-4 mr-2 float-right">
+                            Reset
+                        </a>
+                    </div> <!-- /.card-footer -->
+                </form>
+            </div>
+            <!-- End Partners -->
 
         </div> <!-- /.container-fluid -->
     </section> <!-- /.content -->

@@ -771,3 +771,104 @@ if (addFactItem !== null && factGallery !== null) {
         factItemId++;
     });
 }
+
+// ======== (Homepage-Partner) Partner gallery repeater ========
+let addPartnerItem = document.querySelector('.add-partner-item');
+let partnerGallery = document.querySelector('.partner-gallery');
+
+if (addPartnerItem !== null && partnerGallery !== null) {
+    let partnerItemList = partnerGallery.querySelectorAll('.partner-item');
+
+    if (partnerItemList !== null) {
+        let removePartnerItemList = partnerGallery.querySelectorAll('.remove-partner-item');
+        removePartnerItemList.forEach((element) => {
+            deleteItemOfGallery(element, 'partner-item');
+        });
+    }
+
+    let partnerItemId = 0;
+    addPartnerItem.addEventListener('click', (e) => {
+        let partnerItemHtml = `<!-- Partner Item -->
+                                    <div class="partner-item movable">
+                                        <!-- Child Card -->
+                                        <div class="card bg-light mb-4 shadow border">
+                                            <div style="position: absolute; top: 0px; right: 0px;">
+                                                <div class="btn-group">
+                                                    <!-- Move UP -->
+                                                    <span class="btn btn-warning px-2 py-0" id="move-up-${partnerItemId}"
+                                                          style="font-size: 24px;">
+                                                        <i class="fas fa-caret-up"></i>
+                                                    </span>
+                                                    <!-- Move DOWN -->
+                                                    <span class="btn btn-warning px-2 py-0" id="move-down-${partnerItemId}"
+                                                          style="font-size: 24px;">
+                                                        <i class="fas fa-caret-down"></i>
+                                                    </span>
+                                                </div>
+                                                <!-- Delete Button -->
+                                                <button type="button" id="remove-partner-item-${partnerItemId}"
+                                                        class="btn btn-danger px-4">
+                                                    <span class="d-block d-md-none">
+                                                        <i class="fas fa-times"></i>
+                                                    </span>
+                                                    <span class="d-none d-md-inline">Delete</span>
+                                                </button>
+                                            </div>
+                                            <div class="card-body pt-5">
+                                                <div class="row">
+                                                    <!-- Logo -->
+                                                    <div class="col-md-6">
+                                                        <div class="form-group ckfinder-group">
+                                                            <label>Partner Logo</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text"
+                                                                       name="home_partner[partner][partner_logo][]"
+                                                                       class="form-control ckfinder-render-img"
+                                                                       placeholder="Choose image...">
+                                                                <div class="input-group-append">
+                                                                <span class="btn input-group-text" id="view-img-${partnerItemId}">
+                                                                    <i class="fas fa-search-plus"></i>
+                                                                </span>
+                                                                    <button type="button" id="ckfinder-choose-img-${partnerItemId}"
+                                                                            class="btn btn-success">
+                                                                        <i class="fas fa-upload"></i>
+                                                                        <span class="d-none d-xl-inline ml-1">Choose Image</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Link -->
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Partner Link</label>
+                                                            <input type="text" class="form-control"
+                                                                   name="home_partner[partner][partner_link][]"
+                                                                   placeholder="Link of Logo...">
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- /.row -->
+                                            </div> <!-- /.card-body (child) -->
+                                        </div> <!-- /.card (child) -->
+                                    </div>
+                                    <!-- /.partner-item -->`;
+
+        partnerGallery.insertAdjacentHTML('beforeend', partnerItemHtml);
+
+        // Open CKFinder
+        let chooseImage = partnerGallery.querySelector(`#ckfinder-choose-img-${partnerItemId}`);
+        openCKFinder(chooseImage);
+
+        // Show Image modal from input
+        viewImg(`.partner-gallery #view-img-${partnerItemId}`);
+
+        // Delete partner-item button
+        let removePartnerItem = partnerGallery.querySelector(`#remove-partner-item-${partnerItemId}`);
+        deleteItemOfGallery(removePartnerItem, 'partner-item');
+
+        // Move up, down item
+        moveItem(`#move-up-${partnerItemId}`, `#move-down-${partnerItemId}`);
+
+        partnerItemId++;
+    });
+}
