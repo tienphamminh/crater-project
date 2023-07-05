@@ -61,6 +61,19 @@ if (isPost()) {
         }
     }
 
+    // Logo Validate
+    if ($formName == 'logo') {
+        $logo = trim($body['general_logo']);
+        if (empty($logo)) {
+            $errors['general_logo']['required'] = 'Required field';
+        }
+
+        $favicon = trim($body['general_favicon']);
+        if (empty($favicon)) {
+            $errors['general_favicon']['required'] = 'Required field';
+        }
+    }
+
     if (empty($errors)) {
         unset($body['form_name']);
         updateOptions($body);
@@ -93,7 +106,7 @@ $oldValues = getFlashData('old_values');
 
                 <!-- left column -->
                 <div class="col-md-6">
-                    <!-- Contact Infomation -->
+                    <!-- Contact Information -->
                     <div class="card card-primary mb-5" id="contact-info">
                         <div class="card-header">
                             <h3 class="card-title">Contact Information</h3>
@@ -143,34 +156,13 @@ $oldValues = getFlashData('old_values');
                                                : getOption('general_opening'); ?>">
                                     <?php echo getFormErrorMsg('general_opening', $errors); ?>
                                 </div>
-                            </div> <!-- /.card-body -->
-                            <div class="card-footer clearfix">
-                                <button type="submit" class="btn btn-primary px-4 float-left">Update</button>
-                                <a href="<?php echo getAbsUrlAdmin('options', 'general'); ?>"
-                                   class="btn btn-outline-success px-4 mr-2 float-right">
-                                    Reset
-                                </a>
-                            </div> <!-- /.card-footer -->
-                        </form>
-                    </div> <!-- /.card -->
-
-                    <!-- Theme -->
-                    <div class="card card-primary mb-5" id="theme">
-                        <div class="card-header">
-                            <h3 class="card-title">Theme</h3>
-                        </div> <!-- /.card-header -->
-                        <!-- form start -->
-                        <form action="" method="post">
-                            <input type="hidden" name="form_name" value="theme">
-                            <div class="card-body">
-                                <?php echo ($formName == 'theme') ? getMessage($msg, $msgType) : null; ?>
                                 <div class="form-group">
-                                    <label><?php echo getOption('general_theme_color', true); ?></label>
-                                    <input type="text" name="general_theme_color" class="form-control"
-                                           value="<?php echo (!empty($oldValues) && $formName == 'theme')
-                                               ? getOldFormValue('general_theme_color', $oldValues)
-                                               : getOption('general_theme_color'); ?>">
-                                    <?php echo getFormErrorMsg('general_theme_color', $errors); ?>
+                                    <label><?php echo getOption('general_address', true); ?></label>
+                                    <input type="text" name="general_address" class="form-control"
+                                           value="<?php echo (!empty($oldValues) && $formName == 'contact-info')
+                                               ? getOldFormValue('general_address', $oldValues)
+                                               : getOption('general_address'); ?>">
+                                    <?php echo getFormErrorMsg('general_address', $errors); ?>
                                 </div>
                             </div> <!-- /.card-body -->
                             <div class="card-footer clearfix">
@@ -182,10 +174,8 @@ $oldValues = getFlashData('old_values');
                             </div> <!-- /.card-footer -->
                         </form>
                     </div> <!-- /.card -->
-                </div>  <!-- /.col (left) -->
-
-                <!-- right column -->
-                <div class="col-md-6">
+                    <!-- End Contact Information -->
+                    <!-- Social Link -->
                     <div class="card card-primary mb-5" id="social">
                         <div class="card-header">
                             <h3 class="card-title">Social Link</h3>
@@ -230,11 +220,115 @@ $oldValues = getFlashData('old_values');
                             </div> <!-- /.card-footer -->
                         </form>
                     </div> <!-- /.card -->
+                    <!-- End Social Link -->
+                </div>  <!-- /.col (left) -->
+
+                <!-- right column -->
+                <div class="col-md-6">
+                    <!-- Theme -->
+                    <div class="card card-primary mb-5" id="theme">
+                        <div class="card-header">
+                            <h3 class="card-title">Theme</h3>
+                        </div> <!-- /.card-header -->
+                        <!-- form start -->
+                        <form action="" method="post">
+                            <input type="hidden" name="form_name" value="theme">
+                            <div class="card-body">
+                                <?php echo ($formName == 'theme') ? getMessage($msg, $msgType) : null; ?>
+                                <div class="form-group">
+                                    <label><?php echo getOption('general_theme_color', true); ?></label>
+                                    <input type="text" name="general_theme_color" class="form-control"
+                                           value="<?php echo (!empty($oldValues) && $formName == 'theme')
+                                               ? getOldFormValue('general_theme_color', $oldValues)
+                                               : getOption('general_theme_color'); ?>">
+                                    <?php echo getFormErrorMsg('general_theme_color', $errors); ?>
+                                </div>
+                            </div> <!-- /.card-body -->
+                            <div class="card-footer clearfix">
+                                <button type="submit" class="btn btn-primary px-4 float-left">Update</button>
+                                <a href="<?php echo getAbsUrlAdmin('options', 'general'); ?>"
+                                   class="btn btn-outline-success px-4 mr-2 float-right">
+                                    Reset
+                                </a>
+                            </div> <!-- /.card-footer -->
+                        </form>
+                    </div> <!-- /.card -->
+                    <!-- End Theme -->
+                    <!-- Logo & Favicon -->
+                    <div class="card card-primary mb-5" id="logo">
+                        <div class="card-header">
+                            <h3 class="card-title">Logo & Favicon</h3>
+                        </div> <!-- /.card-header -->
+                        <!-- form start -->
+                        <form action="" method="post">
+                            <input type="hidden" name="form_name" value="logo">
+                            <div class="card-body">
+                                <?php echo ($formName == 'logo') ? getMessage($msg, $msgType) : null; ?>
+                                <div class="form-group ckfinder-group">
+                                    <label><?php echo getOption('general_logo', true); ?></label>
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <input type="text" name="general_logo"
+                                                   class="form-control ckfinder-render-img"
+                                                   placeholder="Choose logo (height: 45)"
+                                                   value="<?php echo (!empty($oldValues) && $formName == 'logo')
+                                                       ? getOldFormValue('general_logo', $oldValues)
+                                                       : getOption('general_logo'); ?>">
+                                        </div>
+                                        <div class="col-2">
+                                            <button type="button" class="btn btn-success btn-block ckfinder-choose-img">
+                                                <i class="fas fa-upload"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- '.ckfinder-show-img' must be inside '.ckfinder-group' -->
+                                    <div class="mt-2 ckfinder-show-img image-popup"
+                                         style="width: 200px; cursor: pointer;">
+                                    </div>
+                                    <?php echo getFormErrorMsg('general_logo', $errors); ?>
+                                </div>
+
+                                <div class="form-group ckfinder-group">
+                                    <label><?php echo getOption('general_favicon', true); ?></label>
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <input type="text" name="general_favicon"
+                                                   class="form-control ckfinder-render-img"
+                                                   placeholder="Choose favicon (32x32)"
+                                                   value="<?php echo (!empty($oldValues) && $formName == 'logo')
+                                                       ? getOldFormValue('general_favicon', $oldValues)
+                                                       : getOption('general_favicon'); ?>">
+                                        </div>
+                                        <div class="col-2">
+                                            <button type="button" class="btn btn-success btn-block ckfinder-choose-img">
+                                                <i class="fas fa-upload"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- '.ckfinder-show-img' must be inside '.ckfinder-group' -->
+                                    <div class="mt-2 ckfinder-show-img image-popup"
+                                         style="width: 100px; cursor: pointer;">
+                                    </div>
+                                    <?php echo getFormErrorMsg('general_favicon', $errors); ?>
+                                </div>
+                            </div> <!-- /.card-body -->
+                            <div class="card-footer clearfix">
+                                <button type="submit" class="btn btn-primary px-4 float-left">Update</button>
+                                <a href="<?php echo getAbsUrlAdmin('options', 'general'); ?>"
+                                   class="btn btn-outline-success px-4 mr-2 float-right">
+                                    Reset
+                                </a>
+                            </div> <!-- /.card-footer -->
+                        </form>
+                    </div> <!-- /.card -->
+                    <!-- End Logo & Favicon -->
                 </div>  <!-- /.col (right) -->
             </div>
         </div> <!-- /.container-fluid -->
     </section> <!-- /.content -->
 
 <?php
+// Add Image Modal
+addLayout('modal-image', 'admin');
 // Add Footer
 addLayout('footer', 'admin');

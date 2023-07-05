@@ -20,25 +20,29 @@ if (!defined('_INCODE')) {
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-12">
+                    <?php
+                    $footerWidget1 = json_decode(getOption('footer_widget1'), true);
+                    if (!empty($footerWidget1['general'])) {
+                        $widget1GeneralOpts = json_decode($footerWidget1['general'], true);
+                    }
+                    ?>
                     <!-- About Widget -->
                     <div class="single-widget about">
-                        <h2>Office Location</h2>
-                        <p>
-                            Maecenas sapien erat, porta non porttitor non, dignissim et
-                            enim.
-                        </p>
+                        <h2><?php echo (!empty($widget1GeneralOpts['title']))
+                                ? $widget1GeneralOpts['title'] : null; ?></h2>
+                        <?php echo (!empty($widget1GeneralOpts['description']))
+                            ? html_entity_decode($widget1GeneralOpts['description']) : null; ?>
                         <ul class="list">
                             <li>
-                                <i class="fa fa-map-marker"></i>Address: House 20, Sector-7,
-                                Road-5, California, US
+                                <i class="fa fa-map-marker"></i><?php echo getOption('general_address'); ?>
                             </li>
                             <li>
-                                <i class="fa fa-headphones"></i>Phone: +(123) 45678 910
+                                <i class="fa fa-headphones"></i><?php echo getOption('general_hotline'); ?>
                             </li>
                             <li>
-                                <i class="fa fa-envelope"></i>Email:
-                                <a href="mailto:info@youremail.com">
-                                    Info@yourwebsite.com
+                                <i class="fa fa-envelope"></i>
+                                <a href="mailto:<?php echo getOption('general_email'); ?>">
+                                    <?php echo getOption('general_email'); ?>
                                 </a>
                             </li>
                         </ul>
@@ -46,86 +50,69 @@ if (!defined('_INCODE')) {
                     <!--/ End About Widget -->
                 </div>
                 <div class="col-lg-3 col-md-6 col-12">
+                    <?php
+                    $footerWidget2 = json_decode(getOption('footer_widget2'), true);
+                    if (!empty($footerWidget2['general'])) {
+                        $widget2GeneralOpts = json_decode($footerWidget2['general'], true);
+                    }
+                    ?>
                     <!-- Links Widget -->
                     <div class="single-widget links">
-                        <h2>Quick Links</h2>
+                        <h2><?php echo (!empty($widget2GeneralOpts['title']))
+                                ? $widget2GeneralOpts['title'] : null; ?></h2>
                         <ul class="list">
-                            <li>
-                                <a href="about-us.html"
-                                ><i class="fa fa-caret-right"></i>About Our Company</a
-                                >
-                            </li>
-                            <li>
-                                <a href="services.html"
-                                ><i class="fa fa-caret-right"></i>Our Latest services</a
-                                >
-                            </li>
-                            <li>
-                                <a href="projects-masonry.html"
-                                ><i class="fa fa-caret-right"></i>Our Recent Project</a
-                                >
-                            </li>
-                            <li>
-                                <a href="blogs-right-sidebar.html"
-                                ><i class="fa fa-caret-right"></i>Latest Blog</a
-                                >
-                            </li>
-                            <li>
-                                <a href="contact.html"
-                                ><i class="fa fa-caret-right"></i>Help Desk</a
-                                >
-                            </li>
-                            <li>
-                                <a href="contact.html"
-                                ><i class="fa fa-caret-right"></i>Contact With Us</a
-                                >
-                            </li>
+                            <?php echo (!empty($widget2GeneralOpts['description']))
+                                ? html_entity_decode($widget2GeneralOpts['description']) : null; ?>
                         </ul>
                     </div>
                     <!--/ End Links Widget -->
                 </div>
                 <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Twitter Widget -->
-                    <div class="single-widget twitter">
-                        <h2>Recent Tweets</h2>
-                        <div class="single-tweet">
-                            <i class="fa fa-twitter"></i>
-                            <p>
-                                <a href="#">@Crater</a>Mauris sagittis nibh et nibh commodo
-                                vehicula. Praesent blandit nulla nec tristique egestas.
-                                Integer in volutpat turpis
-                            </p>
-                        </div>
-                        <div class="single-tweet">
-                            <i class="fa fa-twitter"></i>
-                            <p>
-                                <a href="#">@Crater</a>Maecenas vulputate, dui eget varius
-                                sagittis, justo nunc efficitur sem, id vestibulum
-                            </p>
-                        </div>
-                        <div class="single-tweet">
-                            <i class="fa fa-twitter"></i>
-                            <p>
-                                <a href="#">@Crater</a>Praesent facilisis tortor nec diam
-                                suscipit condimentum
-                            </p>
+                    <?php
+                    $footerWidget3 = json_decode(getOption('footer_widget3'), true);
+                    if (!empty($footerWidget3['general'])) {
+                        $widget3GeneralOpts = json_decode($footerWidget3['general'], true);
+                    }
+                    ?>
+                    <!-- Facebook Widget -->
+                    <div class="single-widget facebook">
+                        <h2><?php echo (!empty($widget3GeneralOpts['title']))
+                                ? $widget3GeneralOpts['title'] : null; ?></h2>
+                        <div class="fb-page" data-href="<?php echo (!empty($widget3GeneralOpts['fb_page']))
+                            ? $widget3GeneralOpts['fb_page'] : null; ?>"
+                             data-tabs="timeline"
+                             data-width="" data-height="240"
+                             data-small-header="true"
+                             data-hide-cover="true"
+                             data-adapt-container-width="true"
+                             data-show-facepile="true">
                         </div>
                     </div>
-                    <!--/ End Twitter Widget -->
+                    <!--/ End Facebook Widget -->
                 </div>
                 <div class="col-lg-3 col-md-6 col-12">
+                    <?php
+                    $footerWidget4 = json_decode(getOption('footer_widget4'), true);
+                    if (!empty($footerWidget4['general'])) {
+                        $widget4GeneralOpts = json_decode($footerWidget4['general'], true);
+                    }
+                    ?>
                     <!-- Newsletter Widget -->
                     <div class="single-widget newsletter">
-                        <h2>Newsletter</h2>
-                        <p>
-                            consectetur adipiscing elit. Vestibulum vel sapien et lacus
-                            tempus varius. In finibus lorem vel.
-                        </p>
-                        <form>
-                            <input placeholder="Your Name" type="text"/>
-                            <input placeholder="your email" type="email"/>
+                        <h2><?php echo (!empty($widget4GeneralOpts['title']))
+                                ? $widget4GeneralOpts['title'] : null; ?></h2>
+                        <?php echo (!empty($widget4GeneralOpts['description']))
+                            ? html_entity_decode($widget4GeneralOpts['description']) : null; ?>
+                        <form action="" method="">
+                            <input type="text" name=""
+                                   placeholder="<?php echo (!empty($widget4GeneralOpts['input1_placeholder']))
+                                       ? $widget4GeneralOpts['input1_placeholder'] : null; ?>"/>
+                            <input type="email" name=""
+                                   placeholder="<?php echo (!empty($widget4GeneralOpts['input2_placeholder']))
+                                       ? $widget4GeneralOpts['input2_placeholder'] : null; ?>"/>
                             <button type="submit" class="button primary">
-                                Subscribe Now!
+                                <?php echo (!empty($widget4GeneralOpts['btn_text']))
+                                    ? $widget4GeneralOpts['btn_text'] : 'Submit'; ?>
                             </button>
                         </form>
                     </div>
@@ -144,22 +131,24 @@ if (!defined('_INCODE')) {
                         <!-- Social -->
                         <ul class="social">
                             <li>
-                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="<?php echo getOption('general_twitter'); ?>" target="_blank">
+                                    <i class="fa fa-twitter"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="<?php echo getOption('general_facebook'); ?>" target="_blank">
+                                    <i class="fa fa-facebook"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="<?php echo getOption('general_linkedin'); ?>" target="_blank">
+                                    <i class="fa fa-linkedin"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-behance"></i></a>
+                                <a href="<?php echo getOption('general_behance'); ?>" target="_blank">
+                                    <i class="fa fa-behance"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-pinterest"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-youtube"></i></a>
+                                <a href="<?php echo getOption('general_youtube'); ?>" target="_blank">
+                                    <i class="fa fa-youtube"></i></a>
                             </li>
                         </ul>
                         <!--/ End Social -->

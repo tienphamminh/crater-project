@@ -2177,37 +2177,16 @@
     margin-top: 15px;
 }
 
-/* Twitter Widget */
-.footer .single-tweet {
-    position: relative;
-    padding-left: 30px;
-    margin-bottom: 10px;
-}
-
-.footer .single-tweet:last-child {
-    margin: 0;
-}
-
-.footer .single-tweet i {
-    left: 0;
-    font-size: 37px;
-    top: 5px;
-    position: absolute;
-    z-index: 3;
-    opacity: 0.3;
-}
-
-.footer .single-tweet p {
-    color: #bbb;
-}
-
-.footer .single-tweet p a {
-    font-weight: 500;
+/* Quick Link Widget */
+.footer .single-widget.links .list li a::before {
+    content: "\f0da";
+    font-family: "FontAwesome";
     margin-right: 5px;
 }
 
-.footer .single-tweet p a:hover {
-    color: #fff;
+/* Facebook Widget */
+.footer .single-widget.facebook h2 {
+    margin-bottom: 25px;
 }
 
 /* Newsletter */

@@ -25,19 +25,6 @@ if (isPost()) {
         }
     }
 
-    // Logo Validate
-    if ($formName == 'logo') {
-        $logo = trim($body['header_logo']);
-        if (empty($logo)) {
-            $errors['header_logo']['required'] = 'Required field';
-        }
-
-        $favicon = trim($body['header_favicon']);
-        if (empty($favicon)) {
-            $errors['header_favicon']['required'] = 'Required field';
-        }
-    }
-
     if (empty($errors)) {
         unset($body['form_name']);
         updateOptions($body);
@@ -106,74 +93,6 @@ $oldValues = getFlashData('old_values');
                                            value="<?php echo (!empty($oldValues) && $formName == 'others')
                                                ? getOldFormValue('header_quote_link', $oldValues)
                                                : getOption('header_quote_link'); ?>">
-                                </div>
-                            </div> <!-- /.card-body -->
-                            <div class="card-footer clearfix">
-                                <button type="submit" class="btn btn-primary px-4 float-left">Update</button>
-                                <a href="<?php echo getAbsUrlAdmin('options', 'header'); ?>"
-                                   class="btn btn-outline-success px-4 mr-2 float-right">
-                                    Reset
-                                </a>
-                            </div> <!-- /.card-footer -->
-                        </form>
-                    </div> <!-- /.card -->
-
-                    <!-- Logo & Favicon -->
-                    <div class="card card-primary mb-5" id="logo">
-                        <div class="card-header">
-                            <h3 class="card-title">Logo & Favicon</h3>
-                        </div> <!-- /.card-header -->
-                        <!-- form start -->
-                        <form action="" method="post">
-                            <input type="hidden" name="form_name" value="logo">
-                            <div class="card-body">
-                                <?php echo ($formName == 'logo') ? getMessage($msg, $msgType) : null; ?>
-                                <div class="form-group ckfinder-group">
-                                    <label><?php echo getOption('header_logo', true); ?></label>
-                                    <div class="row">
-                                        <div class="col-10">
-                                            <input type="text" name="header_logo"
-                                                   class="form-control ckfinder-render-img"
-                                                   placeholder="Choose logo (height: 45)"
-                                                   value="<?php echo (!empty($oldValues) && $formName == 'logo')
-                                                       ? getOldFormValue('header_logo', $oldValues)
-                                                       : getOption('header_logo'); ?>">
-                                        </div>
-                                        <div class="col-2">
-                                            <button type="button" class="btn btn-success btn-block ckfinder-choose-img">
-                                                <i class="fas fa-upload"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <!-- '.ckfinder-show-img' must be inside '.ckfinder-group' -->
-                                    <div class="mt-2 ckfinder-show-img image-popup"
-                                         style="width: 200px; cursor: pointer;">
-                                    </div>
-                                    <?php echo getFormErrorMsg('header_logo', $errors); ?>
-                                </div>
-
-                                <div class="form-group ckfinder-group">
-                                    <label><?php echo getOption('header_favicon', true); ?></label>
-                                    <div class="row">
-                                        <div class="col-10">
-                                            <input type="text" name="header_favicon"
-                                                   class="form-control ckfinder-render-img"
-                                                   placeholder="Choose favicon (32x32)"
-                                                   value="<?php echo (!empty($oldValues) && $formName == 'logo')
-                                                       ? getOldFormValue('header_favicon', $oldValues)
-                                                       : getOption('header_favicon'); ?>">
-                                        </div>
-                                        <div class="col-2">
-                                            <button type="button" class="btn btn-success btn-block ckfinder-choose-img">
-                                                <i class="fas fa-upload"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <!-- '.ckfinder-show-img' must be inside '.ckfinder-group' -->
-                                    <div class="mt-2 ckfinder-show-img image-popup"
-                                         style="width: 100px; cursor: pointer;">
-                                    </div>
-                                    <?php echo getFormErrorMsg('header_favicon', $errors); ?>
                                 </div>
                             </div> <!-- /.card-body -->
                             <div class="card-footer clearfix">
