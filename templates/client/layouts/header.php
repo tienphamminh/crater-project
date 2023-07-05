@@ -11,12 +11,12 @@ if (empty($themeColor)) {
     // Default theme color
     $themeColor = '#26bdef';
 }
-$faviconUrl = getOption('header_favicon');
+$faviconUrl = getOption('general_favicon');
 if (empty($faviconUrl)) {
     // Default favicon
     $faviconUrl = _WEB_HOST_CORE_TEMPLATE . '/assets/images/crater-favicon.png';
 }
-$logoUrl = getOption('header_logo');
+$logoUrl = getOption('general_logo');
 if (empty($logoUrl)) {
     // Default logo
     $logoUrl = _WEB_HOST_CLIENT_TEMPLATE . '/assets/images/crater-logo.png';
@@ -106,6 +106,10 @@ if (!empty($ctaGeneralOpts['bg_image'])) {
     <link rel="stylesheet" href="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/css/color.css"/>
 </head>
 <body>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v17.0"
+        nonce="6H0CH2B6"></script>
+
 <!-- Preloader -->
 <div class="preloader">
     <div class="preloader-inner">
@@ -134,7 +138,7 @@ if (!empty($ctaGeneralOpts['bg_image'])) {
                         <li><i class="fa fa-headphones"></i><?php echo getOption('general_hotline'); ?></li>
                         <li>
                             <i class="fa fa-envelope"></i>
-                            <a href="mailto:info@yourmail.com"><?php echo getOption('general_email'); ?></a>
+                            <a href="mailto:<?php echo getOption('general_email'); ?>"><?php echo getOption('general_email'); ?></a>
                         </li>
                         <li><i class="fa fa-clock-o"></i><?php echo getOption('general_opening'); ?></li>
                     </ul>
