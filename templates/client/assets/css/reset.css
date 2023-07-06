@@ -335,7 +335,7 @@ input:-webkit-autofill:focus {
 .breadcrumbs {
     text-align: center;
     padding: 60px 0;
-    background-image: url("../images/bread-bg.jpg");
+    background-image: var(--breadcrumb-bg);
     position: relative;
     background-repeat: no-repeat;
     overflow: hidden;

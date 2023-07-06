@@ -872,3 +872,135 @@ if (addPartnerItem !== null && partnerGallery !== null) {
         partnerItemId++;
     });
 }
+
+// ======== (About-Leader) Leader gallery repeater ========
+let addLeaderItem = document.querySelector('.add-leader-item');
+let leaderGallery = document.querySelector('.leader-gallery');
+
+if (addLeaderItem !== null && leaderGallery !== null) {
+    let leaderItemList = leaderGallery.querySelectorAll('.leader-item');
+
+    if (leaderItemList !== null) {
+        let removeLeaderItemList = leaderGallery.querySelectorAll('.remove-leader-item');
+        removeLeaderItemList.forEach((element) => {
+            deleteItemOfGallery(element, 'leader-item');
+        });
+    }
+
+    let leaderItemId = 0;
+    addLeaderItem.addEventListener('click', (e) => {
+        let leaderItemHtml = `<!-- Leader Item -->
+                                    <div class="leader-item movable">
+                                        <!-- Child Card -->
+                                        <div class="card bg-light mb-4 shadow border">
+                                            <div style="position: absolute; top: 0px; right: 0px;">
+                                                <div class="btn-group">
+                                                    <!-- Move UP -->
+                                                    <span class="btn btn-warning px-2 py-0" id="move-up-${leaderItemId}"
+                                                          style="font-size: 24px;">
+                                                        <i class="fas fa-caret-up"></i>
+                                                    </span>
+                                                    <!-- Move DOWN -->
+                                                    <span class="btn btn-warning px-2 py-0" id="move-up-${leaderItemId}"
+                                                          style="font-size: 24px;">
+                                                        <i class="fas fa-caret-down"></i>
+                                                    </span>
+                                                </div>
+                                                <!-- Delete Button -->
+                                                <button type="button" id="remove-leader-item-${leaderItemId}"
+                                                        class="btn btn-danger px-4">
+                                                    <span class="d-block d-md-none">
+                                                        <i class="fas fa-times"></i>
+                                                    </span>
+                                                    <span class="d-none d-md-inline">Delete</span>
+                                                </button>
+                                            </div>
+                                            <div class="card-body pt-5">
+                                                <!-- Avatar -->
+                                                <div class="form-group ckfinder-group">
+                                                    <label>Leader Avatar</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text"
+                                                               name="about_leader[leader][leader_avt][]"
+                                                               class="form-control ckfinder-render-img"
+                                                               placeholder="Choose image...">
+                                                        <div class="input-group-append">
+                                                                <span class="btn input-group-text" id="view-img-${leaderItemId}">
+                                                                    <i class="fas fa-search-plus"></i>
+                                                                </span>
+                                                            <button type="button" id="ckfinder-choose-img-${leaderItemId}"
+                                                                    class="btn btn-success">
+                                                                <i class="fas fa-upload"></i>
+                                                                <span class="d-none d-xl-inline ml-1">Choose Image</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Leader Name</label>
+                                                            <input type="text" class="form-control"
+                                                                   name="about_leader[leader][leader_name][]"
+                                                                   placeholder="Leader Name...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Leader Role</label>
+                                                            <input type="text" class="form-control"
+                                                                   name="about_leader[leader][leader_role][]"
+                                                                   placeholder="Leader Role...">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Facebook</label>
+                                                            <input type="text" class="form-control"
+                                                                   name="about_leader[leader][leader_fb][]">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Twitter</label>
+                                                            <input type="text" class="form-control"
+                                                                   name="about_leader[leader][leader_twitter][]">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>LinkedIn</label>
+                                                            <input type="text" class="form-control"
+                                                                   name="about_leader[leader][leader_linked][]">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Behance</label>
+                                                            <input type="text" class="form-control"
+                                                                   name="about_leader[leader][leader_behance][]">
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- /.row -->
+                                            </div> <!-- /.card-body (child) -->
+                                        </div> <!-- /.card (child) -->
+                                    </div>
+                                    <!-- /.leader-item -->`;
+
+        leaderGallery.insertAdjacentHTML('beforeend', leaderItemHtml);
+
+        // Open CKFinder
+        let chooseImage = leaderGallery.querySelector(`#ckfinder-choose-img-${leaderItemId}`);
+        openCKFinder(chooseImage);
+
+        // Show Image modal from input
+        viewImg(`.leader-gallery #view-img-${leaderItemId}`);
+
+        // Delete leader-item button
+        let removeLeaderItem = leaderGallery.querySelector(`#remove-leader-item-${leaderItemId}`);
+        deleteItemOfGallery(removeLeaderItem, 'leader-item');
+
+        // Move up, down item
+        moveItem(`#move-up-${leaderItemId}`, `#move-down-${leaderItemId}`);
+
+        leaderItemId++;
+    });
+}
