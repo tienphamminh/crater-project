@@ -257,6 +257,33 @@ $oldValues = getFlashData('old_values');
     <section class="content">
         <div class="container-fluid">
 
+            <!-- Page Title -->
+            <div class="card card-primary mb-5 border border-primary" id="page-title">
+                <div class="card-header">
+                    <h3 class="card-title">Homepage Title</h3>
+                </div> <!-- /.card-header -->
+                <!-- form start -->
+                <form action="" method="post">
+                    <input type="hidden" name="form_name" value="page-title">
+                    <div class="card-body">
+                        <?php echo ($formName == 'page-title') ? getMessage($msg, $msgType) : null; ?>
+                        <div class="form-group">
+                            <label><?php echo getOption('home_title', true); ?></label>
+                            <input type="text" name="home_title" class="form-control"
+                                   value="<?php echo getOption('home_title'); ?>">
+                        </div>
+                    </div> <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                        <button type="submit" class="btn btn-primary px-4 float-left">Update</button>
+                        <a href="<?php echo getAbsUrlAdmin('options', 'home'); ?>"
+                           class="btn btn-outline-success px-4 mr-2 float-right">
+                            Reset
+                        </a>
+                    </div> <!-- /.card-footer -->
+                </form>
+            </div> <!-- /.card -->
+            <!-- End Page Title -->
+
             <!-- Hero Area -->
             <div class="card card-primary mb-5 border border-primary" id="hero-area">
                 <div class="card-header">

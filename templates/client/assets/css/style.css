@@ -1037,64 +1037,9 @@
     overflow: hidden;
 }
 
-.team .t-head::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    opacity: 0;
-    visibility: hidden;
-    content: "";
-    z-index: 2;
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-}
-
-.team .single-team:hover .t-head::before {
-    visibility: visible;
-    opacity: 0.5;
-}
-
 .team .t-head img {
     width: 100%;
     position: relative;
-}
-
-.team .t-icon a {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    opacity: 0;
-    visibility: hidden;
-    font-weight: 400;
-    text-align: center;
-    color: #fff;
-    border-radius: 100%;
-    -webkit-transform: scale(0.6);
-    -moz-transform: scale(0.6);
-    transform: scale(0.6);
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-    z-index: 99;
-    margin: -20px 0 0 -20px;
-    font-size: 15px;
-}
-
-.team .single-team:hover .t-icon a {
-    -moz-transform: scale(1);
-    opacity: 1;
-    visibility: visible;
-}
-
-.team .t-icon a:hover {
-    background: #333;
 }
 
 .team .t-bottom {
@@ -1124,6 +1069,7 @@
     transition: all 0.3s ease;
     top: 100%;
     border-top: 1px solid #e7e7e7;
+    font-size: 0;
 }
 
 .team .single-team:hover .t-social {
@@ -1144,6 +1090,7 @@
     display: block;
     color: #666;
     text-align: center;
+    font-size: 15px;
 }
 
 /*======================================

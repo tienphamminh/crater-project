@@ -98,7 +98,7 @@ $oldValues = getFlashData('old_values');
         <div class="container-fluid">
 
             <!-- Widget 1 -->
-            <div class="card card-primary mb-5" id="widget-1">
+            <div class="card card-primary mb-5 border border-primary" id="widget-1">
                 <div class="card-header">
                     <h3 class="card-title">Widget 1</h3>
                 </div> <!-- /.card-header -->
@@ -140,7 +140,7 @@ $oldValues = getFlashData('old_values');
             <!-- End Widget 1 -->
 
             <!-- Widget 2 -->
-            <div class="card card-primary mb-5" id="widget-2">
+            <div class="card card-primary mb-5 border border-primary" id="widget-2">
                 <div class="card-header">
                     <h3 class="card-title">Widget 2</h3>
                 </div> <!-- /.card-header -->
@@ -182,7 +182,7 @@ $oldValues = getFlashData('old_values');
             <!-- End Widget 2 -->
 
             <!-- Widget 3 -->
-            <div class="card card-primary mb-5" id="widget-3">
+            <div class="card card-primary mb-5 border border-primary" id="widget-3">
                 <div class="card-header">
                     <h3 class="card-title">Widget 3</h3>
                 </div> <!-- /.card-header -->
@@ -224,7 +224,7 @@ $oldValues = getFlashData('old_values');
             <!-- End Widget 3 -->
 
             <!-- Widget 4 -->
-            <div class="card card-primary mb-5" id="widget-4">
+            <div class="card card-primary mb-5 border border-primary" id="widget-4">
                 <div class="card-header">
                     <h3 class="card-title">Widget 4</h3>
                 </div> <!-- /.card-header -->

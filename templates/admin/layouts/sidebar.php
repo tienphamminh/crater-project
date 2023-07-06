@@ -350,6 +350,13 @@ if (!defined('_INCODE')) {
                                 <p>Homepage</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="<?php echo getAbsUrlAdmin('options', 'about'); ?>"
+                               class="nav-link <?php echo (isActiveAction('options', 'about')) ? 'active' : null; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>About Us</p>
+                            </a>
+                        </li>
 
                     </ul>
                 </li>

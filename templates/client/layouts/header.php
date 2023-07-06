@@ -33,15 +33,24 @@ if (!empty($heroGeneralOpts['bg_opacity'])) {
     $bgOpacity = 0.94;
 }
 
+// Call to Action background image
 $homeCta = json_decode(getOption('home_cta'), true);
 if (!empty($homeCta['general'])) {
     $ctaGeneralOpts = json_decode($homeCta['general'], true);
 }
 if (!empty($ctaGeneralOpts['bg_image'])) {
-    $bgImage = $ctaGeneralOpts['bg_image'];
+    $ctaBgImage = $ctaGeneralOpts['bg_image'];
 } else {
     // Default Call to Action background image
-    $bgImage = _WEB_HOST_CLIENT_TEMPLATE . '/assets/images/call-to-action.jpg';
+    $ctaBgImage = _WEB_HOST_CLIENT_TEMPLATE . '/assets/images/call-to-action.jpg';
+}
+
+// Breadcrumb background image
+if (!empty($dataHeader['breadcrumbBackground'])) {
+    $breadcrumbBgImage = $dataHeader['breadcrumbBackground'];
+} else {
+    // Default Breadcrumb background image
+    $breadcrumbBgImage = _WEB_HOST_CLIENT_TEMPLATE . '/assets/images/bread-bg.jpg';
 }
 
 ?>
@@ -58,7 +67,7 @@ if (!empty($ctaGeneralOpts['bg_image'])) {
     <!-- Title Tag -->
     <title><?php echo getOption('general_sitename'); ?> | <?php echo (!empty($dataHeader['pageTitle']))
             ? $dataHeader['pageTitle']
-            : 'Get creative - Get Coding'; ?></title>
+            : getOption('general_sitedesc'); ?></title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="<?php echo $faviconUrl; ?>"/>
@@ -70,8 +79,9 @@ if (!empty($ctaGeneralOpts['bg_image'])) {
     <style>
         :root {
             --theme-color: <?php echo $themeColor; ?>;
+            --breadcrumb-bg: url("<?php echo $breadcrumbBgImage; ?>");
             --home-hero-opacity: <?php echo $bgOpacity; ?>;
-            --home-cta-bg-img: url("<?php echo $bgImage; ?>");
+            --home-cta-bg-img: url("<?php echo $ctaBgImage; ?>");
         }
     </style>
 

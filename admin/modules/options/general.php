@@ -175,6 +175,7 @@ $oldValues = getFlashData('old_values');
                         </form>
                     </div> <!-- /.card -->
                     <!-- End Contact Information -->
+
                     <!-- Social Link -->
                     <div class="card card-primary mb-5" id="social">
                         <div class="card-header">
@@ -254,6 +255,7 @@ $oldValues = getFlashData('old_values');
                         </form>
                     </div> <!-- /.card -->
                     <!-- End Theme -->
+
                     <!-- Logo & Favicon -->
                     <div class="card card-primary mb-5" id="logo">
                         <div class="card-header">
