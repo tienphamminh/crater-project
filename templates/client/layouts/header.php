@@ -108,13 +108,18 @@ if (!empty($dataHeader['breadcrumbBackground'])) {
     <link rel="stylesheet" href="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/css/animate.min.css"/>
 
     <!-- Crater StyleShet CSS -->
-    <link rel="stylesheet" href="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/css/reset.css"/>
-    <link rel="stylesheet" href="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/css/style.css"/>
-    <link rel="stylesheet" href="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/css/responsive.css"/>
+    <link rel="stylesheet"
+          href="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/css/reset.css?ver=<?php echo rand(); ?>"/>
+    <link rel="stylesheet"
+          href="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/css/style.css?ver=<?php echo rand(); ?>"/>
+    <link rel="stylesheet"
+          href="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/css/responsive.css?ver=<?php echo rand(); ?>"/>
 
     <!-- Crater Color CSS -->
-    <link rel="stylesheet" href="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/css/color.css"/>
+    <link rel="stylesheet"
+          href="<?php echo _WEB_HOST_CLIENT_TEMPLATE; ?>/assets/css/color.css?ver=<?php echo rand(); ?>"/>
 </head>
+
 <body>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v17.0"

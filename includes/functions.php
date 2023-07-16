@@ -7,7 +7,6 @@ if (!defined('_INCODE')) {
 }
 
 //Import PHPMailer classes into the global namespace
-use JetBrains\PhpStorm\NoReturn;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
