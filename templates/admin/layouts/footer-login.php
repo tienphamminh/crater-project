@@ -22,5 +22,11 @@ if (!defined('_INCODE')) {
 <!-- AdminLTE App -->
 <script src="<?php echo _WEB_HOST_ADMIN_TEMPLATE; ?>/assets/js/adminlte.min.js"></script>
 
+<script type="text/javascript">
+    function getNewCaptcha() {
+        $("#captcha-img img").attr("src", "<?php echo getAbsUrlAdmin('auth', 'captcha'); ?>&ver=" + (new Date()).getTime());
+    }
+</script>
+
 </body>
 </html>

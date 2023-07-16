@@ -12,6 +12,7 @@ addLayout('header-login', 'admin', $dataHeader);
 
 if (isPost()) {
     $body = getBody();
+    $captcha = getFlashData('captcha');
 
     if (!empty($body['email'])) {
         $email = $body['email'];
@@ -25,40 +26,49 @@ if (isPost()) {
         $result = getFirstRow($sql, $data);
 
         if (!empty($result)) {
-            // Create reset token
-            $resetToken = sha1(uniqid() . time());
+            if (!empty($captcha)) {
+                if (!empty($body['captcha'])) {
+                    // Check if entered captcha code is correct
+                    if ($body['captcha'] == $captcha) {
+                        // Create reset token
+                        $resetToken = sha1(uniqid() . time());
 
-            // Update field: 'reset_token' in table 'users'
-            $userId = $result['id'];
-            $dataUpdate = ['reset_token' => $resetToken];
-            $condition = "id=:id";
-            $dataCondition = ['id' => $userId];
-            $isDataUpdated = update('users', $dataUpdate, $condition, $dataCondition);
+                        // Update field: 'reset_token' in table 'users'
+                        $userId = $result['id'];
+                        $dataUpdate = ['reset_token' => $resetToken];
+                        $condition = "id=:id";
+                        $dataCondition = ['id' => $userId];
+                        $isDataUpdated = update('users', $dataUpdate, $condition, $dataCondition);
 
-            if ($isDataUpdated) {
-                // Create reset link
-                $resetLink = _WEB_HOST_ROOT_ADMIN . '?module=auth&action=reset&token=' . $resetToken;
-                // Send mail
-                $subject = 'Reset your password';
-                $content = 'Hi ' . $result['fullname'] . '!<br>';
-                $content .= 'We received a request to reset the password for your account. <br>';
-                $content .= 'To reset your password, click the link below: <br>' . $resetLink . '<br>';
-                $content .= 'Regards.';
-                $sendStatus = sendMail($email, $subject, $content);
+                        if ($isDataUpdated) {
+                            // Create reset link
+                            $resetLink = _WEB_HOST_ROOT_ADMIN . '?module=auth&action=reset&token=' . $resetToken;
+                            // Send mail
+                            $subject = 'Reset your password';
+                            $content = 'Hi ' . $result['fullname'] . '!<br>';
+                            $content .= 'We received a request to reset the password for your account. <br>';
+                            $content .= 'To reset your password, click the link below: <br>' . $resetLink . '<br>';
+                            $content .= 'Regards.';
+                            $sendStatus = sendMail($email, $subject, $content);
 
-                if ($sendStatus) {
-                    $resendForm =
-                        '<form method="post" action="">
-                            <input type="hidden" name="email" value="' . $email . '">
-                            <button type="submit" class="btn btn-success btn-block" style="margin-top: 10px">Resend message</button>
-                         </form>';
-                    $message = 'A password reset message was sent to your email address.' . '<br>';
-                    $message .= 'You still have not received the message?';
-                    $message .= $resendForm;
-                    setFlashData('msg', $message);
-                    setFlashData('msg_type', 'success');
+                            if ($sendStatus) {
+                                $message = 'A password reset message was sent to your email address.';
+                                setFlashData('msg', $message);
+                                setFlashData('msg_type', 'success');
+                            } else {
+                                setFlashData('msg', 'Something went wrong, please try again.');
+                                setFlashData('msg_type', 'danger');
+                            }
+                        } else {
+                            setFlashData('msg', 'Something went wrong, please try again.');
+                            setFlashData('msg_type', 'danger');
+                        }
+                    } else {
+                        setFlashData('msg', 'Incorrect captcha code.');
+                        setFlashData('msg_type', 'danger');
+                    }
                 } else {
-                    setFlashData('msg', 'Something went wrong, please try again.');
+                    setFlashData('msg', 'Please enter captcha code.');
                     setFlashData('msg_type', 'danger');
                 }
             } else {
@@ -94,6 +104,27 @@ $msgType = getFlashData('msg_type');
                     <span class="fas fa-envelope"></span>
                 </div>
             </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-5">
+                    <input type="text" name="captcha" class="form-control"
+                           placeholder="Captcha">
+                </div>
+                <div class="col-5 p-0" id="captcha-img">
+                    <img src="<?php echo getAbsUrlAdmin('auth', 'captcha') . '&ver=' . rand(); ?>" alt=""
+                         height="38px" class="rounded">
+                </div>
+                <div class="col-2 p-0">
+                    <button type="button" class="btn btn-primary"
+                            onclick="getNewCaptcha();"
+                    >
+                        <i class="fas fa-sync"></i>
+                    </button>
+                </div>
+            </div>
+
         </div>
 
         <div class="row">
