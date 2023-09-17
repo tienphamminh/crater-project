@@ -1,4 +1,5 @@
 <?php
+
 // Retrieve data
 $columnNames = "blogs.id, blogs.blog_category_id, blogs.title, blogs.description, blogs.thumbnail, blogs.views_count, blogs.created_at, blog_categories.name AS category_name";
 $sql = "SELECT $columnNames FROM blogs INNER JOIN blog_categories ON blogs.blog_category_id=blog_categories.id ORDER BY blogs.created_at DESC";

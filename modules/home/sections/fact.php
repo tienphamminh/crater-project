@@ -1,10 +1,11 @@
-<!-- Fun Facts -->
 <?php
+
 $homeFact = json_decode(getOption('home_fact'), true);
 if (!empty($homeFact['general'])) {
     $factGeneralOpts = json_decode($homeFact['general'], true);
 }
 ?>
+<!-- Fun Facts -->
 <section id="fun-facts" class="fun-facts section">
     <div class="container">
         <div class="row">

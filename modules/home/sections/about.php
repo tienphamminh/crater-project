@@ -1,10 +1,11 @@
-<!-- About Us -->
 <?php
+
 $homeAbout = json_decode(getOption('home_about'), true);
 if (!empty($homeAbout['general'])) {
     $aboutGeneralOpts = json_decode($homeAbout['general'], true);
 }
 ?>
+<!-- About Us -->
 <section class="about-us section">
     <div class="container">
         <div class="row">

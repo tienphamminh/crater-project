@@ -1,4 +1,5 @@
 <?php
+
 $homeHero = json_decode(getOption('home_hero'), true);
 if (!empty($homeHero['slider'])):
     $slides = json_decode($homeHero['slider'], true);

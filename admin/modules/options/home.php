@@ -19,7 +19,6 @@ if (isPost()) {
 
     if ($formName == 'hero-area') {
         if (!empty($body['home_hero'])) {
-
             if (!empty($body['home_hero']['general'])) {
                 $general = $body['home_hero']['general'];
                 $body['home_hero']['general'] = json_encode($general);
@@ -68,7 +67,6 @@ if (isPost()) {
 
     if ($formName == 'about-comp') {
         if (!empty($body['home_about'])) {
-
             if (!empty($body['home_about']['general'])) {
                 $general = $body['home_about']['general'];
                 $body['home_about']['general'] = json_encode($general);
@@ -117,7 +115,6 @@ if (isPost()) {
 
     if ($formName == 'fact') {
         if (!empty($body['home_fact'])) {
-
             if (!empty($body['home_fact']['general'])) {
                 $general = $body['home_fact']['general'];
                 $body['home_fact']['general'] = json_encode($general);
@@ -196,7 +193,6 @@ if (isPost()) {
 
     if ($formName == 'partner') {
         if (!empty($body['home_partner'])) {
-
             if (!empty($body['home_partner']['general'])) {
                 $general = $body['home_partner']['general'];
                 $body['home_partner']['general'] = json_encode($general);
@@ -231,7 +227,6 @@ if (isPost()) {
     if (empty($errors)) {
         unset($body['form_name']);
         updateOptions($body);
-
     } else {
         // Errors occurred
         setFlashData('msg', 'Please check the input form data.');
@@ -242,7 +237,6 @@ if (isPost()) {
 
     setFlashData('form_name', $formName);
     redirect('admin/?module=options&action=home' . '#' . $formName);
-
 }
 
 $formName = getFlashData('form_name');
@@ -260,7 +254,7 @@ $oldValues = getFlashData('old_values');
             <!-- Page Title -->
             <div class="card card-primary mb-5 border border-primary" id="page-title">
                 <div class="card-header">
-                    <h3 class="card-title">Homepage Title</h3>
+                    <h3 class="card-title">Title & Breadcrumbs</h3>
                 </div> <!-- /.card-header -->
                 <!-- form start -->
                 <form action="" method="post">

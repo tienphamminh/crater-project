@@ -1,4 +1,5 @@
 <?php
+
 $portfolioCategories = getAllRows("SELECT * FROM portfolio_categories ORDER BY name");
 $portfolios = getAllRows("SELECT * FROM portfolios ORDER BY name");
 $homePortfolio = json_decode(getOption('home_portfolio'), true);

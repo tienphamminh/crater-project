@@ -1,4 +1,5 @@
 <?php
+
 $homePartner = json_decode(getOption('home_partner'), true);
 if (!empty($homePartner['general'])) {
     $partnerGeneralOpts = json_decode($homePartner['general'], true);
