@@ -36,7 +36,7 @@ if (!empty($aboutLeader['general'])) {
                 </div>
             </div>
             <?php
-            if (!empty($aboutLeader['leader'])):
+            if (!empty($aboutLeader['leader'])) :
                 $leaders = json_decode($aboutLeader['leader'], true);
                 if (!empty($leaders) && is_array($leaders)) :
                     ?>

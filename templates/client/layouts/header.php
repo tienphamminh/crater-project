@@ -153,7 +153,9 @@ if (!empty($dataHeader['breadcrumbBackground'])) {
                         <li><i class="fa fa-headphones"></i><?php echo getOption('general_hotline'); ?></li>
                         <li>
                             <i class="fa fa-envelope"></i>
-                            <a href="mailto:<?php echo getOption('general_email'); ?>"><?php echo getOption('general_email'); ?></a>
+                            <a href="mailto:<?php echo getOption('general_email'); ?>">
+                                <?php echo getOption('general_email'); ?>
+                            </a>
                         </li>
                         <li><i class="fa fa-clock-o"></i><?php echo getOption('general_opening'); ?></li>
                     </ul>
@@ -269,12 +271,14 @@ if (!empty($dataHeader['breadcrumbBackground'])) {
                                 <li><a href="contact.html">Contact</a></li>
                             </ul>
                         </nav>
-                        <!-- Button -->
+                        <!-- Get Quote Button -->
                         <div class="button">
                             <a href="<?php echo getOption('header_quote_link'); ?>"
-                               class="btn"><?php echo getOption('header_quote_text'); ?></a>
+                               class="btn" target="_blank">
+                                <?php echo getOption('header_quote_text'); ?>
+                            </a>
                         </div>
-                        <!--/ End Button -->
+                        <!--/ End Get Quote Button -->
                     </div>
                     <!--/ End Main Menu -->
                 </div>

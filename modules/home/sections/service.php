@@ -1,11 +1,12 @@
-<!-- Services -->
 <?php
+
 $services = getAllRows("SELECT * FROM services ORDER BY name");
 $homeService = json_decode(getOption('home_service'), true);
 if (!empty($homeService['general'])) {
     $serviceGeneralOpts = json_decode($homeService['general'], true);
 }
 ?>
+<!-- Services -->
 <section id="services" class="services section">
     <div class="container">
         <div class="row">

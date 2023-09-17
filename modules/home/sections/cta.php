@@ -1,4 +1,5 @@
 <?php
+
 $homeCta = json_decode(getOption('home_cta'), true);
 if (!empty($homeCta['general'])) {
     $ctaGeneralOpts = json_decode($homeCta['general'], true);
